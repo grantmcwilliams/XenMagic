@@ -1,0 +1,65 @@
+<html>
+<head>
+    <title>XenWebManager</title>
+    <link rel="stylesheet" href="css/style_blue.css" type="text/css" media="screen" charset="utf-8"/>
+    <script>
+        function autoconnect() {
+            % if password and masterpassword:
+                parent.autoconnect("${host}", "${username}", "${password}", "${ssl}");
+            % endif
+            return true;
+        }
+    </script>
+</head>
+% if host:
+<body onLoad="document.getElementById('addserverpassword').focus();autoconnect();">
+% else:
+<body onLoad="document.getElementById('addserverhostname').focus();autoconnect();">
+% endif
+<center>Connect to a server by entering its IP address or hostname:    </center>
+<div style="height: 20px;"></div>
+<div style="float: left;"><img src="images/server.png"></div>
+<div id="addserver">
+    <div style="padding-left: 20px;">
+        <div style="height: 30px;"></div>
+        <div style="float: left; width: 100px;">Hostname </div>
+        <div style="float: left;">
+            <input type="text" name="addserverhostname" id="addserverhostname" value="${host}">
+        </div><br>
+        <div style="height: 10px;"></div>
+        <div style="float: left; width: 100px;">User name </div>
+        <div style="float: left;">
+            <input type="text" name="addserverusername" id="addserverusername" value="${username}">
+        </div><br>
+        <div style="height: 10px;"></div>
+        <div style="float: left; width: 100px;">Password </div>
+        <div style="float: left;">
+            <input type="password" name="addserverpassword" id="addserverpassword" value="">
+        </div><br>
+        <div style="height: 10px;"></div>
+        <div style="float: left; width: 96px;">&nbsp;</div>
+        <div style="float: left; padding-top: 5px;">
+            <input type="checkbox" name="checksslconnection" id="checksslconnection"
+            % if ssl:
+                checked
+            % endif
+            > SSL Connection
+        </div><br>
+    </div><br>
+    <hr><br>
+    <div style="float: left; width: 225px;">&nbsp;</div>
+    <div style="float: left;">
+        <input type="button" name="connectAddServer" id="connectAddServer" value="Connect" class="button" onclick="parent.connect(this)" / >
+    </div>
+    <div style="float: left; width: 20px;">&nbsp;</div>
+    <div style="float: left;">
+        <input type="button" name="cancelAddServer" id="cancelAddServer" value="Cancel" class="button" onclick="parent.hidePopWin(false); " />
+    </div>
+</div>
+<div id="connecting" style="display: none;">
+    Connecting and synchonization...
+    <img src="images/ajax-loader.gif" />
+</div>
+</body>
+</html>
+

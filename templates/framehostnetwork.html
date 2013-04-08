@@ -1,0 +1,38 @@
+<head>
+    <link rel="stylesheet" href="css/style_blue.css" type="text/css" media="screen" charset="utf-8"/> 
+</head>
+<div style="margin-top: 10px; width: 97%;">
+    <strong>Server networks</strong>
+    <div style="height: 20px; width: 100%;"></div>
+    <div style="float: right;">
+        <input type="button" value="Add Network..." id="bthostnetworkadd" name="bthostnetworkadd" class="button"  onclick="javascript:showPopWin('newnetwork?host=' + selected_host, 600, 500, null);" / >
+        <input type="button" value="Properties" id="bthostnetworkproperties" name="bthostnetworkproperties" class="button"  onClick="showPopWin('properties?host=' + selected_host + '&ref=' + selected_network_ref + '&type=hostnetwork' , 820, 570, null);" disabled />
+        <input type="button" value="Remove Network" id="bthostnetworkremove" name="bthostnetworkremove" class="button" onclick="javascript:on_bthostnetworkremove_clicked()" />
+    </div>
+    <div style="height: 10px; width: 100%;"></div><br>
+    <div style="float: right; border: 1px solid grey; height: 85%; overflow: auto; width: 100%;"> 
+        <table style="overflow: auto; width: 100%; ">
+            <tr class="head">
+                <th class="headcolumn" style="min-width: 150px;">Name</th> 
+                <th class="headcolumn" style="min-width: 200px;">Description</th> 
+                <th class="headcolumn" style="min-width: 50px; ">NIC</th class="head"> 
+                <th class="headcolumn" style="min-width: 60px; ">VLAN</th class="head"> 
+                <th class="headcolumn" style="min-width: 60px; ">Auto</th class="head"> 
+                <th class="headcolumn" style="min-width: 100px;">Link Status</th class="head"> 
+                <th class="headcolumn" style="min-width: 142px; ">MAC</th class="head"> 
+            </tr>
+            % for row in networks:
+                <tr class="row" style="clear: both;" id="${row[7]}" onclick="selectHostNetworkRow('${row[7]}');on_hostnetwork_selected('${row[8]}');">
+                <td style="width: 150px; " nowrap>${row[0]}</td> 
+                <td style="width: 200px; display: block;">${row[1]}&nbsp;</td> 
+                <td style="width: 50px; text-align: center;">${row[2]}</td> 
+                <td style="width: 60px; text-align: center;">${row[3]}</td> 
+                <td style="width: 60px; text-align: center;">${row[4]}</td> 
+                <td style="width: 100px; text-align: left; padding-right: 10px;">${row[5]}</td> 
+                <td style="width: 50px; text-align: center;">${row[6]}</td> 
+                </tr>
+            %endfor
+        </table>
+    </div>        
+</div>
+

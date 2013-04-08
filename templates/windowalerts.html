@@ -1,0 +1,49 @@
+<title>XenWebManager</title>
+
+<head>
+    <link rel="stylesheet" href="css/style_blue.css" type="text/css" media="screen" charset="utf-8"/> 
+    <script type="text/javascript" src="js/alerts.js"> </script>
+</head>
+<body style="background-color: white;">
+<div style="margin-top: 10px; width: 97%;">
+    <img src="images/warning.png" style="padding-right: 50px;"> <strong>Current system alerts are listed below</strong>
+    <div style="float: left; height: 20px; width: 100%;"></div><br />
+    <div style="float: left; color: red; width: 750px;">
+        <div style="float: right;">
+            <strong>System alerts: ${number}</strong>
+        </div>
+    </div>
+    <div style="float: left; border: 1px solid grey; height: 400px; overflow: auto; width: 800px;"> 
+        <table style="overflow: auto; width: 100%; ">
+            <tr class="head">
+                <th class="headcolumn" style="min-width: 20;">&nbsp;</th> 
+                <th class="headcolumn" style="min-width: 150px;">Applies to</th> 
+                <th class="headcolumn" style="min-width: 400px;">Details</th>
+                <th class="headcolumn" style="min-width: 170px;">Date</th> 
+            </tr>
+            % for i, row in enumerate(alerts):
+                % if i % 2:
+                    <tr class="roweven" style="clear: both;">
+                % else:
+                    <tr class="row" style="clear: both;" onClick="selectRow('${row[4]}', '${row[5]}')" id="${row[4]}">
+                % endif
+                <td style="float: left; padding-right: 10px;" nowrap>
+                    % if row[0]:
+                        <img src="${row[0]}">
+                    % else:
+                        &nbsp;
+                    %  endif
+                </td> 
+                <td style="padding-right: 10px;" nowrap>${row[1]}</td> 
+                <td style="text-align: center; padding-right: 10px;">${row[2]}</td> 
+                <td style="text-align: center;">${row[3]}</td> 
+            % endfor    
+            </tr>
+        </table>
+    </div>        
+    <div style="clear: both;">
+        <input type="button" class="button" name="btalertdismiss" value="Dismiss selected" onClick="on_btalertdismiss_clicked();"/>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,16 @@
+<table style="overflow: auto; width: 100%; " id="tablenewstorage">
+    <tr class="head">                                          
+        <th class="headcolumn" style="min-width: 100px;">Size (GB)</th>
+        <th class="headcolumn" style="min-width: 350px;">Location</th>
+        <th class="headcolumn" style="min-width: 65px; ">Shared</th>
+    </tr>                          
+    % for i, row in enumerate(storages):
+        <tr class="row" style="clear: both;" id="newstg${i}" onClick="selectStgRow('newstg${i}');">
+        <td style="text-align: left;" >${row[0]}</td>
+        <td style="text-align: left;">${row[1]}</td>
+        <td style="text-align: left;">${row[2]}</td>
+        <td style="text-align: left; display: none; ">${row[3]}</td>
+        </tr>
+    % endfor
+</table>
+

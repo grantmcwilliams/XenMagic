@@ -1,0 +1,40 @@
+<title>XenWebManager</title>
+
+<head>
+    <link rel="stylesheet" href="css/style_blue.css" type="text/css" media="screen" charset="utf-8"/> 
+    <script type="text/javascript" src="js/vmattachdisk.js"> </script>
+</head>
+<body style="background-color: white;">
+    <div style="margin-top: 10px; width: 500px; height: 350px; padding-left: 20px">
+        <div style="float: left; padding-top: 25px;">Select a disk to add from the list below:</div>
+        <div style="float: left; width: 100%; height: 20px;"></div>
+            <div style="float: right; border: 1px solid grey; height: 85%; overflow: auto; width: 100%;"> 
+                <table style="overflow: auto; width: 100%; ">
+                    % for row in parents:
+                        <tr class="row2" style="clear: both; color: grey;">
+                        <td style="float: left; " nowrap><img src="${row[0]}" /></td> 
+                        <td style="text-align: left;" nowrap>${row[2]}</td> 
+                        <td style="text-align: left;">${row[3]}</td> 
+                        </tr>
+                        % for crow in children:
+                            % if crow[4] == row[1]: 
+                                <tr class="row" style="clear: both;" id="${crow[1]}" onClick="selectRow('${crow[1]}');">
+                                <td style="float: left; padding-left: 10px;" nowrap>&nbsp;</td> 
+                                <td style="text-align: left;" nowrap><img src="${crow[0]}" />&nbsp;${crow[2]}</td> 
+                                <td style="text-align: left;" nowrap>${crow[3]}</td> 
+                                </tr>
+                            % endif
+                        % endfor
+                    %endfor
+                </table>
+            </div>       
+        </div>
+        <div style="float: left; width: 85%; padding-left: 20px; height: 20px;"><input type="checkbox" name="checkattachdisk" id="checkattachdisk" />&nbsp; Attach as read-only</div>
+        <div style="float: right; padding-right: 20px;">
+            <input type="button" id="acceptnewvmdisk" name="acceptnewvmdisk" value="Attach" class="button" onClick="on_btacceptattachdisk_clicked();" disabled/>
+            <input type="button" name="cancelnewvmdisk" value="Cancel" class="button" onClick="parent.hidePopWin(false);"/>
+        </div>
+    </div>
+</div>
+</body>
+</html>

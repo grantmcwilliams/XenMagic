@@ -1,0 +1,14 @@
+<div style="height: 10px;"></div>
+<div class="tabactive" onmousedown="on_tabbox_focus_tab(this, '${tabs[0]}')">
+        ${titles[0]}
+    </div>
+
+% for tab in range(1, len(tabs)):
+<div class="tabinactive" onmousedown="on_tabbox_focus_tab(this, '${tabs[tab]}')">
+        ${titles[tab]}
+    </div>
+% endfor
+<div class="tabend">
+&nbsp;
+</div>
+

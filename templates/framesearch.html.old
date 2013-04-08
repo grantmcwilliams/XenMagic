@@ -1,0 +1,41 @@
+<div style="margin-top: 10px; width: 97%;">
+    <strong>Ovewview</strong>
+    <div style="height: 20px; width: 100%;"></div>
+    <div style="float: right; border: 1px solid grey; height: 85%; overflow: auto; width: 100%;"> 
+        <table style="overflow: auto; width: 100%; ">
+            <tr class="head">
+                <th class="headcolumn" style="min-width: 150px;">Name</th> 
+                <th class="headcolumn" style="min-width: 150px;">CPU Usage</th> 
+                <th class="headcolumn" style="min-width: 150px;">Used Memory</th>
+                <th class="headcolumn" style="min-width: 60px;">Disks<br>(avg / max KBs)</th> 
+                <th class="headcolumn" style="min-width: 100px;">Network<br>(avg / max KBs)</th> 
+                <th class="headcolumn" style="min-width: 70;">Address</th>
+                <th class="headcolumn" style="min-width: 150px;">Uptime</th>
+            </tr>
+            % for row in parents:
+                <tr class="row" style="clear: both;">
+                    <td style="float: left; padding-right: 10px;" nowrap><img src="${parents[row][0]}">${parents[row][1]}</td> 
+                <td style="padding-right: 10px;" nowrap><img src="${parents[row][2]}"><br>${parents[row][3]}</td> 
+                <td style="padding-right: 10px;" nowrap><img src="${parents[row][4]}"><br>${parents[row][5]}</td> 
+                <td style="text-align: center;">${parents[row][6]}</td> 
+                <td style="text-align: center;">${parents[row][7]}</td> 
+                <td style="text-align: center;">${parents[row][8]}</td> 
+                <td style="text-align: center;" nowrap>${parents[row][9]}</td> 
+                % if parents[row][10]:
+                    % for row in children:
+                        <tr class="row" style="clear: both;">
+                            <td style="padding-left: 30px;padding-right: 10px;"><img src="${children[row][0]}" nowrap>${children[row][1]}</td> 
+                            <td style="padding-right: 10px;"><img src="${children[row][2]}"><br>${children[row][3]}</td> 
+                            <td style="padding-right: 10px;"><img src="${children[row][4]}"><br>${children[row][5]}</td> 
+                        <td style="text-align: center;" nowrap>${children[row][6]}</td> 
+                        <td style="text-align: center;" nowrap>${children[row][7]}</td> 
+                        <td style="text-align: center;" nowrap>${children[row][8]}</td> 
+                        <td style="text-align: center;" nowrap>${children[row][9]}</td> 
+                        </tr>
+                    % endfor    
+                % endif            
+            % endfor
+        </table>
+    </div>        
+</div>
+

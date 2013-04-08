@@ -1,0 +1,35 @@
+<%def name="translate_title(title)">
+    % if title in messages_header:
+        ${messages_header[title]}
+    % else:
+        ${title}
+    % endif
+</%def>
+<%def name="translate_body(title)">
+    % if title in messages:
+        ${messages[title] % name}
+    % else:
+        ${} 
+    % endif
+</%def>
+
+<head>
+    <link rel="stylesheet" href="css/style_blue.css" type="text/css" media="screen" charset="utf-8"/> 
+</head>
+<div style="margin-top: 10px; width: 97%;">
+    <strong>Event log</strong>
+    <div style="height: 20px; width: 100%;"></div>
+    % for log in logs:
+        <div style="height: 80px; width: 100%; border: 1px solid black;margin-top: 2px; padding-top: 5px; padding-left: 10px;";>
+            <div style="float: left;color: blue;">${translate_title(log[0])}</div>
+            <div style="float: right; padding-right: 50px;">${log[1]}</div>
+            <div style="float: left; width: 100%;" >${log[2]}</div>
+            % if log[4] and log[5]["status"] != "failure" and log[5]["status"] != "success":
+            <div style="float: left; width: 100%;" >Progress ${"%.2f" % (log[6]*100)} % </div>
+            <div style="float: right: width: 100%;"><input type="button" value="Cancel" onClick="cancelTask('${log[4]}');" class="button"/></div>
+            % elif log[4] and log[5]["status"] == "failure":
+            <font color="red">${log[5]["error_info"]}</font>
+            % endif
+        </div>
+    % endfor 
+</div>

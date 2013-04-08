@@ -1,0 +1,38 @@
+<div style="margin-top: 10px; width: 97%">
+    <strong>Storage General Properties</strong>
+
+    <div style="float: right; padding-right: 20%; padding-top: 20px;;">
+        <input type="button" id="btpoolproperties" name="btpoolproperties" class="button" value="Properties" onClick="showPopWin('properties?host=' + selected_host + '&ref=' + selected_ref + '&type=' + selected_type, 820, 570, null);" />
+    </div>
+    <div id="divstggeneral" style="padding-top: 20px; width: 100%; padding-left: 20px; float: left;">
+        <strong>General</strong>
+        <div style="height: 15px;"></div>
+        <div class="bluelabel" style="width: 200px; float: left;">Name:</div><div style="float: left;" id="lblstgname">${labels["lblstgname"]}</div>
+        <div style="height: 10px;"></div><br>
+        <div class="bluelabel" style="width: 200px; float: left;">Description:</div><div style="float: left;" id="lblstgdescription">${labels["lblstgdescription"]}</div>
+        <div style="height: 10px;"></div><br>
+        <div class="bluelabel" style="width: 200px; float: left;">Tags:</div><div style="float: left;" id="lblstgtags">${labels["lblstgtags"]}</div>
+        <div style="height: 10px; width: 100%;"></div><br>
+        <div class="bluelabel" style="width: 200px; float: left;">Folder:</div><div style="float: left;" id="lblstgfolder">${labels["lblstgfolder"]}</div>
+        <div style="height: 10px; width: 100%;"></div><br>
+        <div class="bluelabel" style="width: 200px; float: left;">Type:</div><div style="float: left;" id="lblstgtype">${labels["lblstgtype"]}</div>
+        <div style="height: 10px; width: 100%;"></div><br>
+        <div class="bluelabel" style="width: 200px; float: left;">Size:</div><div style="float: left;" id="lblstgsize">${labels["lblstgsize"]}</div>
+        <div style="height: 10px; width: 100%;"></div><br>
+        <div class="bluelabel" style="width: 200px; float: left;">SCSI ID:</div><div style="float: left;" id="lblstgscsi">${labels["lblstgscsi"]}</div>
+    </div>
+    <div style="height: 10px; width: 100%;"></div><br>
+    <div id="divstgstatus" style="padding-top: 20px; width: 100%; padding-left: 20px; float: left;">
+        <strong>Status</strong>
+        <div style="height: 15px;"></div>
+        <div class="bluelabel" style="width: 200px; float: left;">State:</div><div style="float: left;" id="lblstgstate">${labels["lblstgstate"]}</div>
+        <div style="height: 10px;"></div><br>
+        <div class="bluelabel" style="width: 200px; float: left;" id="lblstghost">${labels["lblstghost"]}:</div><div style="float: left;" id="lblstghostcon">${labels["lblstghostcon"]}</div>
+    </div>
+    <div style="height: 10px; width: 100%;"></div><br>
+    <div id="divstgmultipathing" style="padding-top: 20px; width: 100%; padding-left: 20px; float: left;">
+        <strong>Multipathing</strong>
+        <div style="height: 15px;"></div>
+        <div class="bluelabel" style="width: 200px; float: left;">Multipath capable:</div><div style="float: left;" id="lblstgmultipath">${labels["lblstgmultipath"]}</div>
+    </div>
+</div>

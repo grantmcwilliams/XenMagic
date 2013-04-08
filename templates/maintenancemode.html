@@ -1,0 +1,46 @@
+<html>
+<title>XenWebManager</title>
+<head>
+    <link rel="stylesheet" href="css/style_blue.css" type="text/css" media="screen" charset="utf-8"/>
+     <script type="text/javascript" src="js/maintancemode.js"> </script>
+</head>
+<body>
+    <div style="text-align: center; background-color: white; width: 620px; padding-top: 10px;">
+        <img src="images/server_alert.png" valign="center" align="center">
+        This operation will migrate all running VMs from this server  <br>
+        and transition it into maintenance mode.
+    </div>
+
+    <div style="width: 620px; height: 20px; background-color: white;">&nbsp;</div>
+    <div id="maintancemode" style="width: 600px; border: 1px solid black;  height: 300px; padding-left: 20px; padding-top: 40px; background-color: white;">
+        <div style="width: 525px; height: 10px;">&nbsp;</div>
+        Virtual machines on this server:
+        <div style="float: left; border: 1px solid grey; height: 200px; overflow: auto; width: 580px;"> 
+            <table style="overflow: auto; width: 100%; ">
+            % for row in vms:
+                <tr class="row2" style="clear: both;">
+                <td style="float: left; padding-right: 10px;" nowrap><img src="${row[0]}"></td> 
+                <td style="padding-right: 10px;" nowrap>${row[1]}</td> 
+                <td style="padding-right: 10px; color: red; font-weight: bold;" nowrap>${row[2]}</td> 
+                </tr>
+            % endfor
+            </table>
+        </div>        
+    </div> 
+<img src="images/ajax-loader.gif" id="loading" style="display: none;"/>    
+<div style="width: 225px; height: 10px;">&nbsp;</div>
+<div style="width: 225px; float: left; ">&nbsp;</div>
+    <div style="float: left;">
+        % if vms:
+            <input type="button" name="acceptmaintenancemode" id="acceptmaintenancemode" value="Enter Maintance Mode" class="button" disabled>
+        % else:
+            <input type="button" name="acceptmaintenancemode" id="acceptmaintenancemode" value="Enter Maintance Mode" class="button" onclick="on_acceptmaintenancemode_clicked();">
+        % endif
+    </div>
+    <div style="width: 20; float: left;">&nbsp;</div>
+    <div style="float: left;">
+        <input type="button" name="cancelmaintenancemode" id="cancelmaintenancemode" value="Cancel" class="button" onclick="parent.hidePopWin(false); ">
+    </div>
+</body>
+</html>
+

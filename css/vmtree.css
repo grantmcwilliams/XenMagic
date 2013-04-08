@@ -1,0 +1,10 @@
+DIV.vmtree {
+    float: left; 
+    border-left: 1px solid black;  
+    border-right: 1px solid black; 
+    border-bottom: 1px solid black; 
+    width: 20%; 
+    height: 98%;  
+    vertical-align: middle;
+    overflow: auto;
+}

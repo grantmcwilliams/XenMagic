@@ -1,0 +1,39 @@
+<head>
+    <link rel="stylesheet" href="css/style_blue.css" type="text/css" media="screen" charset="utf-8"/> 
+</head>
+<div style="margin-top: 10px; width: 97%;">
+    <strong>Network Interface Cards</strong>
+    <div style="height: 20px; width: 100%;"></div>
+    <div style="float: right;">
+        <input type="button" value="Add Bond..." id="bthostnicreadd" name="bthostnicreadd" class="button"  onclick="javascript:showPopWin('addbond?host=' + selected_host, 680, 500, null);" />
+        <input type="button" value="Delete Bond" id="bthostnicremove" name="bthostnicremove" class="button" onclick="javascript:on_bthostnicremove_clicked();" />
+    </div>
+    <div style="height: 10px; width: 100%;"></div><br>
+    <div style="float: right; border: 1px solid grey; height: 85%; overflow: auto; width: 100%;"> 
+        <table style="overflow: auto; width: 100%; ">
+            <tr class="head">
+                <th class="headcolumn" style="min-width: 50px;">NIC</th> 
+                <th class="headcolumn" style="min-width: 150px;">MAC</th> 
+                <th class="headcolumn" style="min-width: 100px;">Link Status</th>
+                <th class="headcolumn" style="min-width: 100px;">Speed</th> 
+                <th class="headcolumn" style="min-width: 60px;">Duplex</th>
+                <th class="headcolumn" style="min-width: 350px;">Vendor</th> 
+                <th class="headcolumn" style="min-width: 400px;">Device</th> 
+                <th class="headcolumn" style="min-width: 150px;">PCI Bus Path</th> 
+            </tr>
+            % for row in nics:
+                <tr class="row" style="clear: both;" id="${row[8]}" onclick="selectRow('${row[8]}');on_hostnics_selected('${row[9]}');">
+                <td style="text-align: left;" nowrap>${row[0]}</td> 
+                <td style="text-align: left;">${row[1]}</td> 
+                <td style="text-align: center;">${row[2]}</td> 
+                <td style="text-align: center;">${row[3]}</td> 
+                <td style="text-align: center;">${row[4]}</td> 
+                <td style="text-align: left;">${row[5]}</td> 
+                <td style="text-align: left;">${row[6]}</td> 
+                <td style="text-align: center;">${row[7]}</td> 
+                </tr>
+            % endfor
+        </table>
+    </div>        
+</div>
+

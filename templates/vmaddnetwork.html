@@ -1,0 +1,50 @@
+<title>XenWebManager</title>
+
+<head>
+    <link rel="stylesheet" href="css/style_blue.css" type="text/css" media="screen" charset="utf-8"/> 
+     <script type="text/javascript" src="js/vmaddnetwork.js"> </script>
+</head>
+<body style="background-color: white;">
+    <div style="margin-top: 10px; width: 500px; height: 300px; padding-left: 25px">
+        <div style="float: left; padding-top: 10px"><strong>Select the network location.:</strong></div>
+        <div style="float: right; padding-right: 20px; padding-top: 10px;"><img src="images/prop_networksettings.png" border="0"></div>
+        <div style="float: left; width: 100%; height: 10px;"></div>
+        <div style="float: left; ">
+            <div style="float: left; width: 150px;">Network:</div>
+            <select id="treeaddnetwork" name="treeaddnetwork" style="width: 200px;">
+                % for row in networks:
+                    <option value="${row[0]}">${row[1]}</option>
+                % endfor
+            </select>
+        </div>
+        <div style="float: left; width: 100%; height: 10px;"></div>
+        <div style="float: left; ">
+            Select the MAC Address configuration method.<br><br>
+            <input type="radio" id="radioauto" name="radioauto" value="radioauto" checked/>Auto-generate<br>
+            <div style="float: left; width: 100px;"><input type="radio" name="radioauto" value="radiomanual" />Manual</div>
+            <div style="float: left; margin-left: 50px;"><input type="text" id="entrymac" name="entrymac" style="width: 200px;"></div>
+            <div style="float: left; width: 100px; margin-top: 10px;">&nbsp;</div>
+            <div style="float: center; margin-top: 10px; margin-left: 150px;color: grey;">For example; a1:40:58:bf:4c:e0</div>
+        </div>
+        <div style="float: left; width: 100%; height: 20px;"></div>
+        <div style="float: left; width: 100%; height: 20px;"></div>
+        <div style="float: left">
+            Set the maximum transfer rate limit for the virtual network's I/O priority, <br>
+            Quality of Server (QoS)<br>
+            <div style="float: left; width: 100%; height: 10px;"></div>
+            <div style="width: 100px; float: left;">Limit:</div>
+            <div style="float: left; padding-left: 30px;">
+                <input type="text" id="entrylimit" name="entrylimit" style="width: 130px;" > kbyte/s maximum<br>
+                <div style="color: grey;">Optional</div>
+            </div>
+            <div style="float: left; width: 100%; height: 20px;"></div>
+            <div style="float: center">
+                <div style="float: right; padding-right: 20px;">
+                    <input type="button" name="acceptaddnetwork" value="Accept" class="button" onClick="on_acceptaddnetwork_clicked();"/>
+                    <input type="button" name="canceladdnetwork" value="Cancel" class="button" onClick="parent.hidePopWin(false);"/>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

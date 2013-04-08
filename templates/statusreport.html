@@ -1,0 +1,95 @@
+<%
+capabilities_conf_text = [
+        "These files will contain personally identifiable information",
+        "These files may contain personally identifiable information",
+        "These files may contain personally identifiable information if customized",
+        "These files will contain no personally identifiable information",
+        ]
+%>
+<html>
+<title>XenWebManager</title>
+<head>
+    <link rel="stylesheet" href="css/style_blue.css" type="text/css" media="screen" charset="utf-8"/>
+    <script type="text/javascript" src="js/statusreport.js"> </script>
+</head>
+<body onLoad="updateSizeAndTime()">
+    <div style="text-align: center; background-color: white; width: 760px; padding-top: 10px;">
+        <img src="images/report.png" valign="center" align="center">
+        <strong>Select the data you wish to include in your report</strong>
+    </div>
+
+    <div style="width: 760px; height: 20px; background-color: white;">&nbsp;</div>
+    <div id="repairstorage" style="width: 740; border: 1px solid black;  height: 490px; padding-left: 20px; padding-top: 10px; background-color: white;">
+        <div style="width: 225px; height: 10px;">&nbsp;</div>
+        <div style="width: 440px; float: left;">
+            <div style="float: left;">Report Content Item</div>
+            <div style="float: right; padding-right: 20px;">Confidentiality Rating</div>
+        </div>
+        <div style="float: left; width: 250px; margin-left: 25px;">
+            <a style="color: blue;" href="http://citrix.com/site/aboutCitrix/legal/secondLevel.asp?level2ID=2208">Citrix Privacy Statement</a>
+        </div>
+        <div style="float: left; border: 1px solid grey; height: 400px; overflow: auto; width: 400px;"> 
+            <table style="overflow: auto; width: 100%; " id="tablereport">
+            % for i, row in enumerate(reports):
+            <tr class="row" style="clear: both;" id="report${i}" onclick="selectRow('report${i}', '${row[4]}', '${row[5]}', '${row[6]}', '${capabilities_conf_text[row[9]-1]}');">
+                % if row[1]:
+                    <td ><input type="checkbox" name="reports" value="${row[0]}" checked onChange="updateSizeAndTime();"></td> 
+                % else:
+                    <td ><input type="checkbox" name="reports" value="${row[0]}" onChange="updateSizeAndTime();"></td> 
+                % endif
+                <td style="padding-right: 10px;" nowrap>${row[2]}</td> 
+                <td nowrap><img src="${row[3]}"></td> 
+                <td style="display: none;" >${row[7]}</td> 
+                <td style="display: none;" >${row[8]}</td> 
+                </tr>
+            % endfor
+            </table>
+        </div>        
+
+        <div style="float: left; width: 250px; height: 10px;">&nbsp;</div>
+        <div style="float: left; width: 250px; height: 400px; overflow: auto; margin-left: 50px;">
+            <strong>Description</strong>
+            <div style="width: 220px;" id="lblreportdesc">
+                Memory dump created on server crash, if you select this option you will be prompted for these files to be removed after the report has been compiled
+            </div>
+            <br>
+            <strong>Size</strong>
+            <div style="width: 220px;" id="lblreportsize">
+                0 B
+            </div>
+            <br>
+            <strong>Time</strong>
+            <div style="width: 220px;" id="lblreporttime">
+                Negligible
+            </div>
+            <br>
+            <strong>Confidentiality</strong>
+            <div style="width: 220px;" id="lblreportconf">
+                These files will contain personally identifiable information 
+            </div>
+            <br>
+            <hr style="width: 240px; margin-bottom: 20px;" />
+            <div style="float: left; width: 100px;"><strong>Total Size</strong></div><div id="lblreportotalsize">tsize</div>
+            <div style="float: left; width: 100px;"><strong>Total Time</strong></div><div id="lblreportotaltime">ttime</div>
+
+        </div>
+        <div style="float: left; ">
+            <input type="button" class="button" name="clearallstatusreport" value="Clear All" onclick="changeAll(false)">
+            <input type="button" class="button" name="selectallstatusreport" value="Select All" onclick="changeAll(true)">
+        </div>
+
+    </div> 
+    
+<div style="width: 275px; height: 10px;">&nbsp;</div>
+<div style="width: 315px; float: left; ">&nbsp;</div>
+    <img src="images/ajax-loader.gif" id="loading" style="display: none;"/>
+    <div style="float: left;">
+        <input type="button" name="acceptstatusreport" id="acceptstatusreport" value="Accept" class="button" onclick="on_acceptstatusreport_clicked();" />
+    </div>
+    <div style="width: 20; float: left;">&nbsp;</div>
+    <div style="float: left;">
+        <input type="button" name="cancelstatusreport" id="cancelstatusreport" value="Cancel" class="button" onclick="parent.hidePopWin(false); " />
+    </div>
+</body>
+</html>
+

@@ -1,0 +1,18 @@
+<table style="overflow: auto; width: 100%; font-size: 12px; ">
+% for row in vms:
+    <tr>
+    <td style="float: left; padding-right: 10px; min-width: 150px;" nowrap>
+        <img src="${row[0]}" />
+        ${row[1]}<br>
+        <font style="font-size: 8px;">${row[2]}</font>
+    </td> 
+
+    <td style="padding-right: 10px; min-width: 120px;" nowrap><img src="${row[3]}"><br>${row[4]}</td> 
+    <td style="padding-right: 10px; min-width: 140px;" nowrap><img src="${row[5]}"><br>${row[6]}</td> 
+    <td style="text-align: center; min-width: 100px;">${row[7]}</td> 
+    <td style="text-align: center; min-width: 100px;">${row[8]}</td> 
+    <td style="text-align: center; min-width: 70px;">${row[9]}</td> 
+    <td style="text-align: center; min-width: 150px;" nowrap>${row[10]}</td> 
+    </tr>
+% endfor
+</table>

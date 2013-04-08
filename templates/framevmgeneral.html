@@ -1,0 +1,42 @@
+<div style="margin-top: 10px; width: 97%">
+    <strong>VM General properties</strong>
+
+    <div style="float: right; padding-right: 20%; padding-top: 20px;;">
+        <input type="button" id="btpoolproperties" name="btpoolproperties" class="button" value="Properties" onClick="showPopWin('properties?host=' + selected_host + '&ref=' + selected_ref + '&type=' + selected_type, 820, 570, null);" />
+    </div>
+    <div id="divvmgeneral" style="padding-top: 20px; width: 100%; padding-left: 20px; float: left;">
+        <strong>General</strong>
+        <div style="height: 15px;"></div>
+        <div class="bluelabel" style="width: 200px; float: left;">Name:</div><div style="float: left;" id="lblvmname">${labels["lblvmname"]}</div>
+        <div style="height: 10px;"></div><br>
+        <div class="bluelabel" style="width: 200px; float: left;">Description:</div><div style="float: left;" id="lblvmdescription">${labels["lblvmdescription"]}</div>
+        <div style="height: 10px;"></div><br>
+        <div class="bluelabel" style="width: 200px; float: left;">Tags:</div><div style="float: left;" id="lblvmtags">${labels["lblvmtags"]}</div>
+        <div style="height: 10px; width: 100%;"></div><br>
+        <div class="bluelabel" style="width: 200px; float: left;">Folder:</div><div style="float: left;" id="lblvmfolder">${labels["lblvmfolder"]}</div>
+        <div style="height: 10px; width: 100%;"></div><br>
+        <div class="bluelabel" style="width: 200px; float: left;">Operating System:</div><div style="float: left;" id="lblvmdistro">${labels["lblvmdistro"]}</div>
+        <div style="height: 10px; width: 100%;"></div><br>
+        <div class="bluelabel" style="width: 200px; float: left;">Virtualization State:</div><div style="float: left;" id="lblvmvirtstate">${labels["lblvmvirtstate"]}</div>
+        <div style="height: 10px; width: 100%;"></div><br>
+        <div class="bluelabel" style="width: 200px; float: left;">Time since startup:</div><div style="float: left;" id="lblvmstartup">${labels["lblvmstartup"]}</div>
+    </div>
+    <div style="height: 10px; width: 100%;"></div><br>
+    <div id="divvmemandvcpus" style="padding-top: 20px; width: 100%; padding-left: 20px; float: left;">
+        <strong>Memory and VCPUs</strong>
+        <div style="height: 15px;"></div>
+        <div class="bluelabel" style="width: 200px; float: left;">Memory:</div><div style="float: left;" id="lblvmmemory">${labels["lblvmmemory"]}</div>
+        <div style="height: 10px;"></div><br>
+        <div class="bluelabel" style="width: 200px; float: left;">Virtual CPUs:</div><div style="float: left;" id="lblvmcpu">${labels["lblvmcpu"]}</div>
+        <div style="height: 10px;"></div><br>
+        <div class="bluelabel" style="width: 200px; float: left;">VCPU priority::</div><div style="float: left;" id="lblvmpriority">${labels["lblvmpriority"]}</div>
+    </div>
+    <div id="divvmboot" style="padding-top: 20px; width: 100%; padding-left: 20px; float: left;">
+        <strong>Boot options</strong>
+        <div style="height: 15px;"></div>
+        <div class="bluelabel" style="width: 200px; float: left;">Auto-boot:</div><div style="float: left;" id="lblvmautoboot">${labels["lblvmautoboot"]}</div>
+        <div style="height: 10px;"></div><br>
+        <div class="bluelabel" style="width: 200px; float: left;">OS boot parameters:</div><div style="float: left;" id="lblvmparameters">${labels["lblvmparameters"]}</div>
+    </div>
+    <div style="height: 15px;"></div>
+</div>

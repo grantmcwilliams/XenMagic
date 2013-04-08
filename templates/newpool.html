@@ -1,0 +1,59 @@
+<html>
+<title>XenWebManager</title>
+<head>
+    <link rel="stylesheet" href="css/style_blue.css" type="text/css" media="screen" charset="utf-8"/>
+    <script type="text/javascript" src="js/newpool.js"> </script>
+</head>
+<body>
+    <div style="text-align: center; background-color: white; width: 600px; padding-top: 10px;">
+        <img src="images/add_vm.png" valign="center" align="center">
+        <strong> Enter a name and description for the new pool <br>
+            and choose members for the new pool.
+        </strong>
+    </div>
+
+    <div style="width: 600px; height: 20px; background-color: white;">&nbsp;</div>
+    <div id="newpool" style="width: 580px; border: 1px solid black;  height: 350px; padding-left: 20px; padding-top: 40px; background-color: white;">
+        <div style="width: 200px; float: left;">Name:</div><div><input type="text" id="txtpoolname" name="txtpoolname" value="New Pool" style="width: 350px;"></div>
+        <div style="width: 225px; height: 10px;">&nbsp;</div>
+        <div style="width: 200px; float: left;">Description:</div><div><input type="text" id="txtpooldesc" name="txtpooldesc" style="width: 350px;"></div>
+        <div style="width: 225px; height: 30px;">&nbsp;</div>
+        <div style="width: 200px; float: left;">Select master:</div>
+        <div>
+            <select style="width: 350px;" id="combopoolmaster" name="combopoolmaster" onChange="on_combopoolmaster_changed(this);">
+                % for row in masters:
+                    <option value="${row[0]}">${row[1]}</option>
+                % endfor
+            </select> 
+        </div>
+        <div style="width: 225px; height: 10px;">&nbsp;</div>
+        Select members:
+        <div style="float: left; border: 1px solid grey; height: 200px; overflow: auto; width: 350px; margin-left: 200px;"> 
+            <table style="overflow: auto; width: 100%; " id="poolslaves">
+            % for row in hosts:
+            <tr class="row2" style="clear: both;" id="${row[0]}">
+                % if row[4]:
+                    <td style="float: left; padding-right: 10px;" nowrap><input type="checkbox" name="hosts" value="${row[0]}"></td> 
+                    <td style="padding-right: 10px;" nowrap>${row[1]}</td> 
+                % else:
+                    <td style="float: left; padding-right: 10px;" nowrap><input type="checkbox" name="hosts" value="${row[0]}" disabled></td> 
+                    <td style="padding-right: 10px; color: grey;" nowrap>${row[1]}</td> 
+                % endif
+                </tr>
+            % endfor
+            </table>
+         </div>        
+        </div> 
+    
+<div style="width: 225px; height: 10px;">&nbsp;</div>
+<div style="width: 450px; float: left; ">&nbsp;</div>
+    <div style="float: left;">
+        <input type="button" name="acceptnewpool" id="acceptnewpool" value="Finish" class="button" onclick="on_acceptnewpool_clicked();" />
+    </div>
+    <div style="width: 20; float: left;">&nbsp;</div>
+    <div style="float: left;">
+        <input type="button" name="cancelnewpool" id="cancelnewpool" value="Cancel" class="button" onclick="parent.hidePopWin(false); ">
+    </div>
+</body>
+</html>
+

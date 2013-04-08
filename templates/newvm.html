@@ -1,0 +1,259 @@
+<html>
+<title>XenWebManager</title>
+<head>
+    <script type="text/javascript" src="js/common.js"> </script>
+    <link rel="stylesheet" href="css/style_blue.css" type="text/css" media="screen" charset="utf-8"/>
+    <script type="text/javascript" src="js/newvm.js"> </script>
+    <link rel="stylesheet" href="css/subModal.css" type="text/css" />
+    <script type="text/javascript" src="js/subModal.js"> </script>
+    <script type="text/javascript" src="js/json2.js"> </script>
+</head>
+<body>
+    <div style="text-align: center; background-color: white; width: 782px;">
+        <img src="images/newvm_32.png" border="0">
+        <strong>Select an operating system for new the new virtual machine </strong>
+    </div>
+
+    <div style="width: 782px; height: 20px; background-color: white;">&nbsp;</div>
+    <div style="width: 150px; border: 1px solid black; background-color: white; float: left; height: 450px; padding-left: 10px; padding-right: 10px;">
+        <div style="width: 100%; height: 20px;">&nbsp;</div>
+        <div style="font-weight: bold; margin-bottom: 10px; background-color: #d5e5f7;" id="lblnewvm0">Template</div>
+        <div style="font-weight: bold; margin-bottom: 10px;" id="lblnewvm1">Name</div>
+        <div style="font-weight: bold; margin-bottom: 10px;" id="lblnewvm2">Location</div>
+        <div style="font-weight: bold; margin-bottom: 10px;" id="lblnewvm3">Home server</div>
+        <div style="font-weight: bold; margin-bottom: 10px;" id="lblnewvm4">CPU / Memory</div>
+        <div style="font-weight: bold; margin-bottom: 10px;" id="lblnewvm5">Virtual Disks</div>
+        <div style="font-weight: bold; margin-bottom: 10px;" id="lblnewvm6">Virtual Interfaces</div>
+        <div style="font-weight: bold; margin-bottom: 10px;" id="lblnewvm7">Finish</div>
+    </div> 
+    <div id="newvm0" style="width: 600px; border: 1px solid black;  height: 440px; padding-left: 180px; padding-top: 10px; background-color: white;">
+        Templates:
+        <div style="float: right; padding-right: 40px;">
+            Search:
+            <input type="text" name="searchtpl" id="searchtpl" width=100 onkeypress="filterTpls();" />
+        </div>
+        <div style="width: 560px;  height: 250px; background-color: white; margin-top: 20px; border: 1px solid grey; overflow: auto;">
+            <table style="overflow: auto; width: 100%;" id="tabletemplates">
+                <tr class="head">
+                    <th class="headcolumn" style="min-width: 15px;"></th> 
+                    <th class="headcolumn" style="min-width: 350px;">Name</th> 
+                    <th class="headcolumn" style="min-width: 145px; ">Category</th> 
+                </tr>
+                % for i, row in enumerate(templates):
+                <tr class="row" style="clear: both;" id="${row[2]}" 
+                    onClick="selectTplRow('${row[2]}', '${row[4]}', '${row[5]}', '${row[6]}', '${row[7]}', '${row[8]}', '${row[9]}')">
+                    <td style="text-align: left;" ><img src="${row[0]}" border="0"></td> 
+                    <td style="text-align: left;">${row[1]}</td> 
+                    <td style="text-align: left;">${row[3]}</td> 
+                    </tr>
+                % endfor
+            </table>
+
+        </div>
+        % if tpl:
+            <script>
+                document.getElementById("${tpl}").onclick();
+            </script>
+        % endif
+        <div style="width: 560px;  height: 120px; background-color: white; margin-top: 20px; border: 1px solid grey;">
+            <div style="color: #0000FF; font-weight: bold;">Template Details</div>
+            <div style="padding-left: 5px; padding-top: 5px;" id="lblnewvminfo">
+            </div>
+        </div>
+    </div> 
+    <div id="newvm1" style="display: none; width: 580px; border: 1px solid black;  height: 410px; padding-left: 200px; padding-top: 40px; background-color: white;">
+        <div style="float: left">Name:</div>
+        <div style="float: left; margin-left: 60px;"><input type="text" id="entrynewvmname" name="entrynewvmname" style="width: 400px;" /></div>
+        <div style="width: 100px; height: 30px;">&nbsp;</div>
+        <div style="float: left">Description:</div>
+        <div style="float: left; margin-left: 25px;"><textarea id="entrynewvmdescription" name="entrynewvmdescription" style="width: 400px; height: 100px;"></textarea></div>
+    </div> 
+    <div id="newvm2" style="display: none; width: 580px; border: 1px solid black;  height: 430px; padding-left: 200px; padding-top: 20px; background-color: white;">
+        Provide a repository URL, physical drive or ISO image from which to install.
+        <div style="width: 100px; height: 30px;">&nbsp;</div>
+        <div style="float: left;">
+            <div style="float: left; width: 130px;">
+                <input type="radio" name="radiobutton1" value="radiobutton1" checked /> 
+                Install URL:
+            </div>
+            <div style="float: left; padding-left: 30px;">
+                <input type="text" id="radiobutton1_data" name="radiobutton1_data" style="width: 350px">
+            </div>
+        </div>
+        <div style="width: 100px; height: 30px;">&nbsp;</div>
+        <div style="float: left;">
+            <div style="float: left; width: 130px;">
+                <input type="radio" name="radiobutton1" value="radiobutton2" />
+                Phys. DVD Drive:
+            </div>
+            <div style="float: left; padding-left: 30px;">
+                <select id="radiobutton2_data" name="radiobutton2_data" style="width: 350px;">
+                    % for row in dvd:
+                        <option value="${row[1]}">${row[0]}</option>
+                    % endfor
+                </select>
+            </div>
+        </div>
+        <div style="width: 100px; height: 30px;">&nbsp;</div>
+        <div style="float: left;">
+            <div style="float: left; width: 130px;">
+                <input type="radio" name="radiobutton1" value="radiobutton3" /> 
+                ISO Image:
+            </div>
+            <div style="float: left; padding-left: 30px;">
+                <select id="radiobutton3_data" name="radiobutton3_data" style="width: 350px;">
+                    % for i, row in enumerate(isos):
+                        % if row[2]:
+                            <option value="${row[1]}" disabled>${row[0]}</option>
+                        % else:
+                            % if i == 1: 
+                                <option value="${row[1]}" selected>&nbsp;&nbsp;&nbsp;${row[0]}</option>
+                            % else:
+                                <option value="${row[1]}">&nbsp;&nbsp;&nbsp;${row[0]}</option>
+                            % endif
+                        % endif
+                    % endfor
+                </select>
+            </div>    
+        </div>
+        <div style="width: 100px; height: 120px;">&nbsp;</div>
+        <div id="newvm2_more">
+            Example:<br />
+            &nbsp;http://server/path<br />
+            &nbsp;ftp://server/path<br />
+            &nbsp;nfs://server/path<br />
+            <div style="width: 100px; height: 10px;">&nbsp;</div>
+            Advanced OS Boot Parameters: <br />
+            <input type="text" id="entrybootparameters" name="entrybootparameters" style="width: 550px"> <br />
+            Enter any additional advanced boot parameters here,
+            If you do not wish to supply any advanced parameters leave this box blank
+        </div>
+    </div>
+    <div id="newvm3" style="display: none; width: 580px; border: 1px solid black;  height: 430px; padding-left: 200px; padding-top: 20px; background-color: white;">
+        The home server provides resources for a VM in a pool.<br />
+        XenWebManager will always attempt to use the resources of the home <br />
+        server if it can,<br />
+        <div style="width: 560px;  height: 250px; background-color: white; margin-top: 20px; border: 1px solid grey; overflow: auto;">
+            <div id="selhost" style="display: none;">${selhost}</div>
+            <table style="overflow: auto; width: 100%; ">
+                % for i, row in enumerate(hosts):
+                <tr class="row" style="clear: both;" id="${row[3]}" onClick="selectHostRow('${row[3]}', '${row[4]}', '${row[5]}', '${row[6]}')">
+                    <td style="text-align: left;" ><img src="${row[0]}" border="0"></td> 
+                    <td style="text-align: left;">${row[1]}</td> 
+                    <td style="text-align: left; font-size: 10px;">${row[2]}</td> 
+                    </tr>
+                % endfor
+            </table>
+        </div>
+    </div>
+    <div id="newvm4" style="display: none;width: 580px; border: 1px solid black;  height: 410px; padding-left: 200px; padding-top: 40px; background-color: white;">
+        <div style="width: 200px; float: left;">Number of vCPUs:</div><div><input type="text" id="numberofvcpus" name="numberofvcpus"></div>
+        <div style="width: 225px; height: 10px;">&nbsp;</div>
+        <div style="width: 200px; float: left;">Initial Memory:</div><div><input type="text" id="initialmemory" name="initialmemory"></div>
+        <div style="width: 225px; height: 50px;">&nbsp;</div>
+        <div style="height: 100px; width: 300px; border: 1px solid grey;">
+            <div id="lblnewvmhost"><strong>Host</strong></div>
+            <div style="width: 225px; height: 10px;">&nbsp;</div>
+            <div style="width: 200px; float: left;">Physical CPUs:</div><div id="lblnewvmcpus">0</div>
+            <div style="width: 225px; height: 10px;">&nbsp;</div>
+            <div style="width: 200px; float: left;">Total memory:</div><div id="lblnewvmtotalmemory">0</div>
+            <div style="width: 225px; height: 10px;">&nbsp;</div>
+            <div style="width: 200px; float: left;">Free memory:</div><div id="lblnewvmfreememory">0</div>
+        </div>
+    </div>
+    <div id="newvm5" style="display: none;width: 580px; border: 1px solid black;  height: 410px; padding-left: 200px; padding-top: 40px; background-color: white;"> 
+        The default virtual disks for the template you have selected are lister below. <br />
+        You can add, modify or delete virtual disks, if required. When you have finished, <br />
+        click "Next" to continue to the next page.<br />
+        <div style="width: 225px; height: 20px;">&nbsp;</div>
+        Virtual disks installed on the new machine:
+        <div style="width: 225px; height: 30px;">&nbsp;</div>
+        <div style="border: 1px solid grey; overflow: auto; height: 230px;margin-right: 10px;" id="newvmstorage">
+        </div>
+        <div style="color: red; display:none;" id="customtemplatealert">You should add disks after vm will be created</div>
+        <div style="float: right; margin-right: 10px;">
+            <input type="button" id="addnewvmstorage" name="addnewvmstorage" value="Add..." class="button" 
+                    onclick="javascript:showPopWin('newvmdisk?host=${host}&edit=false', 740, 400, null);">
+            <input type="button" id="editnewvmstorage" name="editnewvmstorage" value="Edit..." class="button" 
+                    onclick="javascript:showPopWin('newvmdisk?host=${host}&edit=true', 740, 400, null);">
+            <input type="button" id="deletenewvmstorage" name="deletenewvmstorage" value="Delete" class="button" 
+                    onClick="javascript:on_deletenewvmstorage_clicked();">
+        </div>
+    </div>
+    <div id="newvm6" style="display: none; width: 580px; border: 1px solid black;  height: 410px; padding-left: 200px; padding-top: 40px; background-color: white;"> 
+        The default virtual network interfaces for the template you have selected are lister below. <br />
+        You can add, modify or delete virtual network interface, if required. When you have finished, <br />
+        click "Next" to continue to the next page. <br />
+        <div style="width: 225px; height: 20px;">&nbsp;</div>
+        Virtual network installed installed on the new machine:
+        <div style="width: 225px; height: 30px;">&nbsp;</div>
+        <select id="networkselect" name="networkselect" style="display: none; width: 180px;">
+                    % for row2 in networkcolumn:
+                        % if row[3] == row2[1]:
+                            <option value="${row2[1]}" selected>${row2[0]}</option>
+                        % else:
+                            <option value="${row2[1]}" >${row2[0]}</option>
+                        % endif
+                    % endfor
+        </select>
+        <div style="border: 1px solid grey; overflow: auto; height: 230px;margin-right: 10px;">
+            <table style="overflow: auto; width: 100%; " id="tablenewnetwork">
+                    <tr class="head">
+                        <th class="headcolumn" style="min-width: 200px;">Name</th> 
+                        <th class="headcolumn" style="min-width: 100px;">Mac Address</th> 
+                        <th class="headcolumn" style="min-width: 180px; ">Network</th> 
+                    </tr>
+                    % for i, row in enumerate(vifs):
+                        <tr class="row" style="clear: both;" id="newvif${i}" onClick="selectVifRow('newvif${i}');">
+                        <td style="text-align: left;" >${row[0]}</td> 
+                        <td style="text-align: left;"><input type="text" name="nacnewvif${i}" value="${row[1]}" style="border: 1px dotted; background-color: #d5e5f7;"></td> 
+                        <td style="text-align: left;">
+                            <select name="newworkref${i}" style="width: 180px;">
+                                % for row2 in networkcolumn:
+                                    % if row[3] == row2[1]:
+                                        <option value="${row2[1]}" selected>${row2[0]}</option>
+                                    % else:
+                                        <option value="${row2[1]}" >${row2[0]}</option>
+                                    % endif
+                                % endfor
+                            </select>
+                        </td>
+                        </tr>
+                    % endfor
+            </table>
+        </div>
+        <div style="float: right; margin-right: 10px;">
+            <input type="button" name="addnewvmnetwork" id="addnewvmnetwork" value="Add..." class="button" onClick="on_addnewvmnetwork_clicked();" /> 
+            <input type="button" name="deletenewvmnetwork" id="deletenewvmnetwork" value="Delete" class="button" onClick="on_deletenewvmnetwork_clicked();" />
+        </div>
+    </div>
+    <div id="newvm7" style="display: none; width: 580px; border: 1px solid black;  height: 410px; padding-left: 200px; padding-top: 40px; background-color: white;"> 
+        You have successfully completed the new virtual machine wizard. <br />
+        To create the new virtual machine and close the wizard, click Finish. <br />
+        This process may take several minutes. <br />
+        <div style="width: 225px; height: 30px;">&nbsp;</div>
+        <input type="checkbox" id="checkstartvm" name="checkstartvm"> Start VM automatically 
+	 <img src="images/ajax-loader.gif" id="loading" style="display: none;"/>
+
+    </div>
+
+<div style="width: 225px; height: 10px;">&nbsp;</div>
+<div style="width: 450px; float: left; ">&nbsp;</div>
+    <div style="float: left;">
+        <input type="button" name="previouswindownewvm" id="previouswindownewvm" disabled value="< Previous" class="button" onclick="javascript:goPage(-1);" />
+    </div>
+    <div style="width: 20; float: left;">&nbsp;</div>
+    <div style="float: left;">
+        <input type="button" name="nextwindownewvm" id="nextwindownewvm" value="Next >" disabled class="button" onclick="javascript:goPage(1);" />
+    </div>
+    <div style="width: 20; float: left;">&nbsp;</div>
+    <div style="float: left;">
+        <input type="button" name="finishwindownewvm" id="finishwindownewvm" value="Finish" class="button" onclick="on_finishwindownewvm_clicked(); " disabled />
+    </div>
+    <div style="width: 20; float: left;">&nbsp;</div>
+    <div style="float: left;">
+        <input type="button" name="cancelwindownewvm" id="cancelwindownewvm" value="Cancel" class="button" onclick="parent.hidePopWin(false); ">
+    </div>
+</body>
+</html>
+

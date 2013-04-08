@@ -1,0 +1,22 @@
+
+<head>
+    <link rel="stylesheet" href="css/style_blue.css" type="text/css" media="screen" charset="utf-8"/> 
+</head>
+<div style="margin-top: 10px; width: 97%;">
+    <strong>Virtual Machines Snapshots</strong>
+    <div style="float: left; padding-right: 20%; padding-top: 20px;;">
+        <input type="button" id="bttakesnapshot" name="bttakesnapshot" class="button" value="Take Snapshot" onClick="javascript:on_bttakesnapshot_clicked()" />
+        <input type="button" id="btsnapnewvm" name="btsnapnewvm" class="button" value="New VM From Snapshot..." onclick="javascript:showPopWin('newvm?host=' + selected_host + '&tpl=' + selected_snap_vm_ref, 840, 550, null);" disabled />
+        <input type="button" id="btsnapcreatetpl" name="btsnapcreatetpl" class="button" value="Create Template From Snapshot..." onClick="javascript:on_btsnapcreatetpl_clicked();" disabled />
+        <input type="button" id="btsnapexport" name="btsnapexport" class="button" value="Export Snapshot As Template ..."  onClick="javascript:showPopWin('export_vm?host=' + selected_host + '&ref=' + selected_snap_vm_ref + '&name=' + selected_snap_vm_name + '&ref2=' + selected_ref, 520, 300, null);" disabled />
+        <input type="button" id="btsnapexportvm" name="btsnapexportvm" class="button" value="Export Snapshot As VM..."  onClick="javascript:showPopWin('export_vm?host=' + selected_host + '&ref=' + selected_snap_vm_ref + '&name=' + selected_snap_vm_name + '&ref2=' + selected_ref + '&as_vm=True', 520, 300, null);" disabled />
+        <input type="button" id="btsnaprevert" name="btsnapexport" class="button" value="Revert to ..."  onClick="javascript:on_btrevertsnap_clicked();" disabled />
+        <input type="button" id="btsnapdelete" name="btsnapdelete" class="button" value="Delete Snapshot" disabled onClick="javascript:on_btsnapdelete_activate();" />
+    </div>
+    <div style="height: 20px; width: 100%;  overflow: auto;"></div>
+    % for snapshot in snaps:
+    <div class="row" id="${snapshot[0]}" style="height: 120px; width: 100%; border: 1px solid black;margin-top: 2px; padding-top: 5px; padding-left: 10px;" onClick="selectSnapRow('${snapshot[0]}', '${snapshot[2]}', '${snapshot[3]}');">
+            ${snapshot[1]}
+        </div>
+    % endfor
+</div>

@@ -1,0 +1,17 @@
+<div style="margin-top: 10px; width: 97%;">
+    <strong>Maps</strong>
+    <div style="height: 20px; width: 100%;"></div>
+    <div style="float: left;  clear: both; width: 100%;">
+        <strong>Options:</strong><br /><br /> 
+        <input type="checkbox" name="check_unused_network" onchange="toogleConfigMaps(this);" ${checks["check_unused_network"]}/>&nbsp;Show unused network &nbsp;&nbsp;
+        <input type="checkbox" name="check_unused_storage" onchange="toogleConfigMaps(this);"  ${checks["check_unused_storage"]}/>&nbsp;Show unused storage&nbsp;&nbsp;
+        <input type="checkbox" name="check_show_halted_vms" onchange="toogleConfigMaps(this);"  ${checks["check_show_halted_vms"]}/>&nbsp;Show halted VMs &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+        <input type="checkbox" name="check_show_network" onchange="toogleConfigMaps(this);"  ${checks["check_show_network"]}/>&nbsp;Show network&nbsp;&nbsp;
+        <input type="checkbox" name="check_show_storage"  onchange="toogleConfigMaps(this);"  ${checks["check_show_storage"]}/>&nbsp;Show storage
+    </div>
+    <div style="float: left; overflow: auto; height: 500px;">
+        <img id="generatemapimage" src="generatemapimage?host=${host}&ref=${ref}" border="0"/>
+    </div>
+
+</div>

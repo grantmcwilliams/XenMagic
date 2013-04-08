@@ -1,0 +1,138 @@
+<html>
+<title>XenWebManager</title>
+<head>
+    <link rel="stylesheet" href="css/style_blue.css" type="text/css" media="screen" charset="utf-8"/>
+    <script type="text/javascript" src="js/mgmtinterface.js"> </script>
+</head>
+<body>
+    <div style="text-align: center; background-color: white; width: 782px; padding-top: 10px;">
+        You can configure the primary management interface on server "${name}" here.  You can also configure additional <br>
+        management interfaces, for example, for storage or other types of traffic.
+    </div>
+
+    <div style="width: 782px; height: 20px; background-color: white;">&nbsp;</div>
+    <div style="width: 150px; border: 1px solid black; background-color: white; float: left; height: 450px; padding-left: 10px; padding-right: 10px;">
+        <div style="width: 100%; height: 20px;">&nbsp;</div>
+        % for row in interfaces:
+            <div id="${row[0]}" style="font-weight: bold; margin-bottom: 10px; background-color: #d5e5f7;" id="lblprop0">
+                <img src="${row[1]}" align="center">&nbsp;&nbsp;
+                <strong>${row[2]}</strong>
+            </div>
+        % endfor
+    </div> 
+    <div id="mgmtinterface" style=" width: 600px; border: 1px solid black;  height: 440px; padding-left: 180px; padding-top: 10px; background-color: white;">
+        <div style="float: left; width: 600px;">
+            <img src="images/prop_networksettings.png" align="center" />&nbsp;&nbsp;<strong>Primary</strong>
+        </div>
+        <div style="float: left; width: 600px; height: 10px;">&nbsp;</div>
+        <input type="hidden" name="txtpifref" id="txtpifref" value="${pif_ref}" />
+        <div style="width: 100px; float: left;">Network:</div> 
+        <div style="float: left;">
+            <select id="combomgmtnetworks" name="combomgmtnetworks" style="width: 450px;">
+                % for i, row in enumerate(networks):
+                    % if i == current:
+                        <option value="${row[0]}" selected>${row[1]}</option>
+                    % else:
+                        <option value="${row[0]}">${row[1]}</option>
+                    % endif
+                % endfor
+            </select>
+        </div>
+        <div style="float: left; width: 600px; height: 10px;">&nbsp;</div>
+        <div style="float: left; width: 500px; ">
+            <div style="float: left; margin-top: 10px;"><strong>IP Settings</strong></div>
+            <div style="float: left; width: 600px; height: 10px;">&nbsp;</div>
+            <div style="float: left;">
+                <input type="radio" id="radiomgmtipdhcp" name="radiomgmtipdhcp" value="radiomgmtipdhcp"
+                % if pif['ip_configuration_mode'] == "DHCP":
+                checked
+                % endif
+                >&nbsp;Automatically obtain IP settings using DHCP
+            </div>
+            <div style="float: left; width: 600px; height: 10px;">&nbsp;</div>
+            <div style="float: left;">
+                <input type="radio" id="radiomgmtipdhcp" name="radiomgmtipdhcp" value="radiomgmtipmanual"
+                % if pif['ip_configuration_mode'] != "DHCP":
+                checked
+                % endif
+                >&nbsp;Use the IP settings:
+            </div>
+            <div style="float: left; margin-left: 40px;">
+                <div style="float: left; width: 100px;">
+                    IP address:
+                </div>
+                <div style="float: left;">
+                    <input type="text" id="txtmgmtip" name="txtmgmtip" value="${pif['IP']}" style="width: 400px;">
+                </div>
+                <div style="float: left; width: 100px;">
+                    Subnet mask:
+                </div>
+                <div style="float: left;">
+                    <input type="text" id="txtmgmtmask" name="txtmgmtmask" value="${pif['netmask']}" style="width: 400px;">
+                </div>
+                <div style="float: left; width: 100px;">
+                    Gateway:
+                </div>
+                <div style="float: left;">
+                    <input type="text" id="txtmgmtgw" name="txtmgmtgw" value="${pif['gateway']}"style="width: 400px;">
+                </div>
+            </div>
+        </div>
+        <div style="float: left; width: 500px; ">
+            <div style="float: left; margin-top: 10px;"><strong>DNS Server</strong></div>
+            <div style="float: left; width: 600px; height: 10px;">&nbsp;</div>
+            <div style="float: left;">
+                <input type="radio" id="radiomgmtdnsdhcp" name="radiomgmtdnsdhcp" value="radiomgmtdnsdhcp"
+                % if pif['DNS'] == "":
+                    checked
+                % endif
+                >&nbsp;Automatically obtain DNS server address using DHCP
+            </div>
+            <div style="float: left; width: 600px; height: 10px;">&nbsp;</div>
+            <div style="float: left;">
+                <input type="radio" id="radiomgmtdnsmanual" name="radiomgmtdnsdhcp" value="radiomgmtdnsmanual"
+                % if pif['DNS']:
+                    checked
+                % endif
+                
+                >&nbsp;Use the following DNS server addresses:
+            </div>
+            <div style="float: left; width: 600px; height: 10px;">&nbsp;</div>
+            <div style="float: left; margin-left: 40px;">
+                <div style="float: left; width: 160px;">
+                    Preferred DNS server:
+                </div>
+                <%
+                    dns = pif['DNS'].split(",")
+               %>
+                <div style="float: left;">
+                    <input type="text" id="txtmgmtdns1" name="txtmgmtdns1" value="${dns[0]}" style="width: 150px;">
+                </div>
+                <div style="float: left; width: 160px;">
+                    Alternate DNS server: 
+                </div>
+                <div style="float: left;">
+                    % if len(dns) > 1:
+                        <input type="text" id="txtmgmtdns2" name="txtmgmtdns2" value="${dns[1]}" style="width: 150px;">
+                    % else:
+                        <input type="text" id="txtmgmtdns2" name="txtmgmtdns2" style="width: 150px;">
+                    % endif
+                </div>
+            </div>
+
+        </div>
+
+    </div> 
+<div style="width: 225px; height: 10px;">&nbsp;</div>
+<div style="width: 650px; float: left; ">&nbsp;</div>
+    <div style="width: 20; float: left;">&nbsp;</div>
+    <div style="float: left;">
+        <input type="button" name="btvmpropaccept" id="btvmpropaccept" value="OK" class="button" onclick="on_acceptmgmtinterface_clicked();">
+    </div>
+    <div style="width: 20; float: left;">&nbsp;</div>
+    <div style="float: left;">
+        <input type="button" name="btvmpropcancel" id="btvmpropcancel" value="Cancel" class="button" onclick="parent.hidePopWin(false); ">
+    </div>
+</body>
+</html>
+

@@ -1,0 +1,12 @@
+<table style="overflow: auto; width: 100%; ">
+    % for row in listhba:
+        % if row[1]:
+        <tr class="row" style="clear: both;" id="${row[0]}" onClick="selectHbaRow('${row[0]}', '${row[2]}', '${row[3]}');">
+        % else:
+        <tr class="row" style="clear: both; color: gray;" id="${row[0]}">
+        % endif 
+        <td style="padding-right: 10px;" nowrap>${row[0]}</td> 
+        </tr>
+    % endfor
+</table>
+

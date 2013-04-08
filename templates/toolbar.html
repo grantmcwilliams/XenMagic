@@ -1,0 +1,81 @@
+<div style="height: 50px; background-color: #fcfcfc;border: 1px solid black;" id="menutoolbar">
+    <div class="toolbar" id="t_addserver">
+        <a href="#" onclick="javascript:showPopWin('addserver?host=' + selected_host, 440, 260, null);"><img src="images/add_server.png" style="padding-right: 10px;" valign="middle">Add Server</a>
+    </div>
+    <div class="toolbar" id="tb_newstorage">
+        <div id="tb_newstorage_enabled" style="">
+            <a href="#" onclick="javascript:showPopWin('newstorage?host=' + selected_host, 840, 570, null);"><img src="images/add_storage.png" style="padding-right: 10px;" valign="top">New Storage</a>
+        </div>
+        <div id="tb_newstorage_disabled" style="display: none;" class="disabled">
+            <img src="images/add_storage.png" style="padding-right: 10px;" valign="top" class="disabled">New Storage
+        </div>
+    </div>
+    <div class="toolbar" id="tb_newvm">
+        <div id="tb_newvm_enabled" style="">
+            <a href="#" onclick="javascript:showPopWin('newvm?host=' + selected_host, 840, 550, null);"><img src="images/add_vm.png" style="padding-right: 10px;" valign="middle">New VM</a>
+        </div>
+        <div id="tb_newvm_disabled" style="display: none;" class="disabled">
+            <img src="images/add_vm.png" style="padding-right: 10px;" valign="middle" class="disabled">New VM
+        </div>
+    </div>
+    <div class="toolbar" id="tb_start">
+        <div id="tb_start_enabled" style="">
+            <a href="#" onclick="javascript:callFunction('start_vm')"><img src="images/poweron.png" style="padding-right: 10px;" valign="middle">Start</a>
+        </div>
+        <div id="tb_start_disabled" style="display: none;" class="disabled">
+            <img src="images/poweron.png" style="padding-right: 10px;" valign="middle" class="disabled">Start
+        </div>
+    </div>
+    <div class="toolbar" id="tb_clean_shutdown">
+        <div id="tb_clean_shutdown_enabled" style="">
+            <a href="#"  onclick="javascript:callFunction('clean_shutdown_vm')"><img src="images/shutdown.png" style="padding-right: 10px;" valign="middle">Shut Down</a>
+        </div>
+        <div id="tb_clean_shutdown_disabled" style="display: none;" class="disabled">
+            <img src="images/shutdown.png" style="padding-right: 10px;" valign="middle" class="disabled">Shut Down
+        </div>
+    </div>
+    <div class="toolbar" style="display: none;" id="tb_hard_shutdown">
+        <div id="tb_hard_shutdown_enabled" style="">
+            <a href="#" onclick="javascript:callFunction('hard_shutdown_vm')"><img src="images/shutdown.png" style="padding-right: 10px;" valign="middle">Force Shutdown</a>
+        </div>
+        <div id="tb_hard_shutdown_disabled" style="display: none;" class="disabled">
+            <img src="images/shutdown.png" style="padding-right: 10px;" valign="middle" class="disabled">Force Shutdown
+        </div>
+    </div>
+    <div class="toolbar" id="tb_clean_reboot">
+        <div id="tb_clean_reboot_enabled" style="">
+            <a href="#" onclick="javascript:callFunction('clean_reboot_vm')"><img src="images/restart.png" style="padding-right: 10px;" valign="middle">Reboot</a>
+        </div>
+        <div id="tb_clean_reboot_disabled" style="display: none;" class="disabled">
+            <img src="images/restart.png" style="padding-right: 10px;" valign="middle" class="disabled">Reboot
+        </div>
+    </div>
+    <div class="toolbar" style="display: none;" id="tb_hard_reboot" class="disabled">
+        <div id="tb_hard_reboot_enabled" style="">
+            <a href="#" onclick="javascript:callFunction('hard_reboot_vm')"><img src="images/restart.png" style="padding-right: 10px;" valign="middle">Force Reboot</a>
+        </div>
+        <div id="tb_hard_reboot_disabled" style="display: none;" class="disabled">
+            <img src="images/restart.png" style="padding-right: 10px;" valign="middle" class="disabled">Force Reboot
+        </div>
+    </div>
+    <div class="toolbar" id="tb_suspend">
+        <div id="tb_suspend_enabled" style="">
+            <a href="#" onclick="javascript:callFunction('suspend_vm')"><img src="images/suspend.png" style="padding-right: 10px;" valign="middle">Suspend</a>
+        </div>
+        <div id="tb_suspend_disabled" style="display: none;" class="disabled">
+            <img src="images/suspend.png" style="padding-right: 10px;" valign="middle" class="disabled">Suspend
+        </div>
+    </div>
+    <div class="toolbar" id="tb_unpause">
+        <div id="tb_unpause_enabled" id="">
+            <a href="#" onclick="javascript:callFunction('unpause_vm')"><img src="images/resume.png" style="padding-right: 10px;" valign="middle">Resume</a>
+        </div>
+        <div id="tb_unpause_disabled" style="display: none;" class="disabled">
+            <img src="images/resume.png" style="padding-right: 10px;" valign="middle" class="disabled">Resume
+        </div>
+    </div>
+    <div class="toolbarend" id="tbalerts">
+        <a href="#" onclick="javascript:showPopWin('alerts', 850, 500, null);"><img src="images/ok.png" style="padding-right: 10px;" valign="middle" id="imgtbalerts"> <span id="txttbalerts">No System Alerts</span></a>
+    </div>
+
+</div>

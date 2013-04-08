@@ -1,0 +1,258 @@
+thread_event_next(self):
+fill_alerts(self):
+fill_tree_with_vms(self, treestore, get_data=True):
+dismiss_alert(self, ref):
+fill_listnetworknic(self):
+delete_network(self, ref_network, ref_vm):
+create_external_network(self, name, desc, auto, pif, vlan):
+create_internal_network(self, name, desc, auto):
+is_vlan_available(self, data):
+delete_nic(self, ref_nic, ref_vm, delete_network=True):
+fill_available_nics(self):
+create_bond(self, ref, ref2, name, name2,auto=False):
+fill_nic_info(self, ref):
+upload_patch(self, ref, filename):
+remove_patch(self, ref, patch):
+apply_patch(self, ref, patch):
+reconfigure_pif(self, pif_ref, conf_mode, ip, mask, gw, dns, ref):
+change_server_password(self, old, new):
+install_license_key(self, ref, encoded):
+join_pool(self, host, user, password):
+fill_vms_which_prevent_evacuation(self, ref):
+host_evacuate(self, ref):
+thread_restore_server(self, ref, filename, name):
+thread_backup_server(self, ref, filename, name):
+thread_host_download_logs(self, ref, filename, name):
+create_pool(self, name, desc):
+has_hardware_script(self, ref):
+fill_host_hardware(self, ref):
+add_box_hardware(self, title, text):
+fill_host_network(self, ref):
+fill_host_nics(self, ref):
+__init__(self, host, user, password, ssl = False, connect = True):
+update_connect_status(self):
+reconnect(self):
+connect(self, host, user, password, ssl):
+logout(self):
+file2Generator(self, f):
+get_network_relation(self, ref, show_halted_vms):
+get_storage_relation(self, ref, show_halted_vms):
+prueba(self):
+export_vm(self, uuid):
+get_seconds(self, toconvert):
+format_date(self, toconvert):
+get_seconds_difference_reverse(self, toconvert):
+get_seconds_difference(self, toconvert):
+get_dmesg(self, ref):
+restore_server(self, host, ref, myfile, name):
+save_screenshot(self, host, ref, filename):
+pool_backup_database(self, host, ref,  name):
+pool_restore_database(self, host, ref, myfile, name, dry_run="true"):
+host_download_logs(self, host, ref, name):
+host_download_status_report(self, host, ref, refs, name):
+backup_server(self,host, ref, name):
+import_vm(self, ref, file):
+add_alert(self, message, ref, list):
+add_vm_to_tree(self, vm, treestore):
+fill_allowed_operations(self, ref):
+fill_vm_network(self, ref):
+set_vif_limit(self, ref, limit, vm_ref):
+set_vif_to_manual(self, ref, vm_ref):
+fill_vm_snapshots(self, ref, name):
+get_performance_data(self, uuid, ref, ip, host=False, period=5):
+fill_log(self, ref, uuid):
+add_box_log(self, title, date, description, time, id=None, task=None, progress=0, alt=0):
+cancel_task(self, widget, data=None):
+fill_host_storage(self, ref):
+fill_host_search(self, ref):
+fill_vm_search(self, host):
+fill_local_storage(self, ref):
+fill_vm_storage(self, ref):
+fill_vm_storage_dvd(self, ref):
+update_tab_stg_general(self, ref):
+is_storage_broken(self, ref):
+update_tab_tpl_general(self, ref):
+update_tab_host_general(self, ref):
+update_tab_pool_general(self, ref):
+update_tab_vm_general(self, ref):
+export_vm(self, host, ref, name, ref2=None):
+get_actions(self, ref):
+get_connect_string(self, ref):
+get_connect_parameters(self, ref, host):
+dump(self, obj):
+humanize_time(self, secs):
+convert_bytes(self, n):
+thread_host_search(self, ref, list):
+search_ref(self, model, path, iter_ref, user_data):
+event_next(self):
+update_default_sr(self, model, path, iter_ref, user_data):
+update_vm_status(self, model, path, iter_ref, user_data):
+update_storage_status(self, model, path, iter_ref, user_data):
+delete_storage(self, model, path, iter_ref, user_data):
+update_host_status(self, model, path, iter_ref, user_data):
+delete_host(self, model, path, iter_ref, user_data):
+log_filter_uuid(self, item):
+task_filter_uuid(self, item_ref):
+get_task_ref_by_uuid(self, uuid):
+filter_vif_ref(self, item):
+filter_vbd_ref(self, item):
+filter_vbd_uuid(self, uuid):
+filter_vm_uuid(self, item):
+vm_filter_uuid(self):
+storage_filter_uuid(self):
+host_filter_uuid(self):
+filter_custom_template(self, item):
+filter_normal_template(self, item):
+filter_vdi_ref(self):
+search_in_liststore(self, list, ref, field):
+pause_vm(self, ref):
+unsuspend_vm(self, ref):
+resume_vm(self, ref):
+hard_shutdown_vm(self, ref):
+hard_reboot_vm(self, ref):
+start_vm(self, ref):
+start_vm_recovery_mode(self, ref):
+clean_shutdown_vm(self, ref):
+clean_reboot_vm(self, ref):
+can_start(self, ref, host_uuid):
+suspend_vm(self, ref):
+unpause_vm(self, ref):
+make_into_template(self, ref):
+start_vm_on(self, ref, ref2):
+resume_vm_on(self, ref, ref2):
+migrate_vm(self, ref, ref2):
+fill_list_updates(self, ref):
+fill_list_report(self, ref):
+fill_list_templates(self):
+fill_list_isoimages(self):
+fill_list_phydvd(self):
+fill_list_networks(self):
+fill_management_networks(self, network_ref):
+fill_mamagement_ifs_list(self):
+fill_listnewvmhosts(self):
+set_default_storage(self, ref):
+fill_listrepairstorage(self, ref):
+repair_storage(self, ref):
+remove_server_from_pool(self, ref):
+add_server_to_pool(self, widget, ref, server, server_ref, master_ip):
+add_server_to_pool_force(self, ref, data=None):
+delete_pool(self, pool_ref):
+destroy_vm(self, ref, delete_vdi, delete_snap):
+fill_listcopystg(self):
+get_path_available_host(self):
+first_network(self):
+first_network_ref(self):
+fill_listnewvmstorage(self, vm, host, ref):
+fill_listnewvmdisk(self):
+create_newvm(self, **data):
+get_vbd(self, ref):
+get_vdi(self, ref):
+get_storage(self, ref):
+get_allowed_vbd_devices(self, ref):
+set_vm_affinity(self, ref, affinity):
+set_network_name_label(self, ref, name):
+set_network_name_description(self, ref, desc):
+set_vdi_other_config(self, ref, other_config):
+set_vdi_name_label(self, ref_vdi, name):
+set_vdi_name_description(self, ref_vdi, desc):
+resize_vdi(self, ref_vdi, size):
+set_vbd_userdevice(self, ref_vbd, userdevice):
+set_vbd_mode(self, ref_vbd, mode):
+set_vbd_bootable(self, ref_vbd, bootable):
+set_network_other_config(self, ref, other_config):
+set_network_automatically(self, ref, auto):
+set_host_other_config(self, ref, other_config):
+set_host_name_label(self, ref, name):
+set_host_name_description(self, ref, desc):
+set_host_log_destination(self, ref, dest):
+set_storage_other_config(self, ref, other_config):
+set_storage_name_label(self, ref, name):
+set_storage_name_description(self, ref, desc):
+set_pool_other_config(self, ref, other_config):
+set_pool_name_label(self, ref, name):
+set_pool_name_description(self, ref, desc):
+set_vm_other_config(self, ref, other_config):
+set_vm_name_label(self, ref, name):
+set_vm_name_description(self, ref, desc):
+set_vm_memory(self, ref, memory):
+set_vm_vcpus(self, ref, vcpus):
+set_vm_prio(self, ref, prio):
+set_vm_poweron(self, ref, poweron):
+set_vm_bootpolicy(self, ref, bootpolicy):
+set_vm_boot_params(self, ref, order):
+set_pool_custom_fields(self, xml):
+fill_listcustomfields(self):
+fill_listhomeserver(self, ref):
+fill_vdi_location(self, ref):
+__init__(self, uuid):
+__init__(self, uuid):
+__init__(self, url):
+get_nrows(self):
+get_vm_list(self):
+get_vm_param_list(self, uuid):
+get_vm_data(self, uuid, param, row):
+get_host_uuid(self):
+get_host_param_list(self):
+get_host_data(self, param, row):
+get_row_time(self,row):
+__lookup_data(self, col, row):
+__lookup_timestamp(self, row):
+refresh(self):
+__parse_xmldoc(self, xmldoc):
+lookup_metadata_bytag(name):
+__handle_col(self, col):
+main():
+__init__(self, filename):
+parse_head(self):
+parse_ds(self):
+get_data(self):
+__init__(self, filename):
+parse_head(self):
+parse_ds(self):
+get_data(self, pdp=5):
+prueba(value):
+hovered(chart, graph, (x, y)):
+dump(obj):
+fill_hw_hba(self, ref, list):
+rescan_isos(self, ref):
+detach_storage(self, ref):
+forget_storage(self, ref):
+delete_vdi(self, ref_vdi, ref_vm):
+reattach_nfs_iso(self, sr, name, share, options):
+create_nfs_iso(self, ref, name, share, options):
+reattach_cifs_iso(self, sr, name, share, options, user="", password=""):
+create_cifs_iso(self, ref, name, share, options, user="", password=""):
+create_nfs_vhd(self, ref, name, host, path, options):
+reattach_nfs_vhd(self, ref, name, host, path, options, uuid):
+format_hardware_hba(self, ref, uuid, name, path): 
+reattach_and_introduce_hardware_hba(self, ref, uuid, name, path): 
+reattach_hardware_hba(self, ref, uuid, name, path): 
+check_hardware_hba(self, ref, uuid, text): 
+check_iscsi(self, ref, name, host, port, scsiid, targetiqn, user, password):
+create_iscsi(self, ref, name, host, port, scsiid, targetiqn, user, password):
+reattach_iscsi(self, ref, name, host, port, scsiid, targetiqn, user, password, lun):
+scan_nfs_vhd(self, ref, host, path, options):
+search_storage_uuid(self, uuid):
+fill_iscsi_target_iqn(self, ref, target, port, user=None, password=None):
+fill_iscsi_target_lun(self, ref, target, targetiqn, port, user=None, password=None):
+vm_remove_interface(self, vm_ref, vif_ref):
+fill_addinterface_network(self):
+fill_editinterface_network(self, network_ref):
+vm_add_interface(self, vm_ref, network_ref, mac, limit):
+thread_import_vm(self, ref, file):
+copy_vm(self, ref, name, desc, sr=None, full=False):
+fill_importstg(self, list):
+take_snapshot(self, ref, snapname):
+delete_snapshot(self, ref, ref_vm):
+create_template_from_snap(self, ref, name):
+vm_storagedetach(self, ref):
+vm_storageplug(self, ref):
+vm_storageunplug(self, ref):
+set_vm_dvd(self, vm, vdi):
+add_disk_to_stg(self, name, description, sr, virtual_size):
+add_disk_to_vm(self, name, description, sr, virtual_size, vmuuid, vm_ref):
+fill_vm_storageattach(self):
+attach_disk_to_vm(self, ref, vdi, ro):
+install_xenserver_tools(self, vm):
+get_xs_tools_ref(self):
+get_vm_dvd_ref(self, vm):

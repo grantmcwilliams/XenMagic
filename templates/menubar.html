@@ -1,0 +1,454 @@
+<div class="suckertreemenu">
+<ul id="treemenu1">
+<li><a href="#" style="border-left: 1px solid black">File</a>
+    <ul>
+        <li id="menuitem_importvm">
+        <a href="#" onClick="javascript:showPopWin('importvm?host=' + selected_host, 520, 400, null);">
+            <!--    <a href="#" onClick="alert('Use openxenmanager or xencenter to import VMs');">-->
+                Import VM...
+            </a>
+        </li>
+    </ul>
+</li>
+<li><a href="#">View</a>
+  <ul>
+    <li><a href="#">Server View</a>
+        <ul>
+            <li id="show_xs_templates">
+                <a href="#" onClick="javascript:toogleConfig(this);">
+                    % if str(config["show_xs_templates"]) == "True":
+                        [x] XenServer Templates
+                    % else: 
+                        [ ] XenServer Templates
+                    % endif
+                </a>
+            </li>
+            <li id="show_custom_templates">
+                <a href="#" onClick="javascript:toogleConfig(this);">
+                    % if str(config["show_custom_templates"]) == "True":
+                        [x] Custom Templates
+                    % else:
+                        [x] Custom Templates
+                    % endif
+                </a>
+            </li>
+            <li id="show_local_storage">
+                <a href="#" onClick="javascript:toogleConfig(this);">
+                    % if str(config["show_local_storage"]) == "True":
+                        [x] Local Storage
+                    % else:
+                        [ ] Local Storage
+                    % endif
+                </a>
+            </li>
+            <li id="show_hidden_vms">
+                <a href="#" onClick="javascript:toogleConfig(this);">
+                    % if str(config["show_hidden_vms"]) == "True":
+                        [x] Hidden VMs
+                    % else:
+                        [ ] Hidden VMs
+                    % endif
+                </a>
+            </li>
+
+        </ul>
+    </li>
+    <li id="show_toolbar">
+        <a href="#" onClick="javascript:toogleConfig(this);">
+            % if str(config["show_toolbar"]) == "True":
+                [x] Toolbar
+            % else:
+                [ ] Toolbar
+            % endif
+        </a>
+    </li>
+  </ul>
+</li>
+<li><a href="#">Pool</a>
+    <ul>
+        <li id="menuitem_pool_new">
+            <a href="#" onClick="javascript:showPopWin('newpool?selhost=' + selected_host + '&ref=' + selected_ref, 630, 550, null);">
+                New Pool
+            </a>
+        </li>
+        <li><a href="#"><hr /></a></li>
+        <li id="menuitem_pool_prop"><a href="#">Properties</a></li>
+        <li><a href="#"><hr /></a></li>
+        <li id="menuitem_pool_add_server"><a href="#"  onmouseover="fillAddServersToPool();">Add Server</a>
+            <ul id="menu_add_server">
+            <li><a href="#">Servers</a></li>
+            <li><a href="#"><hr /></a></li>
+            </ul>
+        </li>
+        <li id="menuitem_pool_remove_server" >
+            <a href="#" onClick="javascript:showPopWin('remove_server_from_pool?host=' + selected_host + '&ref=' + selected_ref, 320, 200, null); ">
+                Remover Server
+            </a>
+        </li>
+        <li><a href="#"><hr /></a></li>
+        <li id="menuitem_pool_delete">
+            <a href="#" onClick="javascript:showPopWin('delete_pool?host=' + selected_host + '&ref=' + selected_ref, 320, 200, null); ">
+                Delete
+            </a>
+        
+        </li>
+        <li id="menuitem_pool_disconnect">
+            <a href="#" onClick="javascript:showPopWin('disconnect?host=' + selected_host + '&ref=' + selected_ref, 320, 200, null); document.getElementById('home').onclick(); ">
+                Disconnect
+            </a>
+        </li>
+        <li id="menuitem_pool_backupdb">
+            <a href="#" onClick="javascript:showPopWin('pool_backup_database?host=' + selected_host + '&ref=' + selected_ref + '&name=' + selected_name, 520, 300, null);">
+                Backup Database
+            </a>
+        </li>
+        <li id="menuitem_pool_restoredb">
+            <a href="#" onClick="javascript:showPopWin('filerestorepool?host=' + selected_host + '&ref=' + selected_ref + '&name=' + selected_name, 320, 150, null);">
+                Restore Database
+            </a>
+        </li>
+     
+    </ul>
+</li>
+<li><a href="#">Server</a>
+    <ul>
+        <li id="menuitem_newvm">
+            <a href="#" onClick="javascript:showPopWin('newvm?host=' + selected_host, 805, 550, null);">
+                New VM...
+            </a>
+        </li>
+        <li><a href="#"><hr /></a></li>
+        <li id="menuitem_server_prop">
+            <a href="#" onClick="showPopWin('properties?host=' + selected_host + '&ref=' + selected_ref + '&type=' + selected_type, 820, 570, null);">
+                Properties
+            </a>
+        </li>
+        <li id="menuitem_mgmt_ifs">
+            <a href="#" onClick="showPopWin('mgmtinterface?host=' + selected_host + '&ref=' + selected_ref, 820, 570, null);">
+            Management Interfaces
+            </a>
+        </li>
+        <li id="menuitem_dmesg">
+            <a href="#"  onClick="javascript:showPopWin('hostdmesg?host=' + selected_host + '&ref=' + selected_ref, 640, 550, null);">
+                Show dmesg
+            </a>
+        </li>
+        <li><a href="#"><hr /></a></li>
+        <li id="menuitem_server_reboot" onClick="if(confirm('Are you sure you want to reboot the selected server?')) { javascript:showPopWin('reboot_server?host=' + selected_host + '&ref=' + selected_ref, 320, 200, null);}"><a href="#">Reboot</a></li>
+        <li id="menuitem_server_shutdown" onClick="if(confirm('Are you sure you want shutdown the selected server?')) { javascript:showPopWin('shutdown_server?host=' + selected_host + '&ref=' + selected_ref, 320, 200, null);}"><a href="#">Shutdown</a></li>
+        <li><a href="#"><hr /></a></li>
+        <li id="menuitem_addserver" onclick="javascript:showPopWin('addserver?host=' + selected_host, 440, 260, null);">
+            <a href="#">
+                Add ...
+            </a>
+        </li>
+        <li id="menuitem_connect">
+            <a href="#" onclick="javascript:showPopWin('addserver?host=' + selected_host, 440, 260, null);">Connect</a>
+        </li>
+        <li id="menuitem_connectall"><a href="#">Connect All</a></li>
+        <li id="menuitem_forget">
+            <a href="#" onclick="javascript:showPopWin('forget_saved_password?host=' + selected_host, 440, 260, null);">Forget saved Password</a>
+        </li>
+        <li id="menuitem_disconnect">
+            <a href="#"  onClick="javascript:showPopWin('disconnect?host=' + selected_host + '&ref=' + selected_ref, 320, 200, null); document.getElementById('home').onclick(); ">
+                Disconnect
+            </a>
+        </li>
+        <li id="menuitem_disconnectall">
+            <a href="#"  onClick="javascript:showPopWin('disconnect_all', 320, 200, null); document.getElementById('home').onclick();">
+                Disconnect All
+            </a>
+        </li>
+        <li id="menuitem_remove">
+            <a href="#"  onClick="javascript:showPopWin('remove_server?host=' + selected_host, 320, 200, null); ">
+                    Remove
+            </a>
+        </li>
+        <li id="menuitem_server_add_to_pool"><a href="#" onmouseover="fillPoolsToAddToPool();">Add To Pool</a>
+            <ul id="menu_server_add_to_pool">
+            <li>Pools</li>
+            <li><a href="#"><hr /></a></li>
+            </ul>
+        </li>
+        <li><a href="#"><hr /></a></li>
+        <li id="menuitem_install_xslic"><a href="#" onClick="javascript:showPopWin('license?host=' + selected_host + '&ref=' + selected_ref, 540, 340, null);">Assign License ...</a></li>
+        <li id="menuitem_changepw"><a href="#" onClick="javascript:showPopWin('changepassword?hostname=' + selected_host, 520, 300, null);">Change Server Password...</a></li>
+        <li><a href="#"><hr /></a></li>
+        <li id="menu_maintance"><a href="#">Maintenance</a>
+            <ul id="menu_maintance_actions">
+            <li id="menuitem_backupserver">
+                <a href="#" onClick="javascript:showPopWin('backup_server?host=' + selected_host + '&ref=' + selected_ref + '&name=' + selected_name, 520, 300, null);">
+                    Backup server
+                </a>
+            </li>
+            <li id="menuitem_restoreserver">
+                <a href="#" onClick="javascript:showPopWin('filerestoreserver?host=' + selected_host + '&ref=' + selected_ref + '&name=' + selected_name, 320, 150, null);">
+                    Restore server
+                </a>
+            </li>
+            <li id="menuitem_downloadlogs">
+                <a href="#" onClick="javascript:showPopWin('host_download_logs?host=' + selected_host + '&ref=' + selected_ref + '&name=' + selected_name, 520, 300, null);">
+                    Download Logs
+                </a>
+            </li>
+            <li id="menuitem_entermaintenancemode"><a href="#" onClick="javascript:showPopWin('maintancemode?host=' + selected_host +'&ref=' + selected_ref, 640, 500, null);">Enter Maintenance Mode</a></li>
+            <li id="menuitem_exitmaintenancemode"><a href="#" onClick="javascript:showPopWin('exitmaintancemode?host=' + selected_host +'&ref=' + selected_ref, 640, 500, null);">Exit Maintenance Mode</a></li>
+            </ul>
+        </li>
+    </ul>
+</li>
+<li><a href="#">VM</a>
+    <ul>
+        <li id="menuitem_newvm2">
+             <a href="#" onclick="javascript:showPopWin('newvm?host=' + selected_host, 840, 550, null);">
+                New ...
+            </a>
+        </li>
+        <li id="menuitem_importvm2">
+            <a href="#" onClick="javascript:showPopWin('importvm?host=' + selected_host, 800, 580, null);">
+            <!--<a href="#" onClick="alert('Use openxenmanager or xencenter to import VMs');">-->
+                Import ...
+            </a>
+        </li>
+        <li><a href="#"><hr /></a></li>
+        <li id="menuitem_vm_prop">
+            <a href="#" onClick="showPopWin('properties?host=' + selected_host + '&ref=' + selected_ref + '&type=' + selected_type, 820, 570, null);">
+                Properties
+            </a>
+        </li>
+        <li><a href="#"><hr /></a></li>
+        <li id="menuitem_vm_start">
+            <a href="#" onclick="javascript:callFunction('start_vm')">
+                Start
+            </a>
+            </li>
+        <li id="menuitem_vm_start_on"><a href="#" onmouseover="fillStartServers();">Start On</a>
+            <ul id="menu_vm_start_on">
+            <li><a href="#" style="cursor: pointer;">Servers</a></li>
+            <li><a href="#"><hr /></a></li>
+            </ul>
+        </li>
+        <li id="menuitem_vm_resume_on"><a href="#" onmouseover="fillResumeServers();">Resume On</a>
+            <ul id="menu_vm_resume_on">
+            <li><a href="#" style="cursor: pointer;">Servers</a></li>
+            <li><a href="#"><hr /></a></li>
+            </ul>
+        </li>
+        <li id="menuitem_vm_pool_migrate"><a href="#" onmouseover="fillMigrateServers();">Migrate</a>
+            <ul id="menu_vm_migrate">
+            <li><a href="#" style="cursor: pointer;">Servers</a></li>
+            <li><a href="#"><hr /></a></li>
+            </ul>
+        </li>
+        <li id="menuitem_vm_suspend">
+            <a href="#" onclick="javascript:callFunction('suspend_vm')">
+                Suspend
+            </a>
+        </li>
+        <li id="menuitem_vm_clean_reboot">
+            <a href="#" onclick="javascript:callFunction('clean_reboot_vm')">
+                Reboot
+            </a>
+        </li>
+        <li id="menuitem_vm_clean_shutdown">
+            <a href="#"  onclick="javascript:callFunction('clean_shutdown_vm')">
+                Shut down
+            </a>
+        </li>
+        <li id="menuitem_vm_snapshot">
+            <a href="#" onclick="javascript:on_bttakesnapshot_clicked()">
+                Take snapshot
+            </a>
+        </li>
+        <li><a href="#"><hr /></a></li>
+        <li id="menuitem_vm_copy">
+           <a href="#" onclick="javascript:showPopWin('windowcopyvm?host=' + selected_host + '&vm=' + selected_ref, 620, 530, null);">
+               Copy VM
+           </a>
+       </li>
+       <li id="menuitem_vm_export">
+            <a href="#" onClick="javascript:showPopWin('export_vm?host=' + selected_host + '&ref=' + selected_ref + '&name=' + selected_name, 520, 300, null);">
+               Export as Backup ...
+           </a>
+       </li>
+       <li id="menuitem_vm_make_into_template">
+            <a href="#" onClick="javascript:showPopWin('make_into_template?host=' + selected_host + '&ref=' + selected_ref, 520, 300, null);">
+               Convert to template
+           </a>
+        </li>
+        <li><a href="#"><hr /></a></li>
+        <li id="menuitem_vm_install_xs_tools">
+            <a href="#" onClick="javascript:showPopWin('install_xenserver_tools?host=' + selected_host + '&ref=' + selected_ref, 520, 300, null);">
+                Install XenServer Tools
+            </a>
+        </li>
+        <li id="menuitem_vm_startrecovery">
+            <a href="#" onClick="javascript:showPopWin('start_vm_recovery_mode?host=' + selected_host + '&ref=' + selected_ref, 520, 300, null);">
+                Start in Recovery Mode
+            </a>
+        </li>
+        <li><a href="#"><hr /></a></li>
+        <li id="menuitem_vm_hard_shutdown">
+            <a href="#"  onclick="javascript:callFunction('hard_shutdown_vm')">
+                Force Shutdown
+            </a>
+        </li>
+        <li id="menuitem_vm_hard_reboot">
+            <a href="#"  onclick="javascript:callFunction('hard_reboot_vm')">
+                Force Reboot
+            </a>
+        </li>
+        <li><a href="#"><hr /></a></li>
+        <li id="menuitem_vm_destroy">
+            <a href="#" onclick="javascript:on_m_destroy_activate();">
+                Delete
+            </a>
+        </li>
+
+    </ul>
+</li>
+<li><a href="#">Storage</a>
+    <ul>
+         <a href="#" onclick="javascript:showPopWin('newvm?host=' + selected_host, 840, 550, null);">
+         <li id="menuitem_stg_new">
+             <a href="#" onclick="javascript:showPopWin('newstorage?host=' + selected_host, 840, 550, null);">
+                 New Storage Repository ...
+             </a>
+         </li>
+        <li><a href="#"><hr /></a></li>
+        <li id="menuitem_stg_prop">
+            <a href="#" onClick="showPopWin('properties?host=' + selected_host + '&ref=' + selected_ref + '&type=' + selected_type, 820, 570, null);">
+                Properties
+            </a>
+        </li>
+        <li><a href="#"><hr /></a></li>
+        <li id="menuitem_stg_repairstorage">
+            <a href="#" onClick="showPopWin('repairstorage?host=' + selected_host + '&ref=' + selected_ref, 470, 420, null);">
+                Repair Storage
+            </a>
+        </li>
+        <li id="menuitem_stg_default">
+            <a href="#" onClick="showPopWin('set_default_storage?host=' + selected_host + '&ref=' + selected_ref, 820, 570, null);">
+                Set as Default Storage Repository
+            </a>
+        </li>
+        <li><a href="#"><hr /></a></li>
+        <li id="menuitem_stg_newvdi">
+            <a href="#"  onclick="javascript:showPopWin('stgaddnewdisk?host=' + selected_host + '&ref=' + selected_ref, 580, 500, null);">
+                New Virtual Disk ...
+            </a>
+        </li>
+        <li id="menuitem_stg_attachvdi">
+            <a href="#" onclick="javascript:showPopWin('vmattachdisk?host=' + selected_host + '&vm=' + selected_ref, 580, 450, null);">
+                Attach Virtual Disk ...
+            </a>
+        </li>
+        <li><a href="#"><hr /></a></li>
+        <li id="menuitem_stg_plug">
+             <a href="#" onclick="javascript:showPopWin('newstorage?host=' + selected_host + '&ref=' + selected_ref, 840, 550, null);">
+              Reattach... 
+            </a>
+        </li>
+        <li id="menuitem_stg_unplug">
+            <a href="#" onclick="on_menuitem_stg_unplug_clicked()">
+               Detach
+            </a>
+        </li>
+        <li id="menuitem_stg_forget">
+            <a href="#" onclick="on_menuitem_stg_forget_clicked()">
+               Forget 
+            </a>
+        </li>
+        <li id="menuitem_stg_destroy">
+            <a href="#" onclick="on_menuitem_stg_destroy_clicked();" >
+                Delete 
+            </a>
+        </li>
+    </ul>
+</li>
+<li><a href="#">Templates</a>
+    <ul>
+        <li id="menuitem_tpl_newvm">
+            <a href="#" onclick="javascript:showPopWin('newstorage?host=' + selected_host, 840, 550, null);">
+                New VM ...
+            </a>
+        </li>
+        <li id="menuitem_tpl_import">
+            <!--<a href="#" onClick="javascript:showPopWin('importvm?host=' + selected_host, 520, 400, null);">-->
+            <a href="#" onClick="alert('Use openxenmanager or xencenter to import templates');">
+               Import Template ...
+           </a>
+        </li>
+        <li id="menuitem_tpl_export">
+            <a href="#" onClick="javascript:showPopWin('export_vm?host=' + selected_host + '&ref=' + selected_ref + '&name=' + selected_name, 520, 300, null);">
+                Export Template ...
+            </a>
+            </li>
+        <li id="menuitem_tpl_copy">
+            <a href="#" onclick="javascript:showPopWin('windowcopyvm?host=' + selected_host + '&vm=' + selected_ref, 640, 550, null);">Copy Template ...</a>
+        </li>
+        <li id="menuitem_tpl_delete">
+            <a href="#" onclick="javascript:on_m_destroy_activate();">
+                Delete Template
+            </a>
+        </li>
+    </ul>
+</li>
+<li><a href="#">Tools</a>
+    <ul>
+        <li id="menuitem_tools_statusreport">
+             <a href="#" onclick="javascript:showPopWin('statusreport?host=' + selected_host + '&ref=' + selected_ref, 840, 550, null);">
+                Get Server Status Report...
+            </a>
+        </li>
+        <li id="menuitem_tools_alerts">
+            <a href="#" onclick="javascript:showPopWin('alerts', 850, 500, null);">
+                System Alerts...
+            </a>
+        </li>
+        <li><a href="#"><hr /></a></li>
+        <li id="menuitem_options">
+            <a href="#" onclick="javascript:showPopWin('options', 590, 230, null);">
+                Options
+            </a>
+        </li>
+        <li><a href="#"><hr /></a></li>
+        <li id="menuitem_tools_updatemanager">
+             <a href="#" onclick="javascript:showPopWin('updatemanager?host=' + selected_host + '&ref=' + selected_ref, 580, 550, null);">
+                Updates Manager...
+            </a>
+        </li>
+        <li><a href="#"><hr /></a></li>
+        <li id="menuitem_tools_cad"><a href="#" onClick="javascript:alert('TODO');">Send Ctrl-Alt-Del</a></li>
+        <li id="menuitem_takescreenshot"><a href="#" onClick="javascript:showPopWin('save_screenshot?host=' + selected_host + '&ref=' + selected_ref + '&type=' + selected_type, 520, 300, null);">Take Screenshot</a></li>
+    </ul>
+</li>
+<li><a href="#">Window</a>
+    <ul>
+        <li id="tm_logwindow">
+        <a href="javascript:showPopWin('alerts', 850, 500, null);">
+            Log window</a>
+        
+        </li>
+    </ul>
+</li>
+<li style="width: 8.3%;"><a href="#">Help</a>
+    <ul>
+        <li id="menuitem_checkforupdates">
+            <a href="#" onclick="javascript:showPopWin('checkforupdates', 840, 550, null);">
+                Check for Updates
+            </a>
+        </li>
+        <li id="h_menuitem_xenserver_on_the_web"><a href="http://www.xenserver.com/" target= "_blank">XenServer on the Web</a></li>
+        <li><a href="#"><hr /></a></li>
+        <li id="h_menuitem_help">
+             <a href="#" onclick="javascript:showPopWin('about', 620, 360, null);">
+                About
+            </a>
+        </li>
+    </ul>
+</li>
+
+</ul>
+</div>
+

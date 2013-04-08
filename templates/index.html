@@ -1,0 +1,82 @@
+<html>
+<title>XenWebManager</title>
+<head>
+    <link rel="stylesheet" href="css/style_blue.css" type="text/css" media="screen" charset="utf-8"/>
+    <link rel="stylesheet" href="css/subModal.css" type="text/css" />
+    <link rel="stylesheet" href="css/menubar.css" type="text/css" />
+    <link rel="stylesheet" href="css/toolbar.css" type="text/css" />
+    <link rel="stylesheet" href="css/vmtree.css" type="text/css" />
+    <link rel="stylesheet" href="css/tabs.css" type="text/css" />
+    <link rel="stylesheet" href="css/sitemapstyler.css" type="text/css" />
+
+    <script type="text/javascript" src="js/toolbar.js"> </script>
+    <script type="text/javascript" src="js/menubar.js"> </script>
+    <script type="text/javascript" src="js/tabs.js"> </script>
+    <script type="text/javascript" src="js/common.js"> </script>
+    <script type="text/javascript" src="js/subModal.js"> </script>
+    <script type="text/javascript" src="js/sitemapstyler.js"> </script>
+    <script type="text/javascript" src="js/vmtree.js"> </script>
+    <script type="text/javascript" src="js/index.js"> </script>
+    <script type="text/javascript" src="js/jquery-1.4.2.min.js"> </script>
+    <script type="text/javascript" src="js/jquery.contextmenu.r2.packed.js"> </script>
+    <script type="text/javascript" src="js/splitter.js"> </script>
+    <script type="text/javascript">
+
+    $(document).ready(function() {
+            $("#splitterContainer").splitter({minAsize:100,maxAsize:400,splitVertical:false,A:$('#idvmtree'),B:$('#content'),slave:$("#tabs"),closeableto:0});
+            updateContextMenu();
+      });
+    % if str(options["save_password"]) == "True" and not masterpassword:
+    ask_master_password = true;
+    % endif
+
+
+    
+    </script>
+
+<style type="text/css" media="all">
+/* Splitbar styles; these are the default class names and required styles */
+.splitbarV {
+    float:left;width:6px;height:100%;
+    line-height:0px;font-size:0px;
+    border-left:solid 1px #9cbdff;border-right:solid 1px #9cbdff;
+    background:#cbe1fb url(images/panev.gif) 0% 50%;
+}
+.splitbuttonV{
+    margin-top:-41px;margin-left:-4px;top:50%;position:relative;
+    height:83px;width:10px;
+    background:transparent url(images/panevc.gif) 10px 50%;
+}
+.splitbuttonV.invert{
+    margin-left:0px;background:transparent url(images/panevc.gif) 0px 50%;
+}
+.splitbarV.working,.splitbarH.working,.splitbuttonV.working,.splitbuttonH.working{
+ -moz-opacity:.50; filter:alpha(opacity=50); opacity:.50;
+}
+</style>
+
+    <noscript> You need javascript </noscript>
+
+</head>
+<body onLoad="sitemapstyler(); update_toolbar(); update_menubar();check_updates(${update_hosts});update_alerts();">
+    ${contextmenu}
+    <div style="width: 98%;">${menubar}</div>
+    % if str(show_toolbar) == "True":
+        <div style="width: 100%;" id="toolbar">${toolbar}</div>
+    % else:
+        <div style="width: 100%; display: none;" id="toolbar">${toolbar}</div>
+    % endif
+    <div style="width: 100%;">${head}</div>
+    <div style="width: 100%; height: 85%;" id="splitterContainer">
+        <div id="idvmtree" class="vmtree" style="width: 200px; overflow: auto; background-color: white;  float: left;">
+            ${vmtree}
+        </div> 
+        <div style="height: 98%; float: left;" id="content">
+            <div id="tabbox">${tabs}</div>
+            <div id="frame" style="padding-left: 20px; width: 100%;overflow: auto;height: 95%; background-color: white; float: left;">${data}</div>
+        </div>
+    </div>
+    <div style="width: 98%; border: 1px solid black; text-align: center; background-color: white; margin-top: 10px;" id="statusbar">&nbsp;</div>
+
+</body>
+</html>

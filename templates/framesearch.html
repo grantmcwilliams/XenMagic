@@ -1,0 +1,33 @@
+<div style="margin-top: 10px; width: 97%; height: 90%;">
+    <strong>Overview</strong>
+    <div style="height: 20px; width: 100%;"></div>
+    <div style="float: right; border: 1px solid grey; height: 90%; overflow: auto; width: 100%;"> 
+        <table style="overflow: auto;  " id="tablesearch">
+            <tr class="head">
+                <th class="headcolumn" style="min-width: 150px;">Server</th> 
+                <th class="headcolumn" style="min-width: 150px;">CPU Usage</th> 
+                <th class="headcolumn" style="min-width: 150px;">Used Memory</th>
+                <th class="headcolumn" style="min-width: 100px;" nowrap>Disks<br>(avg / max KBs)</th> 
+                <th class="headcolumn" style="min-width: 100px;" nowrap>Network<br>(avg / max KBs)</th> 
+                <th class="headcolumn" style="min-width: 70;">Address</th>
+                <th class="headcolumn" style="min-width: 150px;">Uptime</th>
+            </tr>
+            % for row in parents:
+                <tr class="row" style="clear: both;" name="${parents[row][11]}" id="row_${parents[row][11]}">
+                <td style="float: left; padding-right: 10px;" nowrap>
+                    <img src="${parents[row][0]}">
+                    <strong>${parents[row][1]}</strong><br />
+                    <font style="font-size: 8px;"><i>${parents[row][2]}</i></font>
+                </td> 
+                <td style="padding-right: 10px;" nowrap><img src="${parents[row][3]}"><br><font>&nbsp;${parents[row][4]}</font></td> 
+                <td style="padding-right: 10px;" nowrap><img src="${parents[row][5]}"><br>${parents[row][6]}</td> 
+                <td style="text-align: center;">${parents[row][7]}</td> 
+                <td style="text-align: center;">${parents[row][8]}</td> 
+                <td style="text-align: center;">${parents[row][9]}</td> 
+                <td style="text-align: center;" nowrap>${parents[row][10]}</td> 
+                </tr>
+                <tr><td colspan="9"><div id="search_${parents[row][11]}"></div></td></tr>
+            % endfor
+        </table>
+    </div>        
+</div>

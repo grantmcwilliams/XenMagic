@@ -1,0 +1,63 @@
+<%def name="get_option_info(active)">
+    return_text = ""
+    if active:
+        return_text = "selected"
+        return return_text
+        </%def>
+<div style="margin-top: 10px; width: 97%; height: 90%;">
+    <strong>Virtual Disks</strong>
+
+    <div style="height: 20px; width: 100%;"></div>
+    <div style="float: left;">
+        <select name="combovmstoragedvd" id="combovmstoragedvd"  onChange="on_combovmstoragedvd_changed();">
+            % for i, row in enumerate(dvds):
+                % if row[2] == False:
+                    <option disabled>${row[0]}</option>
+                % else:
+                    % if i == active:
+                    <option value="${row[1]}" selected>&nbsp;&nbsp;&nbsp;&nbsp;${row[0]}</option>
+                    % else:
+                        <option value="${row[1]}">&nbsp;&nbsp;&nbsp;&nbsp;${row[0]}</option>
+                    % endif
+                % endif
+            % endfor
+        </select>        
+    </div>    
+    <div style="float: right;">
+        <input type="button" value="Add..." id="btvmaddstorage" name="btvmaddstorage" class="button" onclick="javascript:showPopWin('vmaddnewdisk?host=' + selected_host + '&vm=' + selected_ref, 580, 500, null);">
+        <input type="button" value="Attach..." id="btstorageattach" name="btstorageattach" class="button"  onclick="javascript:showPopWin('vmattachdisk?host=' + selected_host + '&vm=' + selected_ref, 580, 450, null);">
+        <input type="button" value="Properties" id="btstorageproperties" name="btstorageproperties" class="button" onclick="javascript:showPopWin('properties?host=' + selected_host + '&ref=' + selected_vdi_vm_ref + '&type=vdi', 820, 570, null);" disabled>
+        <input type="button" value="Deactivate" id="btstoragedeactivate" name="btstoragedeactivate" class="button" disabled onClick="javascript:on_btstoragedeactivate_clicked();">
+        <input type="button" value="Detach" id="btstoragedetach" name="btstoragedetach" class="button" disabled onClick="javascript:on_btstoragedetach_clicked();">
+        <input type="button" value="Delete" id="btstoragedelete" name="btstoragedelete" class="button" disabled onClick="javascript:on_btstoragedelete_clicked();">
+    </div>
+    <div style="height: 10px; width: 100%;"></div><br>
+    <div style="float: right; border: 1px solid grey; height: 85%; overflow: auto; width: 100%;"> 
+        <table style="overflow: auto; width: 100%; ">
+            <tr class="head">
+                <th class="headcolumn" style="min-width: 150px;">Name</th> 
+                <th class="headcolumn" style="min-width: 150px;">Description</th> 
+                <th class="headcolumn" style="min-width: 150px;">Storage Repository</th>
+                <th class="headcolumn" style="min-width: 60px;">Device Position</th> 
+                <th class="headcolumn" style="min-width: 100px;">Size</th> 
+                <th class="headcolumn" style="min-width: 100px;">Read Only</th>
+                <th class="headcolumn" style="min-width: 100px;">Priority</th>
+                <th class="headcolumn" style="min-width: 100px;">Active</th>
+                <th class="headcolumn" style="min-width: 100px;">Device Path</th> 
+            </tr>
+            % for row in storages:
+            <tr class="row" style="clear: both;" id="${row[9]}" onClick="selectVdiVmRow('${row[9]}', '${row[10]}', '${row[7]}', '${row[12]}', '${row[13]}');">
+                <td style="float: left; padding-right: 10px;" nowrap>${row[0]}</td> 
+                <td style="padding-right: 10px;" nowrap>${row[1]}</td> 
+                <td style="text-align: center; padding-right: 10px;" nowrap>${row[2]}</td> 
+                <td style="text-align: center;">${row[3]}</td> 
+                <td style="text-align: center;" nowrap>${row[4]}</td> 
+                <td style="text-align: center;">${row[5]}</td> 
+                <td style="text-align: center;">${row[6]}</td> 
+                <td style="text-align: center;">${row[7]}</td> 
+                <td style="text-align: center;">${row[8]}</td> 
+                </tr>
+            % endfor
+        </table>
+    </div>        
+</div>

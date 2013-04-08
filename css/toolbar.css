@@ -1,0 +1,23 @@
+DIV.toolbar {
+    display: block; 
+    float: left;
+    border-right: 1px solid black;
+    height: 28px; 
+    margin-top: 5px; 
+    margin-left: 5px; 
+    padding-right: 10px;
+}
+DIV.disabled {
+    color: #ccc;
+}
+IMG.disabled {
+    visibility: hidden;
+}
+DIV.toolbarend {
+    display: block; 
+    float: left;
+    height: 28px; 
+    margin-top: 5px; 
+    margin-left: 5px; 
+    padding-right: 10px;
+}

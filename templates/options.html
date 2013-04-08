@@ -1,0 +1,37 @@
+<html>
+<head>
+    <title>XenWebManager</title>
+    <link rel="stylesheet" href="css/style_blue.css" type="text/css" media="screen" charset="utf-8"/>
+    <script type="text/javascript" src="js/options.js"> </script>
+</head>
+<body>
+<div style="height: 20px;"></div>
+<div style="float: left; text-align: center; width: 560px; background-color: white;">
+    <img src="images/options.png" align="middle"> <strong>XenWebManager Options</strong>
+</div>
+<div style="width: 570px; background-color: white;">&nbsp;</div>
+<div style="padding-left: 20px; width: 550px; height: 120px; background-color: white;">
+    <div style="width: 550px; background-color: white; height: 10px;"></div>
+    
+    <input type="checkbox" name="checksavepassword" id="checksavepassword"
+    % if str(options["save_password"]) == "True":
+    checked
+    % endif
+    > XenWebManager can remember the passwords to access your servers. 
+    If you enable this option you must specify a master password for security reasons.
+    <div style="width: 250px;">&nbsp;</div>
+    Please specify master password: <input type="password" name="txtmasterpassword" id="txtmasterpassword" style="width: 250px;">
+    <div style="font-size: 9px; padding-left: 180px;">Password will be saved on oxc.conf with md5 encryption.</div>
+</div><br>
+<hr><br>
+<div style="float: left; width: 225px;">&nbsp;</div>
+<div style="float: left;">
+    <input type="button" name="acceptdialogoptions" id="acceptdialogoptions" value="Apply" class="button" onclick="on_acceptdialogoptions_clicked()">
+</div>
+<div style="float: left; width: 20px;">&nbsp;</div>
+<div style="float: left;">
+    <input type="button" name="canceldialogoptions" id="canceldialogoptions" value="Cancel" class="button" onclick="parent.hidePopWin(false); "
+</div>
+</body>
+</html>
+

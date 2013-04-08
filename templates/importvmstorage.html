@@ -1,0 +1,12 @@
+<input type="hidden" name="default_sr" id="default_sr" value="${default_sr}" />
+<table style="overflow: auto; width: 100%; " id="tablenewstorage">
+    % for row in storages:
+        <tr class="row" style="clear: both;" id="${row[1]}" onclick="selectStgRow('${row[1]}');">
+        <td style="padding-right: 10px;"><img src="${row[0]}" border="0" /></td> 
+        <td style="padding-right: 10px;" nowrap>${row[2]}</td> 
+        <td style="padding-right: 10px; display:none;" nowrap>${row[1]}</td> 
+        </tr>
+    % endfor
+</table>
+
+

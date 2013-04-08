@@ -1,0 +1,39 @@
+<html>
+<title>XenWebManager</title>
+<head>
+    <link rel="stylesheet" href="css/style_blue.css" type="text/css" media="screen" charset="utf-8"/>
+    <script type="text/javascript" src="js/license.js"> </script>
+</head>
+<body>
+<div style="height: 20px;"></div>
+<div id="licensekey" style="width: 500px;">
+    <center>Choose your license file and press Upload</center>
+    <form id="formlicensekey" action="applyLicense" method="post" enctype="multipart/form-data">
+    <input type="hidden" name="host" value="${host}">
+    <input type="hidden" name="ref" value="${ref}">
+    <div style="padding-left: 20px;">
+        <div style="height: 30px;"></div>
+        <div style="float: left; width: 200px;">License file:</div>
+        <div style="float: left;">
+            <input type="file" name="filelicensekey" id="filelicensekey" value="" />
+        </div><br>
+        <div style="float: left; width: 200px;">&nbsp;</div>
+    </div><br>
+    <hr><br>
+    <div style="float: left; width: 225px;">&nbsp;</div>
+    <div style="float: left;">
+        <input type="button" name="acceptlicensekey" id="acceptlicensekey" value="Upload" class="button" onclick="on_acceptlicensekey_clicked(this)" / >
+    </div>
+    <div style="float: left; width: 20px;">&nbsp;</div>
+    <div style="float: left;">
+        <input type="button" name="cancellicensekey" id="cancellicensekey" value="Cancel" class="button" onclick="parent.hidePopWin(false); " />
+    </div>
+    </form>
+</div>
+<div id="uploading" style="display: none;">
+    Uploading file.. 
+    <img src="images/ajax-loader.gif" />
+</div>
+</body>
+</html>
+

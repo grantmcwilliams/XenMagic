@@ -1,0 +1,88 @@
+<html>
+<title>XenWebManager</title>
+<head>
+    <script type="text/javascript" src="js/common.js"> </script>
+    <link rel="stylesheet" href="css/style_blue.css" type="text/css" media="screen" charset="utf-8"/>
+    <script type="text/javascript" src="js/updatemanager.js"> </script>
+    <link rel="stylesheet" href="css/subModal.css" type="text/css" />
+    <script type="text/javascript" src="js/subModal.js"> </script>
+</head>
+<body>
+    <div style="text-align: center; background-color: white; width: 570px; padding-top: 10px;">
+        <img src="images/patch.png" valign="center" align="center">
+        View details of installed updates and install new updates
+    </div>
+    <div style="float: left; width: 570px; background-color: white;">
+        <div style="float: right; width: 150px;">
+            <input type="button" name="btuploadnewupdate" value="Upload New Update" onclick="showPopWin('filenewupdate?host=' + parent.selected_host + '&ref=' + parent.selected_ref, 300, 150, null);" class="button" />
+        </div>
+    </div>
+    <div style="width: 570px; height: 30px; background-color: white;">&nbsp;</div>
+    <div style="float: left; margin-left: 20px;">
+        <strong>Updates</strong>
+    </div>
+    <div id="updatemanager" style="width: 550px; height: 410px; padding-left: 20px; padding-top: 10px; background-color: white;">
+        <div style="width: 225px; height: 30px;">&nbsp;</div>
+        <div style="width: 510px; height: 150px; border: 1px solid black;">
+            <table style="overflow: auto; width: 100%; ">
+                % for row in updates:
+                <tr class="row" style="clear: both;" id="${row[0]}" onClick="selectRowRef('${row[0]}', '${row[1]}', '${row[2]}', '${row[3]}', '${row[4]}');">
+                        <td style="float: left; padding-right: 10px;" nowrap>${row[1]}</td> 
+                    </tr>
+                % endfor
+            </table>
+        </div>
+        <div style="float: right; width: 100px;">
+            <input type="button" name="btremoveupdate" id="btremoveupdate" value="Remove" class="button" onclick="on_btremoveupdate_clicked();" disabled />
+        </div>
+        <div style="float: left; margin-top: 28px;">
+            <strong>Properties</strong>
+            <div style="border: 1px solid black; width: 240px; height: 140px; padding-top: 20px; padding-left: 5px; overflow: auto;">
+                <div style="float: left; width: 100px;">
+                    <strong>Name:</strong>
+                </div>
+                <div style="overflow: auto;">
+                    <div id="lblupdatename"></div>
+                </div> 
+                <div style="width: 225px; height: 30px;">&nbsp;</div>
+                <div style="float: left; width: 100px;">
+                    <strong>Description: </strong>
+                </div>
+                <div style="overflow: auto;">
+                    <div id="lblupdatedesc"></div>
+                </div> 
+                <div style="width: 225px; height: 30px;">&nbsp;</div>
+                <div style="float: left; width: 100px;">
+                    <strong>Version: </strong>
+                </div>
+                <div style="overflow: auto;">
+                    <div id="lblupdateversion"></div>
+                </div> 
+                <div style="width: 225px; height: 30px;">&nbsp;</div>
+                <div style="float: left; width: 100px;">
+                    <strong>Guidance: </strong>
+                </div>
+                <div style="overflow: auto;">
+                    <div id="lblupdateguidance"></div>
+                </div> 
+            </div>
+        </div>
+        <div style="float: left; margin-top: 10px; margin-left: 20px;">
+            <strong>Status</strong>
+            <div style="overflow: auto; border: 1px solid black; width: 240px; height: 140px; padding-top: 5px; padding-left: 5px;" id="statuspatch">
+            </div>
+            <div style="float: right;">
+                <input type="button" name="btapplypatch" id="btapplypatch" class="button" value="Apply Patch" onclick="on_btapplypatch_clicked()" disabled/>
+            </div>
+        </div>
+    </div>
+
+
+<div style="width: 225px; height: 10px;">&nbsp;</div>
+<div style="width: 450px; float: left; ">&nbsp;</div>
+    <div style="float: left;">
+        <input type="button" name="closeupdatemanager" id="closeupdatemanager" value="Close" class="button" onclick="parent.hidePopWin(false); ">
+    </div>
+</body>
+</html>
+

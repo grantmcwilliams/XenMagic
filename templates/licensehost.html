@@ -1,0 +1,43 @@
+<html>
+<title>XenWebManager</title>
+<head>
+    <link rel="stylesheet" href="css/style_blue.css" type="text/css" media="screen" charset="utf-8"/>
+    <script type="text/javascript" src="js/license.js"> </script>
+</head>
+<body style="background-color: white;">
+    <div style="height: 20px;"></div>
+<div id="divlicensehost" style="width: 500px;">
+    <center>To assign a new license to the servers you selected, choose the license edition, enter the license server details, and then click OK</center>
+    <input type="hidden" name="host" value="${host}">
+    <input type="hidden" name="ref" value="${ref}">
+    <div style="padding-left: 20px;">
+        <div style="height: 30px;"></div>
+        <div style="float: left; width: 500px;"><strong>License Edition</strong></div>
+        <div style="float: left; width: 500px;">&nbsp;</div>
+        <input type="radio" name="license" value="advanced" id="advanced" checked/>&nbsp;Citrix XenServer Advanced Edition<br />
+        <input type="radio" name="license" value="enterprise" id="enterprise" />&nbsp;Citrix XenServer Enterprise Edition<br />
+        <input type="radio" name="license" value="platinum" id="platinum" />&nbsp;Citrix XenServer Platinum Edition<br />
+        <input type="radio" name="license" value="enterprise-xd" id="enterprise-xd" />&nbsp;Citrix XenServer for XenDesktop<br >
+        <div style="float: left; width: 500px;">&nbsp;</div>
+        <div style="float: left; width: 500px;"><strong>License Server</strong></div>
+        <div style="float: left; width: 500px;">&nbsp;</div>
+        Enter the name or IP address of the license server:<br />
+        <div style="float: left; width: 100px;">Name:</div><div style="width: 400px;"><input type="text" name="licensehost" id="licensehost" style="width: 200px;" value="${licenseserver["address"]}"/></div>
+        <div style="float: left; width: 100px;">Port number:</div><div style="width: 400px;"><input type="text" name="licenseport" id="licenseport" style="width: 200px;" value="${licenseserver["port"]}"/></div>
+    </div><br />
+    <div id="uploading" style="display: none;">
+        <img src="images/ajax-loader.gif" />
+    </div>
+    <hr><br>
+    <div style="float: left;">
+        <input type="button" name="acceptlicensehost" id="acceptlicensehost" value="Assign" class="button" onclick="on_acceptlicensehost_clicked(this)" value= / >
+    </div>
+
+    <div style="float: left; width: 20px;">&nbsp;</div>
+    <div style="float: left;">
+        <input type="button" name="cancellicensehost" id="cancellicensehost" value="Cancel" class="button" onclick="parent.hidePopWin(false); " />
+    </div>
+</div>
+</body>
+</html>
+

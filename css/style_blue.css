@@ -1,0 +1,63 @@
+body { 
+    text-align: left; 
+    font-family: verdana; 
+    font-size: 11px;
+    color: black; 
+    background-color: #d5e5f7;  
+    scrollbar-3dlight-color:#d5e5f7;
+    scrollbar-arrow-color:black;
+    scrollbar-base-color:#d5e5f7;
+    scrollbar-darkshadow-color:#d5e5f7;
+    scrollbar-face-color:#d5e5d7;
+    scrollbar-highlight-color:#d5e5f7;
+    scrollbar-shadow-color:#000000; 
+}
+img {
+    border: 0px;
+}
+input {
+    font-size: 10px;
+}
+input.button {
+    background-color: #d5e5f7;
+}
+select {
+    background-color: #d5e5f7;
+}
+
+.bluelabel {
+    color: #0E0E40;
+    font-weight: bold;
+    font-stretch: ultra-condensed;
+    padding-left: 10px;
+}
+.head {
+    background-color: #d5e5f7;
+}
+.headcolumn {
+    background-color: #d5e5f7;
+    text-align: left;
+    font-weight: bold;
+    border-right: 1px solid gray;
+    border-bottom: 1px solid gray;
+}
+
+.roweven {
+   background-color: #d5e5e7;
+}
+.row {
+        cursor: pointer;
+}
+/* Splitbar styles; these are the default class names and required styles */
+.splitbarV {
+    float:left;width:6px;height:100%;
+    line-height:0px;font-size:0px;
+    border-left:solid 1px #9cbdff;border-right:solid 1px #9cbdff;
+    background:#cbe1fb url(img/panev.gif) 0% 50%;
+}
+
+a:link {text-decoration: none; color: black; }
+a:visited {text-decoration: none; color: black; }
+a:active {text-decoration: none; color: black; }
+a:hover {text-decoration: none; color: black; }
+

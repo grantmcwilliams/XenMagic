@@ -1,0 +1,83 @@
+<div style="margin-top: 10px; width: 97%">
+    <strong>Server General Properties</strong>
+
+    <div style="float: right; padding-right: 20%; padding-top: 20px;;">
+        <input type="button" id="btpoolproperties" name="btpoolproperties" class="button" value="Properties" onClick="showPopWin('properties?host=' + selected_host + '&ref=' + selected_ref + '&type=' + selected_type, 820, 570, null);" />
+    </div>
+    <div id="divhostgeneral" style="padding-top: 20px; width: 100%; padding-left: 20px;">
+        <strong>General</strong>
+        <div style="height: 15px;"></div>
+        <div class="bluelabel" style="width: 200px; float: left;">Name:</div><div style="float: left;" id="lblhostname">${labels["lblhostname"]}</div>
+        <div style="height: 10px;"></div><br>
+        <div class="bluelabel" style="width: 200px; float: left;">Description:</div><div style="float: left;" id="lblhostdescription">${labels["lblhostdescription"]}</div>
+        <div style="height: 10px;"></div><br>
+        <div class="bluelabel" style="width: 200px; float: left;">Tags:</div><div style="float: left;" id="lblhosttags">${labels["lblhosttags"]}</div>
+        <div style="height: 10px; width: 100%;"></div><br>
+        <div class="bluelabel" style="width: 200px; float: left;">Folder:</div><div style="float: left;" id="lblhostfolder">${labels["lblhostfolder"]}</div>
+        <div style="height: 10px; width: 100%;"></div><br>
+        <div class="bluelabel" style="width: 200px; float: left;">iSCSI IQN:</div><div style="float: left;" id="lblhostiscsi">${labels["lblhostiscsi"]}</div>
+        <div style="height: 10px; width: 100%;"></div><br>
+        <div class="bluelabel" style="width: 200px; float: left;">Pool master:</div><div style="float: left;" id="lblhostpool">${labels["lblhostpool"]}</div>
+        <div style="height: 10px; width: 100%;"></div><br>
+        <div class="bluelabel" style="width: 200px; float: left;">Log destination:</div><div style="float: left;" id="lblhostlog">${labels["lblhostlog"]}</div>
+        <div style="height: 10px; width: 100%;"></div><br>
+        <div class="bluelabel" style="width: 200px; float: left;">Server uptime:</div><div style="float: left;" id="lblhostuptime">${labels["lblhostuptime"]}</div>
+        <div style="height: 10px; width: 100%;"></div><br>
+        <div class="bluelabel" style="width: 200px; float: left;">Toolstack uptime:</div><div style="float: left;" id="lblhosttooluptime">${labels["lblhosttooluptime"]}</div>
+    </div>
+    <div style="height: 10px; width: 100%;"></div><br>
+    <div id="divhostmgmtifs" style="padding-top: 20px; width: 100%; padding-left: 20px; float: left;">
+        <strong>Management Interface</strong>
+        <div style="height: 15px;"></div>
+        <div class="bluelabel" style="width: 200px; float: left;">DNS hostname:</div><div style="float: left;" id="lblhostdns">${labels["lblhostdns"]}</div>
+        <div style="height: 10px;"></div><br>
+        <div class="bluelabel" style="width: 200px; float: left;">Primary:</div><div style="float: left;" id="lblhostprimary">${labels["lblhostprimary"]}</div>
+    </div>
+    <div style="height: 10px; width: 100%;"></div><br>
+    <div id="divhostmemory" style="padding-top: 20px; width: 100%; padding-left: 20px; float: left;">
+        <strong>Memory</strong>
+        <div style="height: 15px;"></div>
+        <div class="bluelabel" style="width: 200px; float: left;">Server:</div><div style="float: left;" id="lblhostmemserver">${labels["lblhostmemserver"]}</div>
+        <div style="height: 10px;"></div><br>
+        <div class="bluelabel" style="width: 200px; float: left;">Xen:</div><div style="float: left;" id="lblhostmemory">${labels["lblhostmemory"]}</div>
+        <div style="height: 10px;"></div><br>
+        <div class="bluelabel" style="width: 200px; float: left;">VMs:</div><div style="float: left;" id="lblhostmemoryvms">${labels["lblhostmemoryvms"]}</div>
+    </div>
+    <div style="height: 10px; width: 100%;"></div><br>
+    <div id="divhostversion" style="padding-top: 20px; width: 100%; padding-left: 20px; float: left;">
+        <strong>Version Details</strong>
+        <div style="height: 15px;"></div>
+        <div class="bluelabel" style="width: 200px; float: left;">XenServer build date:</div><div style="float: left;" id="lblhostversiondate">${labels["lblhostversiondate"]}</div>
+        <div style="height: 10px;"></div><br>
+        <div class="bluelabel" style="width: 200px; float: left;">XenServer build number:</div><div style="float: left;" id="lblhostversionbuildnumber">${labels["lblhostversionbuildnumber"]}</div>
+        <div style="height: 10px;"></div><br>
+        <div class="bluelabel" style="width: 200px; float: left;">XenServer version:</div><div style="float: left;" id="lblhostversionbuildversion">${labels["lblhostversionbuildversion"]}</div>
+    </div>
+    <div style="height: 10px; width: 100%;"></div><br>
+    <div id="divhostlicense" style="padding-top: 20px; width: 100%; padding-left: 20px; float: left;">
+        <strong>License Details</strong>
+        <div style="height: 15px;"></div>
+        <div class="bluelabel" style="width: 200px; float: left;">Expiry date:</div><div style="float: left;" id="lblhostlicexpire">${labels["lblhostlicexpire"]}</div>
+        <div style="height: 10px;"></div><br>
+        <div class="bluelabel" style="width: 200px; float: left;">Server License:</div><div style="float: left;" id="lblhostlicserver">${labels["lblhostlicserver"]}</div>
+        <div style="height: 10px;"></div><br>
+        <div class="bluelabel" style="width: 200px; float: left;">Produt code:</div><div style="float: left;" id="lblhostliccode">${labels["lblhostliccode"]}</div>
+        <div style="height: 10px;"></div><br>
+        <div class="bluelabel" style="width: 200px; float: left;">Serial number:</div><div style="float: left;" id="lblhostlicserial">${labels["lblhostlicserial"]}</div>
+    </div>
+    <div style="height: 10px; width: 100%;"></div><br>
+    <div id="divhostcpus" style="padding-top: 20px; width: 100%; padding-left: 20px; float: left;">
+        <strong>CPUs</strong>
+        <div style="height: 15px;"></div>
+        <div class="bluelabel" style="width: 200px; float: left;">CPU:</div><div style="float: left;" id="lblhostcpus">${labels["lblhostcpus"]}</div>
+    </div>
+    <div style="height: 10px; width: 100%;"></div><br>
+    <div id="divhostupdates" style="padding-top: 20px; width: 100%; padding-left: 20px; float: left;">
+        <strong>Updates</strong>
+        <div style="height: 15px;"></div>
+        <div class="bluelabel" style="width: 200px; float: left;">Applied:</div><div style="float: left;" id="lblhostpatchs">${labels["lblhostpatchs"]}</div>
+    </div>
+    <div style="height: 10px; width: 100%;">&nbsp;</div><br>
+
+</div>
+

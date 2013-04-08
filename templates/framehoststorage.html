@@ -1,0 +1,32 @@
+<head>
+    <link rel="stylesheet" href="css/style_blue.css" type="text/css" media="screen" charset="utf-8"/> 
+</head>
+<div style="margin-top: 10px; width: 97%; height: 90%;">
+    <strong>Storage Repositories</strong>
+    <div style="height: 20px; width: 100%;"></div>
+    <div style="float: right; border: 1px solid grey; height: 85%; overflow: auto; width: 100%;"> 
+        <table style="overflow: auto; width: 100%; ">
+            <tr class="head">
+                <th class="headcolumn" style="min-width: 150px;">Name</th> 
+                <th class="headcolumn" style="min-width: 150px;">Description</th> 
+                <th class="headcolumn" style="min-width: 70px;">Type</th>
+                <th class="headcolumn" style="min-width: 60px;">Shared</th> 
+                <th class="headcolumn" style="min-width: 100px;">Usage</th>
+                <th class="headcolumn" style="min-width: 100px;">Size</th> 
+                <th class="headcolumn" style="min-width: 100px;" nowrap>Virtual Allocation</th> 
+            </tr>
+            % for row in storages:
+                <tr class="row" style="clear: both;">
+                <td style="padding-right: 10px;" nowrap>${row[0]}</td> 
+                <td style="padding-right: 10px;" nowrap>${row[1]}</td> 
+                <td style="text-align: center;">${row[2]}</td> 
+                <td style="text-align: center;">${row[3]}</td> 
+                <td style="text-align: center;" nowrap>${row[4]}</td> 
+                <td style="text-align: center;">${row[5]}</td> 
+                <td style="text-align: center;">${row[6]}</td> 
+                </tr>
+            % endfor
+        </table>
+    </div>        
+</div>
+

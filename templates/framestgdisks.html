@@ -1,0 +1,35 @@
+<head>
+    <link rel="stylesheet" href="css/style_blue.css" type="text/css" media="screen" charset="utf-8"/> 
+</head>
+<div style="margin-top: 10px; width: 97%;">
+    <strong>Virtual Disks</strong>
+    <div style="height: 20px; width: 100%;"></div>
+    <div style="float: left;">
+        <input type="button" value="Rescan" id="rescanisos" name="rescanisos" class="button" onClick="on_rescanisos_clicked()" />
+    </div>
+    <div style="float: right;">
+        <input type="button" value="Add Disk..." id="btstgnewdisk" name="btstgnewdisk" class="button" onclick="javascript:showPopWin('stgaddnewdisk?host=' + selected_host + '&ref=' + selected_ref, 580, 500, null);">
+        <input type="button" value="Properties" id="btstgproperties" name="btstgproperties" class="button"  onClick="showPopWin('properties?host=' + selected_host + '&ref=' + selected_vdi_ref + '&type=vdi', 820, 570, null);" disabled/>
+        <input type="button" value="Remove" id="btstgremove" name="btstgremove" class="button" onClick="on_btstgremove_activate();" disabled/>
+    </div>
+    <div style="height: 10px; width: 100%;"></div><br>
+    <div style="float: right; border: 1px solid grey; height: 85%; overflow: auto; width: 100%;"> 
+        <table style="overflow: auto; width: 100%; ">
+            <tr class="head">
+                <th class="headcolumn" style="min-width: 150px;">Name</th> 
+                <th class="headcolumn" style="min-width: 150px;">Description</th> 
+                <th class="headcolumn" style="min-width: 100px; ">Size</th class="head"> 
+                <th class="headcolumn" style="min-width: 100px; ">VM</th class="head"> 
+            </tr>
+            % for row in storages:
+            <tr class="row" id="${row[0]}" style="clear: both;" onClick="selectVdiRow('${row[0]}', '${row[5]}');">
+                <td style="text-align: left; padding-right: 10px;" nowrap>${row[1]}</td> 
+                <td style="text-align: left; padding-right: 10px;" nowrap>${row[2]}</td> 
+                <td style="text-align: left; padding-right: 10px;" nowrap>${row[3]}</td> 
+                <td style="text-align: left;" nowrap>${row[4]}</td> 
+                </tr>
+            % endfor
+        </table>
+    </div>        
+</div>
+

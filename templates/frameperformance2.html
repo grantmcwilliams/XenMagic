@@ -1,0 +1,333 @@
+<html>
+    <head>
+        <meta http-equiv="refresh" content="10">
+<script src="js/rgraph/RGraph.common.core.js" ></script>
+<script src="js/rgraph/RGraph.common.context.js" ></script>
+<script src="js/rgraph/RGraph.common.tooltips.js" ></script>
+<script src="js/rgraph/RGraph.line.js" ></script>
+<script>
+   var cpu;
+   window.onload = function ()
+        {
+            var datacpu = new Object();
+            var cputooltips = new Array();
+            var cpukeys = new Array();
+            % for key in data.keys():
+            % if key[:3] == "cpu":
+               datacpu["${key}"] = ${data[key]};
+               cpukeys.push("${key}"); 
+               function tooltip${key}(idx) {
+                   var d = new Date(datacpu["${key}"][idx][0]*1000);
+                   var curr_min = d.getMinutes();
+                   curr_min = curr_min + "";
+                   if (curr_min.length == 1) {
+                       curr_min = "0" + curr_min;
+                   }
+                   time = d.getHours() + ":" + curr_min + ":" + d.getSeconds();
+
+                   return time + " ->  " + datacpu["${key}"][idx][1];
+               }
+               var diff = datacpu["${key}"][0][0]%60;
+               for(i=diff; i > 0; i-=5) {
+                       datacpu["${key}"].unshift([parseInt(datacpu["${key}"][0][0]-5), datacpu["${key}"][0][1]]);
+               }
+            % endif
+            % endfor
+
+            var datavif = new Object();
+            var viftooltips = new Array();
+            var vifkeys = new Array();
+            % for key in data.keys():
+            % if key[:3] == "vif":
+               datavif["${key}"] = ${data[key]};
+               vifkeys.push("${key}"); 
+               function tooltip${key}(idx) {
+                   var d = new Date(datavif["${key}"][idx][0]*1000);
+                   var curr_min = d.getMinutes();
+                   curr_min = curr_min + "";
+                   if (curr_min.length == 1) {
+                       curr_min = "0" + curr_min;
+                   }
+                   time = d.getHours() + ":" + curr_min + ":" + d.getSeconds();                   
+                   return time + " -> " + datavif["${key}"][idx][1];
+               }
+               var diff = datavif["${key}"][0][0]%60;
+               for(i=diff; i > 0; i-=5) {
+                       datavif["${key}"].unshift([parseInt(datavif["${key}"][0][0]-5), datavif["${key}"][0][1]]);
+               }
+            % endif
+            % endfor
+
+            var datavbd = new Object();
+            var vbdtooltips = new Array();
+            var vbdkeys = new Array();
+            % for key in data.keys():
+            % if key[:3] == "vbd":
+               datavbd["${key}"] = ${data[key]};
+               vbdkeys.push("${key}"); 
+               function tooltip${key}(idx) {
+                   var d = new Date(datavbd["${key}"][idx]*1000);
+                   var curr_min = d.getMinutes();
+                   curr_min = curr_min + "";
+                   if (curr_min.length == 1) {
+                       curr_min = "0" + curr_min;
+                   }
+                   time = d.getHours() + ":" + curr_min + ":" + d.getSeconds();                   
+
+                   return time + " -> " + datavbd["${key}"][idx][1];
+               }
+               var diff = datavbd["${key}"][0][0]%60;
+               for(i=diff; i > 0; i-=5) {
+                       datavbd["${key}"].unshift([parseInt(datavbd["${key}"][0][0]-5), datavbd["${key}"][0][1]]);
+               }
+            % endif
+            % endfor
+
+
+
+            var datamem = ${data["mem"]} 
+            function tooltipmem(idx) {
+                   var d = new Date(datamem[idx][0]*1000);
+                   var curr_min = d.getMinutes();
+                   curr_min = curr_min + "";
+                   if (curr_min.length == 1) {
+                       curr_min = "0" + curr_min;
+                   }
+                   time = d.getHours() + ":" + curr_min + ":" + d.getSeconds();                   
+                   return time + " -> " +datamem[idx][1];
+            } 
+            var diff = datamem[0][0]%60;
+            for(i=diff; i > 0; i-=5) {
+               datamem.unshift([parseInt(datamem[0][0]-5), datamem[0][1]]);
+            }
+
+            function getValues(data) {
+            var values = new Array();
+            var keys = new Array();
+            for(i=0; i < data.length; i++) {
+               values.push(parseInt(data[i][1]))    
+               if (i % 12 == 0) {
+                   var d = new Date(data[i][0]*1000);
+                   var curr_min = d.getMinutes();
+                   curr_min = curr_min + "";
+                   if (curr_min.length == 1) {
+                       curr_min = "0" + curr_min;
+                   }
+                   keys.push(d.getHours() + ":" + curr_min);
+               } else {
+                   keys.push("");
+               }
+            }
+            return [values, keys];
+            }
+            var values = new Array(); 
+            % for key in data.keys():
+            % if key[:3] == "cpu":
+               data = getValues(datacpu["${key}"]);
+               values.push(data[0])
+            % endif
+            % endfor
+            var keys = data[1]; 
+
+            var cpu = new RGraph.Line('cpu' 
+            <%
+            i = 0;
+            %>
+            % for key in data.keys():
+            % if key[:3] == "cpu":
+            ,values[${i}]
+            <%
+            i = i + 1;
+            %>
+            % endif
+            % endfor
+            );
+            cpu.Set('chart.key', cpukeys);
+            cpu.Set('chart.key.background', '#fff');
+            cpu.Set('chart.key.shadow', true);
+            cpu.Set('chart.gutter', 50);
+
+            cpu.Set('chart.zoom.mode', 'canvas');
+
+            cpu.Set('chart.filled', false);
+            cpu.Set('chart.background.barcolor1', 'white');
+            cpu.Set('chart.background.barcolor2', 'white');
+            cpu.Set('chart.title', 'CPU Usage');
+            cpu.Set('chart.colors', ['rgba(169, 222, 244, 0.7)', 'red', '#ff0', '#fff', '#eef', '#ddf', '#ccf', '#bbf', '#bbf', '#aaf', '#99f']);
+            cpu.Set('chart.labels', keys);
+            cpu.Set('chart.yaxispos', 'right');
+            cpu.Set('chart.linewidth', 2);
+            cpu.Set('chart.ymax', 100);
+            cpu.Set('chart.tooltips' 
+            % for key in data.keys():
+            % if key[:3] == "cpu":
+                ,tooltip${key}
+            % endif 
+            % endfor
+            );
+            cpu.Draw();
+
+            var values = new Array(); 
+            % for key in data.keys():
+            % if key[:3] == "vif":
+               data = getValues(datavif["${key}"]);
+               values.push(data[0])
+            % endif
+            % endfor
+            var keys = data[1]; 
+
+            var vif = new RGraph.Line('vif' 
+            <%
+            i = 0;
+            %>
+            % for key in data.keys():
+            % if key[:3] == "vif":
+            ,values[${i}]
+            <%
+            i = i + 1;
+            %>
+            % endif
+            % endfor
+            );
+            vif.Set('chart.key', vifkeys);
+            vif.Set('chart.key.background', '#fff');
+            vif.Set('chart.key.shadow', true);
+            vif.Set('chart.gutter', 50);
+
+            vif.Set('chart.zoom.mode', 'canvas');
+
+            vif.Set('chart.filled', false);
+            vif.Set('chart.background.barcolor1', 'white');
+            vif.Set('chart.background.barcolor2', 'white');
+            vif.Set('chart.title', 'Network Usage');
+            vif.Set('chart.colors', ['rgba(169, 222, 244, 0.7)', 'red', '#ff0', 'green', 'blue', '#ddf', '#ccf', '#bbf', '#bbf', '#aaf', '#99f']);
+            vif.Set('chart.labels', keys);
+            vif.Set('chart.yaxispos', 'right');
+            vif.Set('chart.linewidth', 2);
+            vif.Set('chart.tooltips'  
+            % for key in data.keys():
+            % if key[:3] == "vif":
+                ,tooltip${key}
+            % endif 
+            % endfor
+            );
+            vif.Draw();
+
+            var values = new Array(); 
+            % for key in data.keys():
+            % if key[:3] == "vbd":
+               data = getValues(datavbd["${key}"]);
+               values.push(data[0])
+            % endif
+            % endfor
+            var keys = data[1]; 
+
+            var vbd = new RGraph.Line('vbd' 
+            <%
+            i = 0;
+            %>
+            % for key in data.keys():
+            % if key[:3] == "vbd":
+            ,values[${i}]
+            <%
+            i = i + 1;
+            %>
+            % endif
+            % endfor
+            );
+            vbd.Set('chart.key', vbdkeys);
+            vbd.Set('chart.key.background', '#fff');
+            vbd.Set('chart.key.shadow', true);
+            vbd.Set('chart.gutter', 50);
+
+            vbd.Set('chart.zoom.mode', 'canvas');
+
+            vbd.Set('chart.filled', false);
+            vbd.Set('chart.background.barcolor1', 'white');
+            vbd.Set('chart.background.barcolor2', 'white');
+            vbd.Set('chart.title', 'Disk usage');
+            vbd.Set('chart.colors', ['rgba(169, 222, 244, 0.7)', 'red', '#ff0', 'green', 'blue', '#ddf', '#ccf', '#bbf', '#bbf', '#aaf', 'brown', 'black']);
+            vbd.Set('chart.labels', keys);
+            vbd.Set('chart.yaxispos', 'right');
+            vbd.Set('chart.linewidth', 2);
+            vbd.Set('chart.tooltips'
+            % for key in data.keys():
+            % if key[:3] == "vbd":
+                ,tooltip${key}
+            % endif 
+            % endfor
+            );
+            vbd.Draw();
+
+
+
+
+
+
+
+            data = getValues(datamem);
+            var values = data[0];
+            var keys = data[1]; 
+
+            mem = new RGraph.Line('mem', values);
+            mem.Set('chart.key', ['memory usage']);
+            mem.Set('chart.key.background', '#fff');
+            mem.Set('chart.key.shadow', true);
+            mem.Set('chart.gutter', 50);
+
+            mem.Set('chart.zoom.mode', 'canvas');
+
+            mem.Set('chart.filled', false);
+            mem.Set('chart.background.barcolor1', 'white');
+            mem.Set('chart.background.barcolor2', 'white');
+            mem.Set('chart.title', 'Memory Usage');
+            mem.Set('chart.colors', ['rgba(169, 222, 244, 0.7)', 'red', '#ff0']);
+            mem.Set('chart.labels', keys);
+            mem.Set('chart.yaxispos', 'right');
+            mem.Set('chart.linewidth', 2);
+            mem.Set('chart.tooltips', tooltipmem);
+            mem.Draw();
+            window.mem = mem;
+            window.datamem = datamem;
+            //setTimeout("get_performance_data_update()", 5000);
+ 
+           }
+           function get_performance_data_update() {
+               var client = new XMLHttpRequest();
+               client.open("GET", "/get_performance_data_update?host=" + parent.selected_host + "&uuid=" + parent.selected_uuid + "&ref=" + parent.selected_ref + "&ip=" + parent.selected_ip, true);
+               client.onreadystatechange = function() {
+                   if(this.readyState == 4 && this.status == 200) {
+                        data = eval("(" + this.responseText + ")");
+                        window.mem.data[0].concat(data);
+                        for (i=0; i < data["mem"].length; i++) {
+                            window.mem.original_data[0].push(data["mem"][i][1]);
+                            window.datamem.push(data["mem"][i]);
+                        }
+                        window.mem.Draw() ;
+                        setTimeout("get_performance_data_update()", 5000);
+                   } else if (this.readyState == 4 && this.status != 200) {
+                       parent.document.getElementById("statusbar").innerHTML = "error updating performance";
+                   }            
+               }
+               client.send(null)    
+           }
+       </script>
+   </head>
+   <body>
+       % if len(data[key]) > 40:   
+        <div style="width: 100%; overflow: auto;"><canvas id="cpu" width="${len(data[key])*20}" height="250">[Please wait...]</canvas></div>
+        <div style="width: 100%; overflow: auto;"><canvas id="mem" width="${len(data[key])*20}" height="250" style="float: left; ">[Please wait...]</canvas></div>
+        <div style="width: 100%; overflow: auto;"><canvas id="vif" width="${len(data[key])*20}" height="350">[Please wait...]</canvas></div>
+        <div style="width: 100%; overflow: auto;"><canvas id="vbd" width="${len(data[key])*20}" height="350">[Please wait...]</canvas><div>
+    % else:
+        <div style="width: 100%; overflow: auto;"><canvas id="cpu" width="800" height="250">[Please wait...]</canvas></div>
+        <div style="width: 100%; overflow: auto;"><canvas id="mem" width="800" height="250" style="float: left; ">[Please wait...]</canvas></div>
+        <div style="width: 100%; overflow: auto;"><canvas id="vif" width="800" height="350">[Please wait...]</canvas></div>
+        <div style="width: 100%; overflow: auto;"><canvas id="vbd" width="800" height="350">[Please wait...]</canvas><div>
+    % endif
+    <a href="http://www.rgraph.net" target="_blank">
+                   RGraph: HTML5 canvas graph library
+   </a>
+</body>
+</html>               
+

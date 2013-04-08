@@ -1,0 +1,36 @@
+<head>
+    <link rel="stylesheet" href="css/style_blue.css" type="text/css" media="screen" charset="utf-8"/> 
+</head>
+<div style="margin-top: 10px; width: 97%;">
+    <strong>Virtual Network Interfaces</strong>
+    <div style="height: 20px; width: 100%;"></div>
+    <div style="float: right;">
+        <input type="button" value="Add Interface..." id="btaddinterface" name="btaddinterface" class="button" onclick="javascript:showPopWin('vmaddnetwork?host=' + selected_host + '&vm=' + selected_ref, 550, 340, null);">
+        <input type="button" value="Properties" id="btpropertiesinterface" name="btpropertiesinterface" class="button" onclick="javascript:showPopWin('vmeditnetwork?host=' + selected_host + '&ref=' + selected_vif_vm_ref, 550, 340, null);"disabled>
+        <input type="button" value="Remove Interface" id="btremoveinterface" name="btremoveinterface" class="button" onclick="javascript:on_btremoveinterface_clicked();" disabled>
+    </div>
+    <div style="height: 10px; width: 100%;"></div><br>
+    <div style="float: right; border: 1px solid grey; height: 85%; overflow: auto; width: 100%;"> 
+        <table style="overflow: auto; width: 100%; ">
+            <tr class="head">
+                <th class="headcolumn" style="min-width: 50px;">Device</th> 
+                <th class="headcolumn" style="min-width: 200px;">MAC</th> 
+                <th class="headcolumn" style="min-width: 50px; ">Limit</th class="head"> 
+                <th class="headcolumn" style="min-width: 300px; ">Network</th class="head"> 
+                <th class="headcolumn" style="min-width: 60px; ">IP Address</th class="head"> 
+                <th class="headcolumn" style="min-width: 40px;">Active</th class="head"> 
+            </tr>
+            % for row in networks:
+                <tr class="row" style="clear: both;" id="${row[6]}" onClick="selectVifVmRow('${row[6]}', '${row[7]}');">
+                <td style="text-align: left;" >${row[0]}</td> 
+                <td style="text-align: left;">${row[1]}</td> 
+                <td style="text-align: center;">${row[2]}</td> 
+                <td style="text-align: left;">${row[3]}</td> 
+                <td style="text-align: center;">${row[4]}</td> 
+                <td style="text-align: center;">${row[5]}</td> 
+            % endfor
+            </tr>
+        </table>
+    </div>        
+</div>
+

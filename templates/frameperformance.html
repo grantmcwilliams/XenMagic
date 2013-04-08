@@ -1,0 +1,17 @@
+<div style="margin-top: 10px; width: 100%;">
+    <strong>Performance Graphs</strong>
+    <div style="height: 20px; width: 100%;"></div>
+    <strong>Time:</strong>
+    <input type="button" name="btgraphtenmin" value="10 minutes" class="button" onClick="updatePerformance(5);"/>
+    <input type="button" name="btgraphtwohours" value="2 hours" class="button" onClick="updatePerformance(60);" />
+    <input type="button" name="btgraphoneweek" value="1 week" class="button" onClick="updatePerformance(3600);" />
+    <input type="button" name="btgraphoneyear" value="1 year" class="button" onClick="updatePerformance(86400);" />
+
+<iframe width="100%" height="85%" border="0" style="border: none;" id="iframeperformance"
+    src="frameperformance2?hostname=${hostname}&ref=${ref}&ip=${ip}&host=${host}&type=${type}&uuid=${uuid}&name=${name}">
+    <p>Your browser does not support iframes.</p>
+</iframe>
+
+</div>
+
+

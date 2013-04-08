@@ -1,0 +1,58 @@
+<title>XenWebManager</title>
+
+<head>
+    <link rel="stylesheet" href="css/style_blue.css" type="text/css" media="screen" charset="utf-8"/> 
+     <script type="text/javascript" src="js/vmeditnetwork.js"> </script>
+</head>
+<body style="background-color: white;">
+    <div style="margin-top: 10px; width: 500px; height: 300px; padding-left: 25px">
+        <div style="float: left; padding-top: 10px"><strong>Select the network location.:</strong></div>
+        <div style="float: right; padding-right: 20px; padding-top: 10px;"><img src="images/prop_networksettings.png" border="0"></div>
+        <div style="float: left; width: 100%; height: 10px;"></div>
+        <div style="float: left; ">
+            <div style="float: left; width: 150px;">Network:</div>
+            <select id="treeeditnetwork" name="treeeditnetwork">
+                % for i, row in enumerate(networks):
+                    % if i == current:
+                        <option value="${row[0]}" selected>${row[1]}</option>
+                    % else:
+                        <option value="${row[0]}">${row[1]}</option>
+                    % endif
+                % endfor
+            </select>
+        </div>
+        <div style="float: left; width: 100%; height: 10px;"></div>
+        <div style="float: left; ">
+            Select the MAC Address configuration method.<br><br>
+            <input type="radio" name="radioauto" value="radioeditauto" ${fields['radioeditauto']} />Auto-generate<br>
+            <div style="float: left; width: 100px;">
+                <input type="radio" id="radioeditauto" name="radioeditauto" value="radioeditmanual" ${fields['radioeditmanual']} />Manual
+            </div>
+            <div style="float: left; margin-left: 50px;">
+                <input type="text" id="entryeditmac" name="entryeditmac" style="width: 200px;" value="${fields['mac']}">
+            </div>
+            <div style="float: left; width: 100px; margin-top: 10px;">&nbsp;</div>
+            <div style="float: center; margin-top: 10px; margin-left: 150px;color: grey;">For example; a1:40:58:bf:4c:e0</div>
+        </div>
+        <div style="float: left; width: 100%; height: 20px;"></div>
+        <div style="float: left; width: 100%; height: 20px;"></div>
+        <div style="float: left">
+            Set the maximum transfer rate limit for the virtual network's I/O priority, <br>
+            Quality of Server (QoS)<br>
+            <div style="float: left; width: 100%; height: 10px;"></div>
+            <div style="width: 100px; float: left;">Limit:</div>
+            <div style="float: left; padding-left: 30px;">
+                <input type="text" id="entryeditlimit" name="entryeditlimit" value="${fields['limit']}"style="width: 130px;" > kbyte/s maximum<br>
+                <div style="color: grey;">Optional</div>
+            </div>
+            <div style="float: left; width: 100%; height: 20px;"></div>
+            <div style="float: center">
+                <div style="float: right; padding-right: 20px;">
+                    <input type="button" name="accepteditnetwork" value="Accept" class="button" onClick="javascript:on_accepteditnetwork_clicked();"/>
+                    <input type="button" name="canceleditnetwork" value="Cancel" class="button" onClick="parent.hidePopWin(false);"/>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

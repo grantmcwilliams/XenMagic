@@ -1,0 +1,52 @@
+<html>
+<title>XenWebManager</title>
+<head>
+    <link rel="stylesheet" href="css/style_blue.css" type="text/css" media="screen" charset="utf-8"/>
+    <script type="text/javascript" src="js/wcustomfields.js"> </script>
+    <script type="text/javascript" src="js/json2.js"> </script>
+</head>
+<body>
+    <div style="text-align: center; background-color: white; width: 360px; padding-top: 10px;">
+        <strong>Custom fields</strong>
+    </div>
+
+    <div style="width: 360px; height: 20px; background-color: white;">&nbsp;</div>
+    <div id="customfields" style="width: 350px; border: 1px solid black;  height: 350px; padding-left: 10px; padding-top: 10px; background-color: white; overflow: auto;">
+        <strong>Add</strong><br><br>
+        <div style="float: left; width: 100px; padding-left: 5px;">Name</div>
+        <div style="float: left;"><input type="text" id="namecustomfields" name="namecustomfields" style="width: 220px;" /></div>
+        <div style="float: left; width: 100px; padding-left: 5px;">Type</div>
+        <div style="float: left;">
+            <select name="combocustomfields" id="combocustomfields" style="width: 220px;">
+                <option value="String">Text</option>
+                <option value="Date">Date and Time</option>
+            </select>
+        </div>
+        <div style="float: left; padding-left: 5px;">
+            <input type="button" name="addcustomfield" value="Add" class="button" onClick="addCustomField()"/>
+        </div> 
+        <div style="clear: both; height: 20px; width: 300px;"></div>
+        <strong>Current custom fields</strong><br><br>
+        <div style="float: left; overflow: auto; width: 250px; height: 180px;">
+            <select name="treecustomfields" id="treecustomfields" size="10" style="height: 180px; width: 250px;">
+                % for row in fields:
+                    <option value="${row[1]}:${row[2]}">${row[0]}</option>
+                % endfor
+            </select>
+        </div>
+        <div style="float: left; margin-left: 20px;">
+            <input type="button" name="deletecustomfield" class="button" value="Delete" onClick="deleteCustomField()"/>
+        </div>
+    </div> 
+    
+<div style="width: 225px; height: 10px;">&nbsp;</div>
+<div style="width: 250px; float: left; ">&nbsp;</div>
+    <div style="float: left;">
+        <input type="button" name="acceptwcustomfields" id="acceptwcustomfields" value="Accept" class="button" onclick="on_acceptwcustomfields_accepted();">
+    </div>
+    <div style="float: left;">
+        <input type="button" name="cancelwcustomfields" id="cancelwcustomfields" value="Cancel" class="button" onclick="parent.hidePopWin(false);" />
+    </div>
+</body>
+</html>
+

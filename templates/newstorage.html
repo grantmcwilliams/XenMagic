@@ -1,0 +1,190 @@
+<html>
+<title>XenWebManager</title>
+<head>
+    <link rel="stylesheet" href="css/style_blue.css" type="text/css" media="screen" charset="utf-8"/>
+    <script type="text/javascript" src="js/newstorage.js"> </script>
+    <script type="text/javascript" src="js/common.js"> </script>
+    <link rel="stylesheet" href="css/subModal.css" type="text/css" />
+    <script type="text/javascript" src="js/subModal.js"> </script>
+</head>
+<body>
+    <div style="text-align: center; background-color: white; width: 782px;">
+        <img src="images/add_storage.png" border="0">
+        <strong>Choose the type of new Storage</strong>
+    </div>
+
+    <div style="width: 782px; height: 20px; background-color: white;">&nbsp;</div>
+    <div style="width: 150px; border: 1px solid black; background-color: white; float: left; height: 450px; padding-left: 10px; padding-right: 10px;">
+        <div style="width: 100%; height: 20px;">&nbsp;</div>
+        <div style="font-weight: bold; margin-bottom: 10px; background-color: #d5e5f7;" id="lblnewstg0">Type</div>
+        <div style="font-weight: bold; margin-bottom: 10px;" id="lblnewstg1">Location</div>
+    </div> 
+    <div id="newstg0" style="width: 580px; border: 1px solid black;  height: 410px; padding-left: 200px; padding-top: 40px; background-color: white;">
+        <div style="float: left; width: 270px;">
+            <strong>Virtual disk storage</strong>
+                <div><input type="radio" name="radionewstg" id="radionewstgnfsvhd" value="radionewstgnfsvhd" style="margin-top: 5px;" onClick="update_sr_desc('radionewstgnfsvhd');" checked /> NFS VHD</div>
+                <div><input type="radio" name="radionewstg" id="radionewstgiscsi" value="radionewstgiscsi" style="margin-top: 5px;" onClick="update_sr_desc('radionewstgiscsi');" /> iSCSI</div>
+                <div><input type="radio" name="radionewstg" value="radionewstghwhba" style="margin-top: 5px;" onClick="update_sr_desc('radionewstghwhba');" /> Hardware HBA</div>
+            <div style="width: 225px; height: 30px;">&nbsp;</div>
+            <strong>Advanced StorageLink technology</strong>
+                <div><input type="radio" name="radionewstg" value="radionewstgnetapp" style="margin-top: 5px;" onClick="update_sr_desc('radionewstgnetapp');" /> NetApp</div>
+                <div><input type="radio" name="radionewstg" value="radionewstgdell" style="margin-top: 5px;"  onClick="update_sr_desc('radionewstgdell');" /> Dell EqualLogic</div>
+            <div style="width: 225px; height: 30px;">&nbsp;</div>
+            <strong>ISO library</strong>
+                <div><input type="radio" name="radionewstg" value="radionewstgcifs" style="margin-top: 5px;" onClick="update_sr_desc('radionewstgcifs');" /> Windows File Sharing (CIFS)</div>
+                <div><input type="radio" name="radionewstg" id="radionewstgnfsiso" value="radionewstgnfsiso" style="margin-top: 5px;" onClick="update_sr_desc('radionewstgnfsiso');" /> NFS ISO</div>
+            </div> 
+            <div style="margin-left: 240px;width: 320px; height: 350px;" id="srdesc">
+                <p>
+                    NFS servers are a common form of shared filesystem infrastructure, and can be used as a storage repository substrate for virtual disks.
+                </p><p>
+                    As NFS storage repositories are shared, the virtual disks stored in them allow VMs to be started on any server in a resource pool and to be migrated between them using XenMotion.
+                </p><p>
+                    When you configure an NFS storage repository, you simply provide the hostname or IP address of the NFS server and the path to a directory that will be used to contain the storage repository. The NFS server must be configured to export the specified path to all servers in the pool
+                </p>
+            </div>
+    </div> 
+    <div id="newstg1" style="display: none; width: 580px; border: 1px solid black;  height: 410px; padding-left: 200px; padding-top: 40px; background-color: white;">
+        <div style="width: 200px; float: left;">Name:</div>
+        % if name:
+        <div><input type="text" id="txtnewstgnfsname" name="txtnewstgnfsname" style="width: 350px;" value="${name}"></div>
+        % else:
+        <div><input type="text" id="txtnewstgnfsname" name="txtnewstgnfsname" style="width: 350px;" value="NFS virtual disk storage"></div>
+        % endif
+        <div style="width: 225px; height: 10px;">&nbsp;</div>
+        <div style="width: 200px; float: left;">Share name:</div>
+        <div>
+            <input type="text" id="txtnewstgnfspath" name="txtnewstgnfspath" style="width: 300px;">&nbsp;
+            <input type="button" class="button" name="btnewstgsnfsscan" onClick="on_btnewstgsnfsscan_clicked();" value="Scan">
+        </div>
+        <div style="width: 200px; float: left;">&nbsp;</div><div style="font-size: 9px;">Example: server:/path</div>
+        <div style="width: 525px; height: 30px; padding-left: 200px; "><img src="images/ajax-loader.gif" id="loadingnfs" style="display: none;" /></div>
+        <div style="width: 200px; float: left;">Advanced Options:</div>
+        <div><input type="text" id="txtnewstgnfsoptions" name="txtnewstgnfsoptions" style="width: 350px;"></div>
+        <div style="width: 225px; height: 30px;">&nbsp;</div>
+        <input type="radio" name="radiocreate" id="radiocreatenewsr" value="radiocreatenewsr" checked> Create a new SR    
+        <div style="width: 225px; height: 10px;">&nbsp;</div>
+        <input type="radio" name="radiocreate" id="radioreattachsr" value="radioreattachsr" disabled> Reattach an existing SR:
+        <div style="width: 225px; height: 10px;">&nbsp;</div>
+        <select style="width: 550px; height: 150px;" name="treereattachnewstgnfs" size=7 id="treereattachnewstgnfs">
+        </select> 
+    </div> 
+    <div id="newstg2" style="display: none; width: 580px; border: 1px solid black;  height: 410px; padding-left: 200px; padding-top: 40px; background-color: white;">
+        <div style="width: 200px; float: left;">Name:</div>
+        % if name:
+        <div><input type="text" id="txtiscsiname" name="txtiscsiname" style="width: 350px;" value="${name}" /></div>
+        % else:
+        <div><input type="text" id="txtiscsiname" name="txtiscsiname" style="width: 350px;" value="iSCSI virtual disk storage" /></div>
+        % endif
+        <div style="width: 225px; height: 10px;">&nbsp;</div>
+        <div style="width: 200px; float: left;">Target host:</div>
+        <div><input type="text" id="txtiscsitarget" name="txtiscsitarget" style="width: 260px;">&nbsp;:&nbsp;
+            <input type="text" id="txtiscsiport" name="txtiscsiport" style="width: 78px" value="3260" /></div>
+        <div style="width: 525px; height: 30px; padding-left: 200px; "><img src="images/ajax-loader.gif" id="loadingiscsi" style="display: none;" /></div>
+
+        <div style="width: 200px; float: left;"><input type="checkbox" name="checkscsichap" id="checkscsichap" onClick="on_checkscsichap_checked();"> Use CHAP</div>
+        <div style="width: 225px; height: 30px;">&nbsp;</div>
+        <div style="border: 1px solid grey; width: 540px; height: 110px; padding-left: 10px; padding-top: 5px; display: none;" id="framescsichap">
+            CHAP Authentication
+            <div style="width: 225px; height: 10px;">&nbsp;</div>
+            <div style="width: 100px; float: left;">CHAP User:</div>
+            <div><input type="text" id="txtiscsichapuser" name="txtiscsichapuser" style="width: 350px;"></div>
+            <div style="width: 225px; height: 10px;">&nbsp;</div>
+            <div style="width: 100px; float: left;">CHAP Secret:</div>
+            <div><input type="password" id="txtiscsichapsecret" name="txtiscsichapsecret" style="width: 350px;"></div>
+        </div>
+        <div style="width: 225px; height: 30px;">&nbsp;</div>
+        <div style="width: 100px; float: left;">Target IQN:</div>
+        <div style="float: left;"><select id="combotargetiqn" name="combotargetiqn" style="width: 340px;" disabled></select></div>
+        <div style="float: left; padding-left: 10px;"><input type="button" id="btdiscoveriqns" name="btdiscoveriqns" value="Discover IQNs" class="button" onClick="on_btdiscoveriqns_clicked();"/></div>
+        <div style="width: 225px; height: 30px;">&nbsp;</div>
+        <div style="width: 100px; float: left;">Target LUN:</div>
+        <div style="float: left;"><select id="combotargetlun" name="combotargetlun" style="width: 340px;" disabled></select></div>
+        <div style="float: left; padding-left: 10px;"><input type="button" id="btdiscoverluns" name="btdiscoverluns" value="Discover LUNs" class="button" onClick="on_btdiscoverluns_clicked();" disabled/></div>
+    </div> 
+    <div id="newstg3" style="display: none; width: 580px; border: 1px solid black;  height: 410px; padding-left: 200px; padding-top: 40px; background-color: white;">
+        <div style="width: 200px; float: left;">Name:</div><div><input type="text" name="txtihbaname" style="width: 350px;" Value="Hardware HBA virtual disk storage" id="txtihbaname" /></div>
+        <div style="width: 525px; height: 30px; padding-left: 200px; "><img src="images/ajax-loader.gif" id="loadinghba"  /></div>
+        <div style="width: 225px; height: 10px;">&nbsp;</div>
+        Choose a LUN to re-attach or create new SR on:
+        <div style="width: 225px; height: 10px;">&nbsp;</div>
+        <div style="border: 1px solid gray; overflow: auto; width: 550px; height: 300px;" name="treehbalun" id="treehbalun">
+        </div> 
+    </div>
+    <input type="hidden" name="regexp" value="\\\\\d+\.\d+\.\d+\.\d+\\.+" id="regexp" />
+    <input type="hidden" name="regexp2" value="\d+\.\d+\.\d+\.\d+:\/.+" id="regexp2" />
+    <div id="newstg6" style="display: none; width: 580px; border: 1px solid black;  height: 410px; padding-left: 200px; padding-top: 40px; background-color: white;">
+        <div style="width: 200px; float: left;">Name:</div>
+        % if name:
+        <div><input type="text" id="txtnewstgcifsname" name="txtnewstgcifsname" value="${name}" style="width: 350px;" onkeyup="checkcifspath();"></div>
+        % else:
+        <div><input type="text" id="txtnewstgcifsname" name="txtnewstgcifsname" value="CIFS ISO Library" style="width: 350px;" onkeyup="checkcifspath();"></div>
+        % endif
+        <div style="width: 225px; height: 10px;">&nbsp;</div>
+        <div style="width: 200px; float: left;">Share name:</div>
+        <div><input type="text" id="txtnewstgcifspath" name="txtnewstgcifspath" style="width: 350px;" onkeyup="checkcifspath();"></div>
+        <div style="width: 200px; float: left;">&nbsp;</div><div style="font-size: 9px;">Example: \\server\sharename</div>
+        <div style="width: 225px; height: 30px;">&nbsp;</div>
+        <div style="border: 1px solid grey; width: 540px; height: 210px; padding-left: 10px; padding-top: 5px;">
+            <strong>Server Options</strong> 
+            <div style="width: 225px; height: 10px;">&nbsp;</div>
+            <input type="checkbox" id="checknewstgcifslogin" name="checknewstgcifslogin"> Use different user name
+            <div style="width: 225px; height: 10px;">&nbsp;</div>
+            <div style="border: 1px solid grey; width: 530px; height: 90px; padding-left: 1px; padding-top: 5px;">
+                <strong>Login</strong>
+                <div style="width: 225px; height: 10px;">&nbsp;</div>
+                <div style="width: 150px; float: left;">User Name:</div>
+                <div><input type="text" id="txtnewstgcifsusername" name="txtnewstgcifsusername" style="width: 350px;" /></div>
+                <div style="width: 225px; height: 10px;">&nbsp;</div>
+                <div style="width: 150px; float: left;">Password:</div>
+                <div><input type="text" id="txtnewstgcifspassword" name="txtnewstgcifspassword" style="width: 350px;" /></div>
+            </div>
+            <div style="width: 225px; height: 30px;">&nbsp;</div>
+            <div style="width: 150px; float: left;">Advanced Options:</div>
+            <div><input type="text" id="txtnewstgcifsoptions" name="txtnewstgcifsoptions" style="width: 350px;"></div>
+        </div>
+    </div> 
+     <div id="newstg7" style="display: none; width: 580px; border: 1px solid black;  height: 410px; padding-left: 200px; padding-top: 40px; background-color: white;">
+         <div style="width: 200px; float: left;">Name:</div>
+         % if name:
+         <div><input type="text" id="txtnewstgnfsisoname" name="txtnewstgnfsisoname" value="${name}" style="width: 350px;" onkeyup="checknfspath();"></div>
+         % else:
+         <div><input type="text" id="txtnewstgnfsisoname" name="txtnewstgnfsisoname" value="NFS ISO Library" style="width: 350px;" onkeyup="checknfspath();"></div>
+         % endif
+        <div style="width: 225px; height: 10px;">&nbsp;</div>
+        <div style="width: 200px; float: left;">Share name:</div>
+        <div><input type="text" id="txtnewstgnfsisopath" name="txtnewstgnfsisopath" style="width: 350px;" onkeyup="checknfspath();"></div>
+        <div style="width: 200px; float: left;">&nbsp;</div><div style="font-size: 9px;">Example: server:/path</div>
+        <div style="width: 225px; height: 30px;">&nbsp;</div>
+        <div style="width: 200px; float: left;">Advanced Options:</div>
+        <div><input type="text" id="txtnewstgnfsisooptions" name="txtnewstgnfsisooptions" style="width: 350px;"></div>
+        <div style="width: 225px; height: 30px;">&nbsp;</div>
+    </div> 
+
+<div style="width: 225px; height: 10px;">&nbsp;</div>
+<div style="width: 450px; float: left; ">&nbsp;</div>
+    <div style="float: left;">
+        <input type="button" name="previousnewstorage" id="previousnewstorage" value="< Previous" class="button" onclick="goPrevious();" disabled>
+    </div>
+    <div style="width: 20; float: left;">&nbsp;</div>
+    <div style="float: left;">
+        <input type="button" name="nextnewstorage" id="nextnewstorage" value="Next >" class="button" onclick="goNext();">
+    </div>
+    <div style="width: 20; float: left;">&nbsp;</div>
+    <div style="float: left;">
+        <input type="button" name="finishnewstorage" id="finishnewstorage" value="Finish" class="button" onclick="on_finishnewstorage_clicked();" disabled>
+    </div>
+    <div style="width: 20; float: left;">&nbsp;</div>
+    <div style="float: left;">
+        <input type="button" name="cancelnewstorage" id="cancelnewstorage" value="Cancel" class="button" onclick="parent.hidePopWin(false);">
+    </div>
+    % if stgtype:
+    <input type="hidden" name="stgtype" id="stgtype" value="${stgtype}"/>
+    <script>
+        document.getElementById("${stgtype}").checked = true;
+        goNext();
+    </script>
+    % endif
+</body>
+</html>
+

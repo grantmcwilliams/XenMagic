@@ -1,0 +1,448 @@
+<html>
+<title>XenWebManager</title>
+<head>
+    <link rel="stylesheet" href="css/style_blue.css" type="text/css" media="screen" charset="utf-8"/>
+    <script type="text/javascript" src="js/properties.js"> </script>
+    <script type="text/javascript" src="js/common.js"> </script>
+    <link rel="stylesheet" href="css/subModal.css" type="text/css" />
+    <script type="text/javascript" src="js/subModal.js"> </script>
+    <script type="text/javascript" src="js/json2.js"> </script>
+
+</head>
+<body>
+    <div style="text-align: center; background-color: white; width: 782px; padding-top: 10px;">
+        <img src="images/newvm_32.png" border="0" align="center">&nbsp;&nbsp;
+        <strong>Properties </strong>
+    </div>
+    <input id="type" type="hidden" name="type" value="${type}" />
+    <input id="ref" type="hidden" name="ref" value="${ref}" />
+    <div style="width: 782px; height: 20px; background-color: white;">&nbsp;</div>
+    <div style="width: 150px; border: 1px solid black; background-color: white; float: left; height: 450px; padding-left: 10px; padding-right: 10px; ">
+        <div style="width: 100%; height: 20px;">&nbsp;</div>
+        % if show.count("general"):
+            <div style="cursor: pointer; margin-bottom: 10px; background-color: #d5e5f7; width: 150px; height: 24px;" id="lblprop0" onClick="showPage('tabprop0');">
+                <div style="float: left; ">
+                    <img src="images/prop_general.gif" align="center" valign="middle">&nbsp;&nbsp;
+                </div>
+                <div style="float: left;">
+                    <strong>General</strong>
+                    <br><font style="font-size: 9px;">${fields["general"][:25]}</font>
+                </div>
+            </div>
+        % endif
+        % if show.count("custom"):
+            <div style="cursor: pointer; margin-bottom: 10px;  width: 150px; height: 24px;" id="lblprop1" onClick="showPage('tabprop1');">
+                <div style="float: left; ">
+                    <img src="images/prop_customfields.gif" align="center" />&nbsp;&nbsp;
+                </div>
+                <div style="float: left;">
+                    <strong>Custom Fields</strong>
+                </div>
+            </div>
+        % endif
+        % if show.count("cpumemory"):
+            <div style="cursor: pointer; margin-bottom: 10px;  width: 160px; height: 24px;" id="lblprop2" onClick="showPage('tabprop2');">
+                <div style="float: left; ">
+                    <img src="images/prop_cpu.gif" align="center">&nbsp;&nbsp;
+                </div>
+                <div style="float: left;">
+                    <strong>CPU and Memory</strong>
+                    <br><font style="font-size: 8px;">${fields["cpumemory"]}</font>
+                </div>
+            </div>
+        % endif
+        % if show.count("startup"):
+            <div style="cursor: pointer; margin-bottom: 10px; width: 160px; height: 24px;" id="lblprop3" onClick="showPage('tabprop3');">
+                <div style="float: left; ">
+                    <img src="images/prop_startup.gif" align="center">&nbsp;&nbsp;
+                </div>
+                <div style="float: left;">
+                    <strong>Startup Options</strong>
+                    <br><font style="font-size: 9px;">${fields["startup"]}</font>
+                </div>
+            </div>
+        % endif
+        % if show.count("homeserver"):
+            <div style="cursor: pointer; margin-bottom: 10px; width: 150px; height: 24px;" id="lblprop4" onClick="showPage('tabprop4');">
+                <div style="float: left; ">
+                    <img src="images/prop_homeserver.gif" align="center">&nbsp;&nbsp;
+                </div>
+                <div style="float: left;">
+                    <strong>Home Server</strong>
+                    <br><font style="font-size: 9px;">${fields["homeserver"]}</font>
+                </div>
+            </div>
+        % endif
+        % if show.count("multipath"):
+            <div style="cursor: pointer; margin-bottom: 10px; width: 150px; height: 24px;" id="lblprop5" onClick="showPage('tabprop5');">
+                <div style="float: left; ">
+                    <img src="images/multipath.png" align="center">&nbsp;&nbsp;
+                </div>
+                <div style="float: left;">
+                    <strong>Multipathing</strong>
+                </div>
+            </div>
+        % endif
+        % if show.count("logdest"):
+            <div style="cursor: pointer; margin-bottom: 10px; width: 150px; height: 24px;" id="lblprop6" onClick="showPage('tabprop6');">
+                <div style="float: left; ">
+                    <img src="images/prop_logdest.png" align="center">&nbsp;&nbsp;
+                </div>
+                <div style="float: left;">
+                    <strong>Log destination</strong>
+                    <br><font style="font-size: 9px;">${fields["logdest"]}</font>
+                </div>
+            </div>
+        % endif
+        % if show.count("networksettings"):
+            <div style="cursor: pointer; margin-bottom: 10px; width: 150px; height: 24px;" id="lblprop7" onClick="showPage('tabprop7');">
+                <div style="float: left; ">
+                    <img src="images/prop_networksettings.png" align="center">&nbsp;&nbsp;
+                </div>
+                <div style="float: left;">
+                    <strong>Network Settings</strong>
+                    <br><font style="font-size: 9px;">${fields["networksettings"]}</font>
+                </div>
+            </div>
+        % endif
+        % if show.count("stgvm"):
+            <div style="cursor: pointer; margin-bottom: 10px; width: 150px; height: 24px;" id="lblprop8" onClick="showPage('tabprop8');">
+                <div style="float: left; ">
+                    <img src="images/prop_sizelocation.png" align="center">&nbsp;&nbsp;
+                </div>
+                <div style="float: left;">
+                    <strong>Size an Location</strong>
+                    <br><font style="font-size: 9px;" style="overflow: auto;">${fields["stgvm"][:25]}</font>
+                </div>
+            </div>
+            % for i, row in enumerate(fields["listdisk"]):
+            <div style="cursor: pointer; margin-bottom: 10px; width: 150px; height: 24px;" id="lblprop${i+9}" 
+                onClick="showPage('tabprop${i+9}'); document.getElementById('lblpropstgvm${i+9}').innerHTML='${row[1]}';">
+                    <div style="float: left; ">
+                        <img src="images/prop_sizelocation.png" align="center">&nbsp;&nbsp;
+                    </div>
+                    <div style="float: left;">
+                        <strong>${row[1][:16]}</strong>
+                        <br><font style="font-size: 9px;" style="overflow: auto;">${row[2]}</font>
+                    </div>
+                </div>                
+            % endfor
+        % endif
+        % if show.count("advancedoptions"):
+            <div style="cursor: pointer; margin-bottom: 10px; width: 150px; height: 24px;" id="lblprop9" onClick="showPage('tabprop9');">
+                <div style="float: left; ">
+                    <img src="images/prop_advancedoptions.png" align="center">&nbsp;&nbsp;
+                </div>
+                <div style="float: left;">
+                    <strong>Advanced Options</strong>
+                    <br><font style="font-size: 9px;">${fields["advancedoptions"]}</font>
+                </div>
+            </div>
+        % endif
+
+    </div> 
+    <div id="tabprop0" style="width: 600px; border: 1px solid black;  height: 440px; padding-left: 180px; padding-top: 10px; background-color: white;">
+        <div style="float: left; width: 600px;">
+            <img src="images/prop_general.gif" align="center" />&nbsp;&nbsp;<strong>General</strong>
+        </div>
+        <div style="float: left; width: 600px; height: 10px;">&nbsp;</div>
+        <div style="width: 100px; float: left;">Name:</div> 
+        <div style="float: left;"><input type="text" id="txtpropvmname" name="txtpropvmname" value="${fields["txtpropvmname"]}" style="width: 400px;" /></div>
+        <div style="float: left; width: 600px; height: 10px;">&nbsp;</div>
+        <div style="width: 100px; float: left;">Description:</div> 
+        <div style="float: left;"><textarea id="txtpropvmdesc" name="txtpropvmdesc" style="width: 400px; height: 80px;">${fields["txtpropvmdesc"]}</textarea></div>
+        <div style="float: left; width: 600px; height: 30px;">&nbsp;</div>
+        <div style="width: 100px; float: left;">Folder:</div> 
+        <div style="float: left;  height: 20px; width: 390px; border: 1px solid grey; padding: 5px 5px 5px 5px;"><div id="lblpropvmfolder">${fields["lblpropvmfolder"]}</div></div>
+        <div style="float: left; width: 600px; height: 30px;">&nbsp;</div>
+        <div style="width: 100px; float: left;">Tags:</div> 
+        <div style="float: left;  height: 170px; width: 390px; border: 1px solid grey; padding: 5px 5px 5px 5px;"><div id="lblpropvmtags">${fields["lblpropvmtags"]}</div></div>
+    </div> 
+    <div id="tabprop1" style="display: none; width: 600px; border: 1px solid black;  height: 440px; padding-left: 180px; padding-top: 10px; background-color: white;">
+        <div style="float: left; width: 600px;">
+            <img src="images/prop_customfields.gif" align="center" />&nbsp;&nbsp;<strong>Custom Fields</strong>
+        </div>
+        <div style="float: left; width: 600px; height: 10px;">&nbsp;</div>
+        <div style="float: right; margin-right: 80px;"><input type="button" name="bteditcustomfields" value="Edit Custom Fields..." class="button" onClick="showPopWin('wcustomfields?host=' + parent.selected_host,  400, 450, null);" /></div>
+        <div style="float: left; width: 600px; height: 30px;">&nbsp;</div>
+        <div style="overflow: auto; height: 300px; width: 600px;">
+            % for cstmfield in cstmfields:
+                <div style="width: 100px; float: left;">
+                    ${cstmfield}
+                </div>
+                <div style="width: 400px; padding-left: 50px; float: left;">
+                    % if cstmfield in cstmvalues:
+                        <input type="text" name="cstmvalues" id=="cstmvalues_${cstmfield}" value="${cstmvalues[cstmfield]}" style="width: 300px;"/>
+                    % else:
+                        <input type="text" name="cstmvalues" id="cstmvalues_${cstmfield}" value="" style="width: 300px;"/>
+                    % endif
+                </div>
+                <div style="float: left; width: 600px; height: 10px;">&nbsp;</div>
+            % endfor
+        </div>
+    </div> 
+    <div id="tabprop2" style="display: none; width: 600px; border: 1px solid black;  height: 440px; padding-left: 180px; padding-top: 10px; background-color: white;">
+        % if show.count("cpumemory"):
+            <div style="float: left; width: 600px;">
+                <img src="images/prop_cpu.gif" align="center" />&nbsp;&nbsp;<strong>CPU and Memory</strong>
+            </div>
+            <div style="float: left; width: 600px; height: 10px;">&nbsp;</div>
+            <div style="margin-left: 10px;">
+                <div style="float: left; width: 150px;">VM Memory:</div>
+                <div style="float: left;"><input type="text" id="spinpropvmmem" name="spinpropvmmem" value="${fields['spinpropvmmem']}" style="text-align: right; width: 70px;">&nbsp;MB</div>
+                <div style="float: left; width: 600px; height: 10px;">&nbsp;</div>
+                <div style="float: left; width: 150px;">Number of VCPUs:</div>
+                <div style="float: left;"><input type="text" id="spinpropvmvcpus" name="spinpropvmvcpus" value="${fields['spinpropvmvcpus']}" value="1" style="text-align: right; width: 70px;"></div>
+                <div style="float: left; width: 600px; height: 20px;">&nbsp;</div>
+                <div style="float: left;">VCPU priority for this virtual machine:</div>
+                <div style="float: left; width: 600px; height: 10px;">&nbsp;</div>
+                <div style="float: left;">
+                    <select id="scalepropvmprio" name="scalepropvmprio" style="width: 100px;">
+                        % for key,value in sorted({1 : "Lowest", 4 : "1", 16 : "2", 64 : "3", 256 : "Normal", 1024 : "5", 4096 : "6", 16384 : "7", 65536 : "Highest" }.items()):
+                            % if key ==  fields["spinpropvmprio"]:
+                                <option value="${key}" selected>${value}</option>
+                            % else:
+                                <option value="${key}">${value}</option>
+                            % endif
+                        % endfor    
+                    </select>
+                </div>
+            </div>
+        % endif
+    </div>
+    <div id="tabprop3" style="display: none; width: 600px; border: 1px solid black;  height: 440px; padding-left: 180px; padding-top: 10px; background-color: white;">
+        % if show.count("startup"):
+        <div style="float: left; width: 600px;">
+            <img src="images/prop_startup.gif" align="center" />&nbsp;&nbsp;<strong>Startup Options</strong>
+        </div>
+        <div style="float: left; width: 600px; height: 10px;">&nbsp;</div>
+        <div style="margin-left: 10px;">
+            <input type="checkbox" id="checkvmpropautostart" name="checkvmpropautostart" ${fields["checkvmpropautostart"]}>  Auto-start on server boot
+            <div style="float: left; width: 600px; height: 10px;">&nbsp;</div>
+            % if fields["txtvmpropparams"] != "none":
+                <div style="float: left; width: 150px;">OS Boot Parameters:</div>
+                <div style="float: left;">
+                    <input type="text" name="txtvmpropparams" id="txtvmpropparams" value="${fields["txtvmpropparams"]}" style="width: 350px;">
+                </div> 
+                <div style="float: left; width: 600px; height: 10px;">&nbsp;</div>
+            % else:
+                <div style="float: left; width: 150px;">Boot Order:</div>
+                <div style="float: left; width: 600px; height: 20px;">&nbsp;</div>
+                <div style="float: left; width: 440px; height: 250px; border: 1px solid black;">
+                    <select id="listbootorder" name="listbootorder" size="10" style="height: 250px;" onChange="on_listbootorder_changed();">
+                        % for row in fields["listbootorder"]:
+                            % if row[2]:
+                                <option value="${row[0]}">${row[1]}</option>
+                            % else:
+                                <option value="${row[0]}" disabled>${row[1]}</option>
+                            % endif
+                        % endfor 
+                    </select>   
+                </div>
+                <div style="float: left; margin-left: 10px;">
+                    <input type="button" id="btmoveup" name="btmoveup" value="Move Up" class="button" onClick="on_btmoveup_clicked();" disabled/><br /><br />
+                    <input type="button" id="btmovedown" name="btmovedown" value="Move Down" class="button" onClick="on_btmovedown_clicked();" disabled/>
+                </div>
+            % endif
+        </div>
+        % endif
+    </div>
+    <div id="tabprop4" style="display: none; width: 600px; border: 1px solid black;  height: 440px; padding-left: 180px; padding-top: 10px; background-color: white;">
+        % if show.count("homeserver"):
+        <div style="float: left; width: 600px;">
+            <img src="images/prop_homeserver.gif" align="center" />&nbsp;&nbsp;<strong>Home Server</strong>
+        </div>
+        <div style="float: left; width: 600px; height: 20px;">&nbsp;</div>
+        <div style="margin-left: 10px;">
+            <div style="float: left;">
+                The home server provides the resources for a VM in a pool. <br>
+                XenServer will always attempt to use the resources of the home if it can.
+            </div>
+            <div style="float: left; width: 600px; height: 20px;">&nbsp;</div>
+            <div style="float: left;">
+                <input type="radio" name="radioautohome" value="radioautohome" id="radioautohome" ${fields["radioautohome"]}>&nbsp; Automatically select a home server with available resources
+                (Requires shared storage)
+            </div>
+            <div style="float: left; width: 600px; height: 20px;">&nbsp;</div>
+            <div style="float: left;">
+                <input type="radio" name="radioautohome" value="radiomanualhome" id="radiomanualhome" ${fields["radiomanualhome"]}>&nbsp; Use this server as the VM's home server:
+            </div>
+            <div style="float: left; width: 600px; height: 20px;">&nbsp;</div>
+            <div style="float: left; width: 450px; height: 200px; border: 1px solid black; overflow: auto;">
+            <div id="selhost" style="display: none;">${fields["selhost"]}</div>
+                <table style="overflow: auto; width: 100%; ">
+                    % for row in fields["listhomeserver"]:
+                    <tr class="row" style="clear: both;" id="${row[0]}" onClick="selectHostRow('${row[0]}')">
+                        <td style="text-align: left;" ><img src="${row[1]}" border="0"></td> 
+                        <td style="text-align: left;">${row[2]}</td> 
+                        <td style="text-align: left; font-size: 10px;">${row[3]}</td> 
+                    </tr>
+                    % endfor
+                </table>
+            </div>
+        </div>
+        % endif
+    </div>
+    <div id="tabprop5" style="display: none; width: 600px; border: 1px solid black;  height: 440px; padding-left: 180px; padding-top: 10px; background-color: white;">
+        <div style="float: left; width: 600px;">
+            <img src="images/multipath.png" align="center" />&nbsp;&nbsp;<strong>Multipath</strong>
+        </div>
+        <div style="float: left; width: 600px; height: 20px;">&nbsp;</div>
+        TO DO
+    </div>
+    <div id="tabprop6" style="display: none; width: 600px; border: 1px solid black;  height: 440px; padding-left: 180px; padding-top: 10px; background-color: white;">
+        <div style="float: left; width: 600px;">
+            <img src="images/prop_logdest.png" align="center" />&nbsp;&nbsp;<strong>Log destination</strong>
+        </div>
+        <div style="margin-left: 20px;">
+            % if show.count("logdest"):
+                <div style="float: left; width: 600px; height: 30px;">&nbsp;</div>
+                <div style="float: left;">Server System log destination:</div>
+                <div style="float: left; width: 600px; height: 10px;">&nbsp;</div>
+                <div style="float: left;"><input type="radio" id="radiologlocal" name="radiologlocal" value="radiologlocal" 
+                    % if fields["logdest"] == "Local":
+                        checked
+                    % endif
+                />&nbsp;Local</div>
+                <div style="float: left; width: 600px; height: 10px;">&nbsp;</div>
+                <div style="float: left;"><input type="radio" id="radiologremote" name="radiologlocal" value="radiologremote"
+                    % if fields["logdest"] != "Local":
+                        checked
+                    % endif
+                />&nbsp;Remote</div>
+                <div style="float: left; width: 600px; height: 10px;">&nbsp;</div>
+                <div style="float: left; width: 30px;">&nbsp;</div>
+                <div style="float: left;">Server:&nbsp;&nbsp;<input type="text" name="txtlogserver" id="txtlogserver" value="${fields["logipdest"]}" style="width: 300px;"/></div>
+            % endif
+        </div>
+    </div>
+    <div id="tabprop7" style="display: none; width: 600px; border: 1px solid black;  height: 440px; padding-left: 180px; padding-top: 10px; background-color: white;">
+        % if show.count("networksettings"):
+            <div style="float: left; width: 600px;">
+                <img src="images/prop_networksettings.png" align="center" />&nbsp;&nbsp;<strong>Network Settings</strong>
+            </div>
+            <div style="float: left; width: 600px; height: 20px;">&nbsp;</div>
+            <div style="margin-left: 20px;">
+                <input type="checkbox" name="checknetworkautoadd" id="checknetworkautoadd" ${fields["checknetworkautoadd"]} />&nbsp;Automatically add this network to new virtual machines.
+            </div>
+        % endif
+    </div>
+    <div id="tabprop8" style="display: none; width: 600px; border: 1px solid black;  height: 440px; padding-left: 180px; padding-top: 10px; background-color: white;">
+        % if show.count("stgvm"): 
+        <div style="float: left; width: 600px;">
+            <img src="images/prop_sizelocation.png" align="center" />&nbsp;&nbsp;<strong>Size and Location</strong>
+        </div>
+        <div style="margin-left: 20px;">
+            <div style="float: left; width: 600px; height: 20px;">&nbsp;</div>
+            <div style="float: left; width: 150px;">Size:</div>
+            <div style="float: left;"><input type="text" id="spinvdisize" name="spinvdisize" value="${fields['adjvdisize']}" ${fields['spinvdisize']} style="text-align: right; width: 70px;">&nbsp;GB</div>
+            <div style="float: left; width: 600px; height: 20px;">&nbsp;</div>
+            <div style="float: left; width: 150px;">Location:</div>
+            <div style="float: left; width: 600px; height: 20px;">&nbsp;</div>
+            <div style="float: left; width: 490px; height: 250px; border: 1px solid black; overflow: auto;">
+                <table style="overflow: auto; width: 100%; background-color: #D3D3D3;" >
+                    % for row in fields["listvdilocation"]:
+                    <tr  style="clear: both;" id="${row[0]}" disabled>
+                        <td style="text-align: left;" ><img src="${row[1]}" border="0"></td> 
+                        <td style="text-align: left;">${row[2]}</td> 
+                    </tr>
+                    % endfor
+                </table>
+
+            </div>
+            <script>
+                selectVdiRow('${fields["posvdilocation"]}');
+            </script>
+        </div>
+        % endif
+    </div>
+    % if show.count("stgvm"):
+    % for i, row in enumerate(fields["listdisk"]):
+    <div id="tabprop${9+i}" style="display: none; width: 600px; border: 1px solid black;  height: 440px; padding-left: 180px; padding-top: 10px; background-color: white;">
+            <div style="float: left; width: 600px;">
+                <img src="images/prop_stgvm.png" align="center" />&nbsp;&nbsp;<strong>
+                <font id="lblpropstgvm${9+i}">NAME</font></strong>
+            </div>
+            <div style="margin-left: 20px;">
+                <div style="float: left; width: 600px; height: 20px;">&nbsp;</div>
+                <div style="float: left; width: 150px;">Mode:</div>
+                <div style="float: left;">
+                    <select id="combostgmode_${row[7]}" name="combostgmode" style="width: 300px;">
+                        % if row[3] == "RW":
+                            <option value="RW" selected>Read / Write</option>
+                            <option value="RO">Read Only</option>
+                        % else:
+                            <option value="RW">Read / Write</option>
+                            <option value="RO" selected>Read Only</option>
+                        % endif
+                    </select>
+                </div>
+                <div style="float: left; width: 600px; height: 20px;">&nbsp;</div>
+                <div style="float: left; width: 150px;">Device Position:</div>
+                <div style="float: left;">
+                    <select id="combostgposition_${row[7]}" name="combostgposition" style="width: 300px;" onChange='checkFreePosition(${row[5]}, ${row[4]}, "combostgposition${9+i}", "lblinuse${9+i}");'>
+                        % for a in range(0,16):
+                            % if int(row[4]) == a:
+                                <option value="${a}" selected>${a}</option>
+                            % else:
+                                <option value="${a}">${a}</option>
+                            % endif
+                        % endfor
+                    </select>
+                </div>
+                <div style="float: left; width: 600px; height: 20px;">&nbsp;</div>
+                <div style="float: left; width: 150px;">&nbsp;</div>
+                <div style="float: left;">
+                    <div id="lblinuse${9+i}" style="display: none; color: red;">The selected device position is currently in use or is invalid.</div>
+                </div>
+                <div style="float: left; width: 600px; height: 20px;">&nbsp;</div>
+                <div style="float: left; width: 150px;">
+                    % if row[6]:
+                        <input type="checkbox" id="isbootable_${row[7]}" name="isbootable" checked/>
+                    % else:
+                        <input type="checkbox" id="isbootable_${row[7]}" name="isbootable" />
+                    % endif
+                &nbsp;Bootable</div>
+                <div style="float: left; width: 600px; height: 20px;">&nbsp;</div>
+                <div style="float: left;">
+                    Disk Access Priority: Not implemented
+                </div>
+
+            </div>
+    </div>
+    % endfor
+    % endif
+    <div id="tabprop9" style="display: none; width: 600px; border: 1px solid black;  height: 440px; padding-left: 180px; padding-top: 10px; background-color: white;">
+        % if show.count("advancedoptions"):
+            <div style="float: left; width: 600px;">
+                <img src="images/prop_advancedoptions.png" align="center" />&nbsp;&nbsp;<strong>Advanced Options</strong>
+            </div>
+            <div style="float: left; width: 600px; height: 20px;">&nbsp;</div>
+            <div style="margin-left: 20px;">
+                You can optimize this VM for increased performance in different environments. Use the preset choices to configure it for general use or to enhance Citrix XenApp performance. Alternatively, advanced users can select the manual setting for custom optimization.<br />
+                <input type="radio" id="optimizegeneraluse" name="checkoptimize" value="optimizegeneraluse" ${fields["checkoptimize"]["optimizegeneraluse"]} />&nbsp;Optimize for general use<br />
+                <input type="radio" id="optimizeforxenapp" name="checkoptimize" value="optimizeforxenapp"  ${fields["checkoptimize"]["optimizeforxenapp"]}/>&nbsp;Optimize for Citrix XenApp<br />
+                <input type="radio" id="optimizemanually" name="checkoptimize" value="optimizemanually"  ${fields["checkoptimize"]["optimizemanually"]}/>&nbsp;Optimize manually (advanced use only)<br />
+                % if fields["checkoptimize"]["optimizemanually"]: 
+                Shadow memory multiplier: <input type="text" id="memorymultiplier" name="memorymultiplier" value="${fields["shadowmultiplier"]}" />
+                % else:
+                    Shadow memory multiplier: <input type="text" id="memorymultiplier" name="memorymultiplier" value="4.00" />
+                % endif
+
+            </div>
+        % endif
+    </div>
+
+<div style="width: 225px; height: 10px;">&nbsp;</div>
+<div style="width: 450px; float: left; ">&nbsp;</div>
+    <div style="width: 20; float: left;">&nbsp;</div>
+    <div style="float: left;">
+        <input type="button" name="btvmpropaccept" id="btvmpropaccept" value="OK" class="button" onclick="on_btvmpropaccept_accept();">
+    </div>
+    <div style="width: 20; float: left;">&nbsp;</div>
+    <div style="float: left;">
+        <input type="button" name="btvmpropcancel" id="btvmpropcancel" value="Cancel" class="button" onclick="parent.hidePopWin(false); ">
+    </div>
+</body>
+</html>
+

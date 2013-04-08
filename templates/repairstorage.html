@@ -1,0 +1,45 @@
+<html>
+<title>XenWebManager</title>
+<head>
+    <link rel="stylesheet" href="css/style_blue.css" type="text/css" media="screen" charset="utf-8"/>
+    <script type="text/javascript" src="js/repairstorage.js"> </script>
+</head>
+<body>
+    <div style="text-align: center; background-color: white; width: 440px; padding-top: 10px;">
+        <img src="images/repair.png" valign="center" align="center">
+        This operation will attempt to repair the broken storage you selected.  <br>
+        If this operation cannot repair the storage, it will give you <br>
+        a more detailed error message.<br>
+    </div>
+
+    <div style="width: 440px; height: 20px; background-color: white;">&nbsp;</div>
+    <div id="repairstorage" style="width: 420px; border: 1px solid black;  height: 270px; padding-left: 20px; padding-top: 10px; background-color: white;">
+        <div style="width: 225px; height: 10px;">&nbsp;</div>
+        Current Status:
+        <div style="float: left; border: 1px solid grey; height: 200px; overflow: auto; width: 400px;"> 
+            <table style="overflow: auto; width: 100%; ">
+            % for row in hosts:
+                <tr class="row" style="clear: both;" id="${row[0]}" onClick="selectRow('${row[0]}');">
+                <td nowrap><img src="${row[1]}"></td> 
+                <td style="padding-right: 10px;" nowrap>${row[2]}</td> 
+                <td style="padding-right: 10px; color: red; font-weight: bold;" nowrap>${row[3]}</td> 
+                </tr>
+            % endfor
+            </table>
+        </div>        
+        <div style="clear: both:"><img src="images/ajax-loader.gif" id="loading" style="display: none;"/></div>
+        <div id="lblrepairerror" style="clear: both; color: red; font-weight: bold; display: none;">Host could not be contacted</div>
+    </div> 
+    
+<div style="width: 275px; height: 10px;">&nbsp;</div>
+<div style="width: 315px; float: left; ">&nbsp;</div>
+    <div style="float: left;">
+        <input type="button" name="acceptrepairstorage" id="acceptrepairstorage" value="Repair" class="button" onClick="on_acceptrepairstorage_clicked();">
+    </div>
+    <div style="width: 20; float: left;">&nbsp;</div>
+    <div style="float: left;">
+        <input type="button" name="cancelrepairstorage" id="cancelrepairstorage" value="Cancel" class="button" onclick="parent.hidePopWin(false); ">
+    </div>
+</body>
+</html>
+

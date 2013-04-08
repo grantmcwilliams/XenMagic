@@ -1,0 +1,155 @@
+<html>
+<title>XenWebManager</title>
+<head>
+    <link rel="stylesheet" href="css/style_blue.css" type="text/css" media="screen" charset="utf-8"/>
+    <script type="text/javascript" src="js/importvm.js"> </script>
+    <script type="text/javascript" src="js/common.js"> </script>
+    <link rel="stylesheet" href="css/subModal.css" type="text/css" />
+    <script type="text/javascript" src="js/subModal.js"> </script>
+</head>
+<body>
+    <div style="text-align: center; background-color: white; width: 782px;">
+        <img src="images/import.png" border="0" align="center">
+        <strong>Specify the location and type of the import source</strong>
+    </div>
+
+    <div style="width: 782px; height: 20px; background-color: white;">&nbsp;</div>
+    <div style="width: 150px; border: 1px solid black; background-color: white; float: left; height: 450px; padding-left: 10px; padding-right: 10px;">
+        <div style="width: 100%; height: 20px;">&nbsp;</div>
+        <div style="font-weight: bold; margin-bottom: 10px; background-color: #d5e5f7;" id="lblimportvm0">Import Source</div>
+        <div style="font-weight: bold; margin-bottom: 10px;" id="lblimportvm1">Home server</div>
+        <div style="font-weight: bold; margin-bottom: 10px;" id="lblimportvm2">Storage</div>
+        <div style="font-weight: bold; margin-bottom: 10px;" id="lblimportvm3">Network</div>
+        <div style="font-weight: bold; margin-bottom: 10px;" id="lblimportvm4">Finish</div>
+    </div> 
+    <div id="importvm0" style="width: 580px; border: 1px solid black;  height: 410px; padding-left: 200px; padding-top: 40px; background-color: white;">
+        <form id="importvmform2" name="importvmform" action="do_import_vm" method="post" enctype="multipart/form-data">
+        <input type="hidden" id="host" name="host" value="${host}" />
+        <input type="hidden" id="host_ref" name="host_ref" value="${host}" />
+        <input type="hidden" id="stg" name="stg" value="" />
+        <input type="hidden" name="disks" id="disks" />
+        <input type="hidden" name="vifs" id="vifs" />
+        </form>
+        <div style="width: 150px; float: left;">Import File Name:</div>
+        <form id="importvmform" name="importvmform" action="do_import_vm" method="post" enctype="multipart/form-data">
+            <div><input type="file" id="filechooserimportvm" name="filechooserimportvm" style="width: 350px;" /></div>
+        </form>
+        <div style="width: 225px; height: 40px;">&nbsp;</div>
+        <div>Import Type:</div>
+        <div style="width: 225px; height: 10px;">&nbsp;</div>
+        <div style="margin-left: 30px;"><input type="radio" name="radioexportedvm" value="radioexportedvm" checked />Exported VM</div>
+        <div style="margin-left: 30px;"><input type="radio" name="radioexportedvm" value="radioexportedtpl" />Exported Template</div>
+        <div style="width: 225px; height: 10px;">&nbsp;</div>
+        Note: The same file extension (*.xva) is used for both exported VMs and exported templates.
+        
+    </div> 
+    <div id="importvm1" style="display: none; width: 580px; border: 1px solid black;  height: 430px; padding-left: 200px; padding-top: 20px; background-color: white;">
+        <div style="padding-right: 20px;">Click on a server to nominate it as the home server for the imported VM or for any new VMs 
+            to be based on the imported template. The home server will be used by default to start up 
+            the VM and to provide resources such as local storage.:</div>
+        <div style="width: 225px; height: 20px;">&nbsp;</div>
+        <div style="padding-right: 20px;">Click on a pool if you do not want to nominate a home server: the most suitable 
+            available server will be used</div>
+        <div style="width: 225px; height: 20px;">&nbsp;</div>
+        <div id="treeimportservers" style="overflow: auto; width: 550px; height: 200px; border: 1px solid black;">
+            <div id="selhost" style="display: none;">${selhost}</div>
+            <table style="overflow: auto; width: 100%; ">
+                % for i, row in enumerate(hosts):
+                    <tr class="row" style="clear: both;" id="${row[3]}" onClick="selectHostRow('${row[3]}', '${row[4]}', '${row[5]}', '${row[6]}')">
+                    <td style="text-align: left;" ><img src="${row[0]}" border="0"></td> 
+                    <td style="text-align: left;">${row[1]}</td> 
+                    <td style="text-align: left; font-size: 10px;">${row[2]}</td> 
+                    </tr>
+                % endfor
+            </table>
+        </div>
+    </div> 
+    <div id="importvm2" style="display: none; width: 580px; border: 1px solid black;  height: 430px; padding-left: 200px; padding-top: 20px; background-color: white;">
+        <div style="">Select a storage repository where virtual disks for the new VM/template will be stored:</div>
+        <div style="width: 225px; height: 20px;">&nbsp;</div>
+        <div id="treeimportstg" style="overflow: auto; width: 550px; height: 370px; border: 1px solid black;">
+
+        </div>
+    </div> 
+    <div id="importvm3" style="display: none; width: 580px; border: 1px solid black;  height: 430px; padding-left: 200px; padding-top: 20px; background-color: white;">
+        <div style="padding-right: 20px;">The virtual network interfaces configured for the imported VM are listed below.<br>You can add, modify or remove virtual network interfaces as required.</div>
+        <div style="width: 225px; height: 20px;">&nbsp;</div>
+        <select id="networkselect" name="networkselect" style="display: none; width: 180px;">
+                    % for row2 in networkcolumn:
+                        % if row[3] == row2[1]:
+                            <option value="${row2[1]}" selected>${row2[0]}</option>
+                        % else:
+                            <option value="${row2[1]}" >${row2[0]}</option>
+                        % endif
+                    % endfor
+        </select>
+
+        <div id="treeimportnetworks" style="overflow: auto; width: 550px; height: 200px; border: 1px solid black;">
+            <table style="overflow: auto; width: 100%; " id="tablenewnetwork">
+                    <tr class="head">
+                        <th class="headcolumn" style="min-width: 200px;">Name</th> 
+                        <th class="headcolumn" style="min-width: 100px;">Mac Address</th> 
+                        <th class="headcolumn" style="min-width: 180px; ">Network</th> 
+                    </tr>
+                    % for i, row in enumerate(vifs):
+                        <tr class="row" style="clear: both;" id="newvif${i}" onClick="selectVifRow('newvif${i}');">
+                        <td style="text-align: left;" >${row[0]}</td> 
+                        <td style="text-align: left;"><input type="text" name="nacnewvif${i}" value="${row[1]}" style="border: 1px dotted; background-color: #d5e5f7;"></td> 
+                        <td style="text-align: left;">
+                            <select name="newworkref${i}" style="width: 180px;">
+                                % for row2 in networkcolumn:
+                                    % if row[3] == row2[1]:
+                                        <option value="${row2[1]}" selected>${row2[0]}</option>
+                                    % else:
+                                        <option value="${row2[1]}" >${row2[0]}</option>
+                                    % endif
+                                % endfor
+                            </select>
+                        </td>
+                        </tr>
+                    % endfor
+            </table>
+
+        </div>
+        <div style="float: right; margin-right: 10px;">
+            <input type="button" name="btimportaddnetwork" id="btimportaddnetwork" value="Add..." class="button" onClick="on_btimportaddnetwork_clicked();" /> 
+            <input type="button" name="btimportdeletenetwork" id="btimportdeletenetwork" value="Delete" class="button" onClick="on_btimportdeletenetwork_clicked();" />
+        </div>
+
+    </div>
+    <div id="importvm4" style="display: none; width: 580px; border: 1px solid black;  height: 430px; padding-left: 200px; padding-top: 20px; background-color: white;">
+        <div style="padding-right: 20px;">Click the Finish button to complete the import process and close the wizard.</div>
+        <div style="width: 225px; height: 20px;">&nbsp;</div>
+        <div style="padding-right: 20px;">The import process may take several minutes.</div>
+        <div style="width: 225px; height: 200px;">&nbsp;</div>
+        <div id="" style="overflow: auto; width: 550px; height: 100px; border: 1px solid black;">
+            <strong>Automatically start new VM</strong><br /><br />
+            To have your new VM start up as soon as the import process is complete select this checkbox.<br /><br />
+            <input type="checkbox" name="checkstartvmafterimport" id="checkstartvmafterimport" />Start VM after import
+        </div>
+        <div id="loading" style="display: none;">
+            Uploading file, if you want continue use xenwebmanager open a new tab<br />
+            <img src="images/ajax-loader.gif" />
+        </div>
+    </div>
+    </form>
+<div style="width: 225px; height: 10px;">&nbsp;</div>
+<div style="width: 450px; float: left; ">&nbsp;</div>
+    <div style="float: left;">
+        <input type="button" name="previousvmimport" id="previousvmimport" value="< Previous" class="button" onclick="goPrevious();" disabled>
+    </div>
+    <div style="width: 20; float: left;">&nbsp;</div>
+    <div style="float: left;">
+        <input type="button" name="nextvmimport" id="nextvmimport" value="Next >" class="button" onclick="goNext();">
+    </div>
+    <div style="width: 20; float: left;">&nbsp;</div>
+    <div style="float: left;">
+        <input type="button" name="finishvmimport" id="finishvmimport" value="Finish" class="button" onclick="on_finishvmimport_clicked();" disabled>
+    </div>
+    <div style="width: 20; float: left;">&nbsp;</div>
+    <div style="float: left;">
+        <input type="button" name="cancelvmimport" id="cancelvmimport" value="Cancel" class="button" onclick="parent.hidePopWin(false);">
+    </div>
+</body>
+</html>
+

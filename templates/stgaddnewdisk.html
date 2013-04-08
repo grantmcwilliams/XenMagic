@@ -1,0 +1,53 @@
+<title>XenWebManager</title>
+
+<head>
+    <link rel="stylesheet" href="css/style_blue.css" type="text/css" media="screen" charset="utf-8"/> 
+    <script type="text/javascript" src="js/stgaddnewdisk.js"> </script>
+</head>
+<body style="background-color: white;">
+    <div style="margin-top: 10px; width: 500px; height: 350px; padding-left: 20px">
+        <div style="float: left; width: 100%; height: 10px;"></div>
+        <div style="float: left; width: 100px">Name:</div>
+        <div><input type="text" id="stgaddnewdisk_name" name="stgaddnewdisk_name" style="width: 335px;" value="New virtual disk on ${name}"></div>
+        <div style="float: left; width: 100%; height: 10px;"></div>
+        <div style="float: left; width: 100px">Description:</div>
+        <div><input type="text" id="stgaddnewdisk_desc" name="stgaddnewdisk_desc" style="width: 335px;"></div>
+        <div style="float: left; width: 100%; height: 20px;"></div>
+        <div style="float: left; width: 100px;">Size: </div>
+        <div><input type="text" id="newstgdisksize" name="newstgdisksize" value="5.00" style="width: 50px;"> GB</div>
+        <div style="float: left; width: 100%; height: 20px;"></div>
+        <div style="float: left;">
+            Select a storage repository to create the disk on: 
+            <div style="float: right; border: 1px solid grey; height: 85%; overflow: auto; width: 500px;"> 
+                <table style="width: 100%; ">
+                    <tr class="head">
+                        <th class="headcolumn" style="min-width: 150px;">Name</th> 
+                        <th class="headcolumn" style="min-width: 150px;">Description</th> 
+                        <th class="headcolumn" style="min-width: 100px;">Size (GB)</th> 
+                        <th class="headcolumn" style="min-width: 100px;" nowrap>Free Space (GB)</th>
+                    </tr>
+                    % for row in storages:
+                        <tr class="row" style="clear: both;" id="${row[5]}" onClick="selectRow('${row[5]}');">
+                        <td style="float: left; padding-right: 10px;" nowrap>${row[0]}</td> 
+                        <td style="padding-right: 10px;" nowrap>${row[1]}</td> 
+                        <td style="text-align: center; padding-right: 10px;" nowrap>${row[2]}</td> 
+                        <td style="text-align: center;">${row[3]}</td> 
+                        </tr>
+                    % endfor
+                </table>
+            </div>       
+        </div>
+        <div style="float: left; width: 100%; height: 20px;"></div>
+        <div style="float: right;">
+            <img src="images/ajax-loader.gif" id="loading" style="display: none;"/>
+            <input type="button" id="acceptstgaddnewdisk" name="acceptstgaddnewdisk" value="OK" class="button" onClick="on_acceptstgaddnewdisk_clicked();" disabled/>
+            <input type="button" name="cancelnewstgdisk" value="Cancel" class="button" onClick="parent.hidePopWin(false);"/>
+        </div>
+        <script>
+            selectRow('${default}');
+        </script>
+
+    </div>
+</div>
+</body>
+</html>

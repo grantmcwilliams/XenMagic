@@ -1,0 +1,12 @@
+<table style="overflow: auto; width: 100%; ">
+    % for row in updatestatus:
+                % if row[2]:
+                <tr class="row" style="clear: both;" id="${row[0]}" onClick="selectHostRow('${row[0]}');">
+                % else:
+                <tr class="row2" style="clear: both;" id="${row[0]}">
+                 %endif
+                <td style="text-align: left;" nowrap>${row[1]}</td> 
+                </tr>
+        % endfor
+</table>
+

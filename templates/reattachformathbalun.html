@@ -1,0 +1,14 @@
+<html>
+<title>XenWebManager</title>
+<head>
+    <link rel="stylesheet" href="css/style_blue.css" type="text/css" media="screen" charset="utf-8"/>
+</head>
+<body>
+    An existing SR was found on the selected LUN. Click Reattach to use the existing SR, or click Format to destroy any data present on the disk and create a new SR.<br><br>
+     Warning: to prevent data loss you must ensure that the LUN is not in use by any other system, including XenServer hosts that are not connected to XenCenter.<br><br>
+     '${sr}'<br><br>
+    <input type="button" value="Reattach" class="button" name="acceptareattachformathbalun" onClick="parent.on_acceptareattachformathbalun_clicked();" />
+    <input type="button" value="Format" class="button" name="acceptbreattachformathbalun" onClick="parent.on_accepformatdisklun_clicked();" />
+    <input type="button" value="Cancel" class="button" name="cancelreattachformathbalun" onClick="parent.hidePopWin(false);" />
+</body>
+</html>

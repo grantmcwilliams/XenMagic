@@ -1,0 +1,57 @@
+<%def name="show_row(row, margin, filter=None)">
+    % if not ((row['type'] == 'template' and str(config['show_xs_templates']) == str(False)) or \
+            (row['type'] == 'custom_template' and str(config['show_custom_templates']) == str(False)) or \
+            (row['type'] == 'storage' and str(config['show_local_storage']) == str(False) and row['state'] != 'shared') or \
+            (row['type'] == 'vm' and str(config['show_hidden_vms']) == str(False) and str(row['HideFromXenCenter']).lower() != "false")): 
+            % if not filter or row['children'] or row['name'].lower().count(filter):
+            <div onmousedown="javascript:on_treevm_button_press_event(event, this, '${row['name']}', '${row['type']}', ${row['actions']}, '${row['image']}', '${row['ref']}', '${row['host']}', '${row['type']}', '${row['ip']}', '${row['uuid']}', '${row['state']}')" id="${row['ref']}" class="elementvmtree">
+            <div style="height: 25px; cursor: pointer; clear: both; white-space: nowrap;">
+                % if row['type'] == "server" and row["state"] == "Disconnected":
+                    % if config_hosts[row['host']][1]:
+                    <div style="float: left;  padding-top: 3px;" ondblclick="javascript:showPopWin('addserver?host=${row['host']}&username=${config_hosts[row['host']][0]}&password=${config_hosts[row['host']][1]}&ssl=${config_hosts[row['host']][2]}', 400, 260, null);">    
+                    % else:
+                    <div style="float: left;  padding-top: 3px;" ondblclick="javascript:showPopWin('addserver?host=${row['host']}&username=${config_hosts[row['host']][0]}&ssl=${config_hosts[row['host']][2]}', 400, 260, null);">    
+                    % endif
+                % else:
+                    <div style="float: left;  padding-top: 3px;">
+                % endif 
+                <img src="${row['image']}"  align="absmiddle" style="padding-left: 10px;padding-right: 10px; " />
+                ${row['name']} 
+                </div>
+            </div>
+        </div>
+        % endif
+    % endif
+    </%def>
+<div style="background-color: white; resize: horizontal; float: left; display: inline-block; white-space: nowrap; ">
+    <ul class="collapsed" id="sitemap">
+        <li>
+        ${show_row(treestore["home"], "5")}
+        % if treestore["home"]["children"]:
+        <ul>
+            % for row in treestore["home"]['children']:
+                <li>
+                ${show_row(treestore[row], "20")}
+                % if treestore[row]["children"]:
+                    <ul>
+                        % for row in treestore[row]['children']:
+                            <li>
+                            ${show_row(treestore[row], "35", filter)}
+                            % if treestore[row]["children"]:
+                                <ul>
+                                % for row in treestore[row]['children']:
+                                    ${show_row(treestore[row], "60", filter)}
+                                % endfor
+                                </ul>
+                            % endif 
+                            </li> 
+                        % endfor
+                    </ul> 
+                </li>
+                % endif
+            % endfor                
+        % endif
+        </ul>
+        </li>
+    </ul>
+</div>
