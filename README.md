@@ -1,4 +1,4 @@
 XenMagic
 =============
 
-Xapi Web Management Gui
+Xen API Web Management Gui (fork of xenwebmanager)
