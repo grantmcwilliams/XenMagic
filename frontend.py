@@ -68,7 +68,7 @@ class frontend:
             treestores[sessid] = {}
             treestores[sessid]["home"] = {
                     "image" : "images/xen.png",
-                    "name" : "XenWebManager",
+                    "name" : "XenMagic",
                     "uuid" : "home",
                     "type" : "home",
                     "state" : "home",

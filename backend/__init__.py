@@ -1,7 +1,10 @@
 # -----------------------------------------------------------------------
-# XenWebManager 
+# XenMagic
 #
+# Fork of xenwebmanger
 # Copyright (C) 2009 Alberto Gonzalez Rodriguez alberto@pesadilla.org
+# New code copyright (C) 2014 Grant McWilliams grant@soundlinuxtraining.com
+
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
 # the Free Software Foundation; either version 2 of the License, or
