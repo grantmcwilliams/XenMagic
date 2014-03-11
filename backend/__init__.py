@@ -516,15 +516,15 @@ class backend(vm,host,properties,storage,alerts,addserver,newvm,menuitem):
                         and name[:6] != "pif___":
                             ds[name[:3]].append([name, desc])
         if host:
-            if os.path.exists("/var/lib/xenwebmanager/host_rrds.rrd"):
-                os.unlink("/var/lib/xenwebmanager/host_rrds.rrd")
-            urllib.urlretrieve("http://%s/host_rrds?session_id=%s" % (ip, self.session_uuid), "/var/lib/xenwebmanager/host_rrds.rrd")
-            rrd = RRD("/var/lib/xenwebmanager/host_rrds.rrd")
+            if os.path.exists("/var/lib/xenmagic/host_rrds.rrd"):
+                os.unlink("/var/lib/xenmagic/host_rrds.rrd")
+            urllib.urlretrieve("http://%s/host_rrds?session_id=%s" % (ip, self.session_uuid), "/var/lib/xenmagic/host_rrds.rrd")
+            rrd = RRD("/var/lib/xenmagic/host_rrds.rrd")
         else:
-            if os.path.exists("/var/lib/xenwebmanager/vm_rrds.rrd"):
-                os.unlink("/var/lib/xenwebmanager/vm_rrds.rrd")
-            urllib.urlretrieve("http://%s/vm_rrds?session_id=%s&uuid=%s" % (ip, self.session_uuid, uuid), "/var/lib/xenwebmanager/vm_rrds.rrd")
-            rrd = RRD("/var/lib/xenwebmanager/vm_rrds.rrd")
+            if os.path.exists("/var/lib/xenmagic/vm_rrds.rrd"):
+                os.unlink("/var/lib/xenmagic/vm_rrds.rrd")
+            urllib.urlretrieve("http://%s/vm_rrds?session_id=%s&uuid=%s" % (ip, self.session_uuid, uuid), "/var/lib/xenmagic/vm_rrds.rrd")
+            rrd = RRD("/var/lib/xenmagic/vm_rrds.rrd")
         rrdinfo = rrd.get_data(int(period))
 
         # Chart
@@ -592,9 +592,9 @@ class backend(vm,host,properties,storage,alerts,addserver,newvm,menuitem):
         return chart 
        
     def get_performance_data_update(self, uuid, ref, ip):
-        if os.path.exists("/var/lib/xenwebmanager/update.rrd"):
-            os.unlink("/var/lib/xenwebmanager/update.rrd")
-        urllib.urlretrieve("http://%s/rrd_updates?session_id=%s&start=%s&cf=AVERAGE&interval=5&vm_uuid=%s" % (ip, self.session_uuid, int(time.time())-10, uuid), "/var/lib/xenwebmanager/update.rrd")
+        if os.path.exists("/var/lib/xenmagic/update.rrd"):
+            os.unlink("/var/lib/xenmagic/update.rrd")
+        urllib.urlretrieve("http://%s/rrd_updates?session_id=%s&start=%s&cf=AVERAGE&interval=5&vm_uuid=%s" % (ip, self.session_uuid, int(time.time())-10, uuid), "/var/lib/xenmagic/update.rrd")
         rrd = XPORT("update.rrd")
         rrdinfo = rrd.get_data()
         chart = {} 

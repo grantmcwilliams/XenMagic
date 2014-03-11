@@ -1,25 +1,25 @@
 #!/bin/bash
-mkdir /usr/share/xenwebmanager/
-chmod 775 /usr/share/xenwebmanager/
-cp -a ../* /usr/share/xenwebmanager/
-cp xenwebmanager /etc/init.d/
-/sbin/chkconfig --add xenwebmanager
-/sbin/chkconfig xenwebmanager on
-mkdir /etc/xenwebmanager/
-mkdir /var/log/xenwebmanager
-mkdir /var/lib/xenwebmanager
-chmod 770 /etc/xenwebmanager
-chmod 770 /var/log/xenwebmanager
-chmod 770 /var/lib/xenwebmanager
-cp ../cherry.conf /etc/xenwebmanager/
-cp ../frontend.conf /etc/xenwebmanager/
-ln -s /usr/share/xenwebmanager/frontend.py /usr/bin/xenwebmanager
+mkdir /usr/share/xenmagic/
+chmod 775 /usr/share/xenmagic/
+cp -a ../* /usr/share/xenmagic/
+cp xenmagic /etc/init.d/
+/sbin/chkconfig --add xenmagic
+/sbin/chkconfig xenmagic on
+mkdir /etc/xenmagic/
+mkdir /var/log/xenmagic
+mkdir /var/lib/xenmagic
+chmod 770 /etc/xenmagic
+chmod 770 /var/log/xenmagic
+chmod 770 /var/lib/xenmagic
+cp ../cherry.conf /etc/xenmagic/
+cp ../frontend.conf /etc/xenmagic/
+ln -s /usr/share/xenmagic/frontend.py /usr/bin/xenmagic
 
 # Creating user
-useradd -M -d /usr/share/xenwebmanager/ xenwm -s /sbin/nologin -r
+useradd -M -d /usr/share/xenmagic/ xenwm -s /sbin/nologin -r
 passwd -l xenwm
 
-chown xenwm:xenwm /etc/xenwebmanager/ -R
-chown xenwm:xenwm /var/log/xenwebmanager/ -R
-chown xenwm:xenwm /var/lib/xenwebmanager/ -R
+chown xenwm:xenwm /etc/xenmagic/ -R
+chown xenwm:xenwm /var/log/xenmagic/ -R
+chown xenwm:xenwm /var/lib/xenmagic/ -R
 
