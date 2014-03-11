@@ -101,9 +101,9 @@ Request Headers:
   ACCEPT-LANGUAGE: en-US
   ACCEPT-ENCODING: gzip,deflate,sdch
 [21/Sep/2010:10:27:07] HTTP Traceback (most recent call last):
-  File "/root/xenwebmanager/cherrypy/_cprequest.py", line 606, in respond
+  File "/root/xenmagic/cherrypy/_cprequest.py", line 606, in respond
     cherrypy.response.body = self.handler()
-  File "/root/xenwebmanager/cherrypy/_cpdispatch.py", line 25, in __call__
+  File "/root/xenmagic/cherrypy/_cpdispatch.py", line 25, in __call__
     return self.callable(*self.args, **self.kwargs)
   File "frontend.py", line 922, in wherecanmigrate
     resident_on = xc_servers[sessid][host].all_vms[ref]['resident_on']

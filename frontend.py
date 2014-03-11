@@ -26,24 +26,24 @@ import xtea
 
 from memstorage import MemoryStorage
 
-if not os.path.exists("/var/log/xenwebmanager"):
-    print "You should create /var/log/xenwebmanager"
+if not os.path.exists("/var/log/xenmagic"):
+    print "You should create /var/log/xenmagic"
     os._exit(1)
 
 
 if len(sys.argv) > 1 and sys.argv[1] == "-daemon":
-    if not os.path.exists("/usr/share/xenwebmanager"):
-        print "For daemon, you need copy all files to /usr/share/xenwebmanager/"
+    if not os.path.exists("/usr/share/xenmagic"):
+        print "For daemon, you need copy all files to /usr/share/xenmagic/"
         os._exit(1)
 
-    os.chdir("/usr/share/xenwebmanager")
-    mylookup = TemplateLookup(directories=['/usr/share/xenwebmanager/templates'])
+    os.chdir("/usr/share/xenmagic")
+    mylookup = TemplateLookup(directories=['/usr/share/xenmagic/templates'])
 else:
     mylookup = TemplateLookup(directories=['templates'])
 treestore = {}
 # Read the configuration from oxc.conf file
-if os.path.exists("/etc/xenwebmanager/frontend.conf"):
-    config = ConfigObj("/etc/xenwebmanager/frontend.conf")
+if os.path.exists("/etc/xenmagic/frontend.conf"):
+    config = ConfigObj("/etc/xenmagic/frontend.conf")
 else:
     config = ConfigObj("frontend.conf")
 # Read from configuration saved servers
@@ -2373,15 +2373,15 @@ else:
 
     
 # Set up the site
-if os.path.exists("/etc/xenwebmanager/cherry.conf"):
-    cherrypy.config.update("/etc/xenwebmanager/cherry.conf")
+if os.path.exists("/etc/xenmagic/cherry.conf"):
+    cherrypy.config.update("/etc/xenmagic/cherry.conf")
 else:
     cherrypy.config.update("cherry.conf")
 # Set up the application
 root = frontend()
 cherrypy.engine.subscribe('exit', close_threads)
-if os.path.exists("/etc/xenwebmanager/cherry.conf"):
-    cherrypy.tree.mount(root, "/", "/etc/xenwebmanager/cherry.conf")
+if os.path.exists("/etc/xenmagic/cherry.conf"):
+    cherrypy.tree.mount(root, "/", "/etc/xenmagic/cherry.conf")
 else:
     cherrypy.tree.mount(root, "/", "cherry.conf")
 cherrypy.engine.start()
