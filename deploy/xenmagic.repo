@@ -1,0 +1,6 @@
+name=XenMagic
+baseurl=http://xenmagic.com/repo/rpm/fedora/$releasever/$basearch
+enabled=0
+gpgcheck=1
+gpgkey=http://xenmagic.com/repo/rpm/xenmagic.asc
+
