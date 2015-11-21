@@ -11,7 +11,7 @@ DEPENDENCIES="epel-release python-cherrypy python-configobj"
 
 
 # Check if user has administrative privileges 
-if [[ "${EUID}" ! -eq 0 ]] ;then
+if [[ ! "${EUID}" -eq '0' ]] ;then
 	echo "Error: root privileges necessary to install - exiting"
 	exit 1
 fi

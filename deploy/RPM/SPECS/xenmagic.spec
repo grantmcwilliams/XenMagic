@@ -15,6 +15,7 @@ BuildArch: noarch
 
 Requires: python >= 2.4
 Requires: python-cherrypy >= 3.1
+Requires: python-configobj
 Requires: python-mako >= 0.3.4
 Requires: python-simplejson >= 2.0.5
 Requires: graphviz
