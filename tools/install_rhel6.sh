@@ -9,6 +9,7 @@ LIBDIR="/var/lib/${PROGNAME}"
 PROGUSER="xenwm"
 DEPENDENCIES="epel-release python-cherrypy python-configobj"
 
+PROGPATH="${PWD%/*}"
 
 # Check if user has administrative privileges 
 if [[ ! "${EUID}" -eq '0' ]] ;then
@@ -18,7 +19,7 @@ fi
 
 # Check dependencies
 for RPM in ${DEPENDENCIES} ; do	
-	if ! rpm -q "${RPM}" ;then
+	if ! rpm -q "${RPM}" &> /dev/null  ;then
 		echo "Error: ${RPM} needed for $PROGNAME to run - exiting"
 		exit 1		
 	fi
@@ -32,15 +33,16 @@ if [[ ! -d "${INSTALLDIR}" ]] ;then
 		echo "Error: Unable to create ${INSTALLDIR}"
 	fi
 else
-	cp -a ../* "${INSTALLDIR}"
+	cp -a $PROGPATH/* "${INSTALLDIR}"
 fi
 
 # Install sysv service file
-if [[ -e ./xenmagic ]] ;then
-	cp ./xenmagic "/etc/init.d/"
+if [[ -e "${PROGPATH}/tools/xenmagic" ]] ;then
+	cp "${PROGPATH}/tools/xenmagic" "/etc/init.d/"
 	if /sbin/chkconfig --add xenmagic ;then
 		echo "${PROGNAME} service added - to automatically start it run"
 		echo "     /sbin/chkconfig ${PROGNAME} on"
+	fi
 fi
 
 # Create xenmagic config directory and copy configs
@@ -69,7 +71,7 @@ if [[ ! -L "/usr/bin/${PROGNAME}" ]] ;then
 fi
 
 # Creating user
-if ! grep "${PROGUSER}" /etc/passwd ;then
+if ! grep -q "${PROGUSER}" /etc/passwd ;then
 	useradd -M -d "${INSTALLDIR}" "${PROGUSER}" -s /sbin/nologin -r
 	passwd -l "${PROGUSER}"
 fi
