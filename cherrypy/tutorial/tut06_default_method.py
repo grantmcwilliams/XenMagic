@@ -20,7 +20,7 @@ import cherrypy
 
 
 class UsersPage:
-    
+
     def index(self):
         # Since this is just a stupid little example, we'll simply
         # display a list of links to random, made-up users. In a real
@@ -31,7 +31,7 @@ class UsersPage:
             <a href="./lorenzo">Lorenzo Lamas</a><br/>
         '''
     index.exposed = True
-    
+
     def default(self, user):
         # Here we react depending on the virtualPath -- the part of the
         # path that could not be mapped to an object method. In a real
@@ -45,15 +45,20 @@ class UsersPage:
             out = "Lorenzo Lamas, famous actor and singer!"
         else:
             out = "Unknown user. :-("
-        
+
         return '%s (<a href="./">back</a>)' % out
     default.exposed = True
 
 
-cherrypy.tree.mount(UsersPage())
-
+import os.path
+tutconf = os.path.join(os.path.dirname(__file__), 'tutorial.conf')
 
 if __name__ == '__main__':
-    import os.path
-    thisdir = os.path.dirname(__file__)
-    cherrypy.quickstart(config=os.path.join(thisdir, 'tutorial.conf'))
+    # CherryPy always starts with app.root when trying to map request URIs
+    # to objects, so we need to mount a request handler root. A request
+    # to '/' will be mapped to HelloWorld().index().
+    cherrypy.quickstart(UsersPage(), config=tutconf)
+else:
+    # This branch is for the test suite; you can ignore it.
+    cherrypy.tree.mount(UsersPage(), config=tutconf)
+

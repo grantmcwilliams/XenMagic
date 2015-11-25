@@ -18,7 +18,7 @@ class WelcomePage:
             <input type="submit" />
             </form>'''
     index.exposed = True
-    
+
     def greetUser(self, name = None):
         # CherryPy passes all GET and POST variables as method parameters.
         # It doesn't make a difference where the variables come from, how
@@ -27,7 +27,7 @@ class WelcomePage:
         # You can define default parameter values as usual. In this
         # example, the "name" parameter defaults to None so we can check
         # if a name was actually specified.
-        
+
         if name:
             # Greet the user!
             return "Hey %s, what's up?" % name
@@ -40,10 +40,14 @@ class WelcomePage:
     greetUser.exposed = True
 
 
-cherrypy.tree.mount(WelcomePage())
-
+import os.path
+tutconf = os.path.join(os.path.dirname(__file__), 'tutorial.conf')
 
 if __name__ == '__main__':
-    import os.path
-    thisdir = os.path.dirname(__file__)
-    cherrypy.quickstart(config=os.path.join(thisdir, 'tutorial.conf'))
+    # CherryPy always starts with app.root when trying to map request URIs
+    # to objects, so we need to mount a request handler root. A request
+    # to '/' will be mapped to HelloWorld().index().
+    cherrypy.quickstart(WelcomePage(), config=tutconf)
+else:
+    # This branch is for the test suite; you can ignore it.
+    cherrypy.tree.mount(WelcomePage(), config=tutconf)

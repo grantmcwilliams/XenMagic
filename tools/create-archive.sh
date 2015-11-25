@@ -4,8 +4,13 @@ ARCDIR="../../XenMagic-archive"
 PROJECT="../../XenMagic"
 VERSIONFILE="${ARCDIR}/XenMagic/deploy/version"
 
+# Create ${ARCDIR}
+if [[ ! -d "${ARCDIR}" ]] ;then
+	mkdir -p "${ARCDIR}"
+fi
+
 # Create a copy of the project dir
-cp -Rf ${PROJECT} ${ARCDIR}
+cp -Rvf "${PROJECT}" "${ARCDIR}"
 
 # Remove .git project files and binary RPMs
 rm -Rf ${ARCDIR}/XenMagic/.git
